@@ -5,7 +5,6 @@
     <div class="card mt-4">
         <div class="card-body">
             <h5 class="mb-4">Passengers for Flight: {{ $flight->flight_number }}</h5>
-
             <table class="table table-bordered table-sm text-center">
                 <thead>
                     <tr>
@@ -25,19 +24,14 @@
                             @foreach (['male', 'female', 'child', 'infant'] as $type)
                                 <td>
                                     @php
-                                        $count = $flight->passengers
-                                            ->where('zone', $zone)
-                                            ->where('type', $type)
-                                            ->sum('count');
+                                        $count = $flight->passengers->where('zone', $zone)->where('type', $type)->sum('count');
                                     @endphp
                                     {{ $count }}
                                 </td>
                             @endforeach
                             <td class="fw-bold">
                                 @php
-                                    $total = $flight->passengers
-                                        ->where('zone', $zone)
-                                        ->sum('count');
+                                    $total = $flight->passengers->where('zone', $zone)->sum('count');
                                 @endphp
                                 {{ $total }}
                             </td>
@@ -54,17 +48,14 @@
                         @foreach (['male', 'female', 'child', 'infant'] as $type)
                             <th>
                                 @php
-                                    $totalType = $flight->passengers
-                                        ->where('type', $type)
-                                        ->sum('count');
+                                    $totalType = $flight->passengers->where('type', $type)->sum('count');
                                 @endphp
                                 {{ $totalType }}
                             </th>
                         @endforeach
                         <th>
                             @php
-                                $totalCount = $flight->passengers
-                                    ->sum('count');
+                                $totalCount = $flight->passengers->sum('count');
                             @endphp
                             {{ $totalCount }}
                         </th>
@@ -77,7 +68,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addPassengerModalLabel">Add/Update Passenger</h5>
+                            <h5 class="modal-title" id="addPassengerModalLabel">Update Passenger</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -108,7 +99,6 @@
 </div>
 
 <script>
-    // Handle modal data
     document.addEventListener('DOMContentLoaded', function() {
         var passengerModal = document.getElementById('addPassengerModal');
         passengerModal.addEventListener('show.bs.modal', function(event) {

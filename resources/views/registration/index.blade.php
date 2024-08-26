@@ -5,8 +5,8 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center m-0">
-                    <h1>Aircraft Registrations</h1>
-                    <a href="{{ route('registrations.create') }}" class="btn btn-primary">Add Registration</a>
+                    <h4>Aircraft Registrations</h4>
+                    <a href="{{ route('registrations.create') }}" class="btn btn-sm btn-primary bi-plus-circle"> Add Registration</a>
                 </div>
             </div>
             <div class="card-body">
