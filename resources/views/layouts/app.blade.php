@@ -78,37 +78,36 @@
         <div class="container-fluid">
             <div class="row">
                 @auth
-                    <!-- Sidebar -->
-                    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar border-end">
+                    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark-subtle sidebar shadow-sm">
                         <div class="position-sticky">
                             <div class="d-flex justify-content-between align-items-center m-3">
                                 <h4 class="mb-0">Flights</h4>
                                 <a href="{{ route('flights.create') }}" class="btn btn-sm btn-secondary">Create Flight</a>
                             </div>
-                            <ul class="nav flex-column ms-4 mb-4">
+                            <ul class="nav flex-column mb-4">
                                 @forelse ($flights as $f)
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ isset($flight) && $flight->id == $f->id ? 'active bg-secondary text-white' : '' }}"
+                                    <li class="nav-item text-body-dark">
+                                        <a class="nav-link {{ isset($flight) && $flight->id == $f->id ? 'active bg-secondary text-white' : '' }} text-reset"
                                             href="{{ route('flights.show', ['flight' => $f->id, 'page' => request()->query('page')]) }}">
-                                            {{ $f->flight_number }}
+                                            {{ $f->flight_number }} - {{ $f->departure->format('dS, M Y') }}
                                         </a>
                                     </li>
                                 @empty
                                     <p>No Flights</p>
                                 @endforelse
+                                {{ $flights->links() }}
                             </ul>
-                            {{ $flights->links() }}
                         </div>
                     </nav>
                 @endauth
 
-                <!-- Main Content -->
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-4">
                     @yield('content')
                 </main>
             </div>
         </div>
     </div>
+    @yield('scripts')
 </body>
 
 </html>

@@ -26,14 +26,19 @@ class FlightController extends Controller
         $validated = $request->validate([
             'registration_id' => 'required|exists:registrations,id',
             'flight_number' => 'required|string',
-            'departure' => 'required|string',
-            'arrival' => 'required|string',
+            'origin' => 'required|string',
+            'destination' => 'required|string',
+            'airline' => 'required|string',
+            'flight_type' => 'required|in:Domestic,International',
+            'departure' => 'required',
+            'arrival' => 'required',
         ]);
 
         $flight = Flight::create($validated);
 
         return redirect()->route('flights.show', $flight->id);
     }
+
     public function show(Flight $flight)
     {
         $flight->load('cargos', 'registration.holds');
@@ -53,9 +58,8 @@ class FlightController extends Controller
 
         $flights = Flight::all();
 
-        return view('flight.show', compact('flight', 'totalWeight', 'totalCG', 'flights'));
+        return view('flight.index', compact('flight', 'totalWeight', 'totalCG', 'flights'));
     }
-
 
     public function edit(Flight $flight)
     {
@@ -68,8 +72,12 @@ class FlightController extends Controller
         $validated = $request->validate([
             'registration_id' => 'required|exists:registrations,id',
             'flight_number' => 'required|string',
-            'departure' => 'required|string',
-            'arrival' => 'required|string',
+            'origin' => 'required|string',
+            'destination' => 'required|string',
+            'airline' => 'required|string',
+            'flight_type' => 'required|in:Domestic,International',
+            'departure' => 'required',
+            'arrival' => 'required',
         ]);
 
         $flight->update($validated);

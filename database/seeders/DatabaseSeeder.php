@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Hold;
+use App\Models\Passenger;
 use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Flight;
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
 
         Flight::factory(50)->create();
         Cargo::factory(100)->create();
+        Passenger::factory(100)->create();
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

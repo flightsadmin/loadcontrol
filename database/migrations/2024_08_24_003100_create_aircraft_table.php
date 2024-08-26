@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -26,8 +25,21 @@ return new class extends Migration
             $table->id();
             $table->foreignId('registration_id')->constrained()->onDelete('cascade');
             $table->string('flight_number');
-            $table->string('departure');
-            $table->string('arrival');
+            $table->string('origin');
+            $table->string('destination');
+            $table->string('airline');
+            $table->enum('flight_type', ['Domestic', 'International']);
+            $table->timestamp('departure');
+            $table->timestamp('arrival');
+            $table->timestamps();
+        });
+
+        Schema::create('passengers', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('flight_id')->constrained()->onDelete('cascade');
+            $table->enum('type', ['male', 'female', 'child', 'infant']);
+            $table->integer('count');
+            $table->string('zone');
             $table->timestamps();
         });
 

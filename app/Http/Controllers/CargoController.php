@@ -1,12 +1,19 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Hold;
 use App\Models\Cargo;
 use App\Models\Flight;
 use Illuminate\Http\Request;
 
 class CargoController extends Controller
 {
+    public function index(Flight $flight)
+    {
+        $cargos = $flight->cargos->all();
+        return view('cargo.index', compact('flight', 'cargos'));
+    }
+
     public function create(Flight $flight)
     {
         return view('cargo.create', compact('flight'));
@@ -15,13 +22,12 @@ class CargoController extends Controller
     public function store(Request $request, $flight_id)
     {
         $validated = $request->validate([
-            'flight_id' => 'required|exists:flights,id',
             'hold_id' => 'nullable|exists:holds,id',
             'type' => 'required|string',
             'pieces' => 'required|numeric|min:0',
             'weight' => 'required|numeric|min:0'
         ]);
-        // $validated['flight_id'] = $flight_id;
+        $validated['flight_id'] = $flight_id;
 
         Cargo::create($validated);
 
@@ -48,6 +54,14 @@ class CargoController extends Controller
         $cargo->update($request->all());
 
         return redirect()->route('flights.show', $cargo->flight_id)->with('success', 'Cargo updated successfully.');
+    }
+
+    public function updateHold(Request $request, Cargo $cargo)
+    {
+        $cargo->hold_id = $request->input('hold_id');
+        $cargo->save();
+
+        return response()->json(['success' => true]);
     }
 
     public function destroy(Cargo $cargo)

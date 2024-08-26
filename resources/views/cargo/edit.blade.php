@@ -25,7 +25,7 @@
         </div>
         <div class="mb-3">
             <label for="hold_id" class="form-label">Position (Hold)</label>
-            <select id="hold_id" name="hold_id" class="form-select" required>
+            <select id="hold_id" name="hold_id" class="form-select">
                 <option value="">Select Hold</option>
                 @foreach ($holds as $hold)
                     <option value="{{ $hold->id }}" {{ $cargo->hold_id == $hold->id ? 'selected' : '' }}>
