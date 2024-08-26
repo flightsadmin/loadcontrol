@@ -19,13 +19,20 @@ class NativeAppServiceProvider implements ProvidesPhpIni
             ->windowMenu()
             ->viewMenu()
             ->editMenu()
+            ->submenu(
+                'Help',
+                Menu::new()
+                    ->link('https://github.com/georgechitechi/loadcontrol', 'Documentation')
+                    ->separator()
+                    ->label('Sign Out')
+            )
             ->appMenu()
             ->register();
 
         Window::open()
-            ->width(1200)
+            ->width(1400)
             ->height(800)
-            ->minWidth(700)
+            ->minWidth(1200)
             ->minHeight(700)
             ->showDevTools(false)
             ->rememberState();

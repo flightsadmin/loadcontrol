@@ -18,6 +18,10 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="registration_id" class="form-label">Registration</label>
+                                <span><a class="btn btn-link bi-pencil-square px-2"
+                                        href="{{ route('registrations.edit', $flight->registration_id) }}"></a></span>
+                                <span><a class="btn btn-link bi-eye-fill text-info px-2"
+                                        href="{{ route('registrations.show', $flight->registration_id) }}"></a></span>
                                 <select id="registration_id" name="registration_id" class="form-select" required>
                                     @foreach ($registrations as $registration)
                                         <option value="{{ $registration->id }}"
