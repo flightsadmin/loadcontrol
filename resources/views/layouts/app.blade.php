@@ -56,7 +56,7 @@
                                     @endisset
                                 </ul>
                             </div>
-                            <div class="dropdown mt-auto mb-3">
+                            <div class="dropdown mt-auto mb-3 position-sticky">
                                 {{ $flights->links() }}
                                 <hr>
                                 <a href="#" class="d-flex align-items-center text-center text-reset text-decoration-none dropdown-toggle"

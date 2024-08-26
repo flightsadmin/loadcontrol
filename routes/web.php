@@ -6,6 +6,7 @@ use App\Http\Controllers\HoldController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\PassengerController;
+use App\Http\Controllers\DataImportController;
 use App\Http\Controllers\RegistrationController;
 
 Route::get('/database', function () {
@@ -14,6 +15,7 @@ Route::get('/database', function () {
     return redirect()->back()->with('success', 'Database migrated and seeded successfully!');
 })->name('migrate.fresh.seed');
 
+Route::post('/import', [DataImportController::class, 'import'])->name('import');
 Route::post('/cargos/{cargo}/update-hold', [CargoController::class, 'updateHold'])->name('cargos.update-hold');
 
 Route::group(['middleware' => 'auth'], function () {

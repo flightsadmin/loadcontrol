@@ -17,14 +17,15 @@ class FlightFactory extends Factory
      */
     public function definition(): array
     {
+        $airports = ['DXB','DOH','KWI','SLL','MCT','NBO'];
         return [
             'flight_number' => $this->faker->unique()->bothify('QR-###'),
             'departure' => $this->faker->dateTimeBetween('-1 day', '+1 month'),
             'arrival' => $this->faker->dateTimeBetween('-1 day', '+1 month'),
             'registration_id' => \App\Models\Registration::inRandomOrder()->first()->id,
-            'origin' => $this->faker->city,
-            'destination' => $this->faker->city,
-            'airline' => $this->faker->company,
+            'origin' => $this->faker->randomElement($airports),
+            'destination' => $this->faker->randomElement($airports),
+            'airline' => 'Qatar Airways',
             'flight_type' => $this->faker->randomElement(['Domestic', 'International']),
         ];
     }

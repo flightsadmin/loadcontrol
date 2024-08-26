@@ -60,16 +60,16 @@
             });
         });
     </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const savedDate = localStorage.getItem('selectedDate');
-                if (savedDate) {
-                    document.getElementById('date-picker').value = savedDate;
-                }
-                
-                document.getElementById('date-picker').addEventListener('change', function() {
-                    localStorage.setItem('selectedDate', this.value);
-                });
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedDate = localStorage.getItem('selectedDate');
+            if (savedDate) {
+                document.getElementById('date-picker').value = savedDate;
+            }
+
+            document.getElementById('date-picker').addEventListener('change', function() {
+                localStorage.setItem('selectedDate', this.value);
             });
-        </script>
+        });
+    </script>
 @endsection
