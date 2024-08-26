@@ -1,15 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HoldController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\RegistrationController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/database', function () {
+    Artisan::call('migrate:fresh');
+    Artisan::call('db:seed');
+    return redirect()->back()->with('success', 'Database migrated and seeded successfully!');
+})->name('migrate.fresh.seed');
 
 Route::post('/cargos/{cargo}/update-hold', [CargoController::class, 'updateHold'])->name('cargos.update-hold');
 

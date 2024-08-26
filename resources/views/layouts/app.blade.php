@@ -38,18 +38,22 @@
 
                             <div class="overflow-auto">
                                 <ul class="nav flex-column">
-                                    @forelse ($flights as $f)
-                                        <li class="nav-item text-body-dark">
-                                            <a class="nav-link {{ isset($flight) && $flight->id == $f->id ? 'active bg-secondary text-white' : '' }} text-reset"
-                                                href="{{ route('flights.show', ['flight' => $f->id, 'page' => request()->query('page')]) }}">
-                                                {{ $f->flight_number }} - {{ $f->departure->format('dS, M Y') }}
-                                            </a>
-                                        </li>
-                                    @empty
-                                        <li class="nav-item text-body-dark mt-3">
-                                            <h5 class="mx-2 fw-medium">No Flights Available</h5>
-                                        </li>
-                                    @endforelse
+                                    @isset($flights)
+                                        @forelse ($flights as $f)
+                                            <li class="nav-item text-body-dark">
+                                                <a class="nav-link {{ isset($flight) && $flight->id == $f->id ? 'active bg-secondary text-white' : '' }} text-reset"
+                                                    href="{{ route('flights.show', ['flight' => $f->id, 'page' => request()->query('page')]) }}">
+                                                    {{ $f->flight_number }} - {{ $f->departure->format('dS, M Y') }}
+                                                </a>
+                                            </li>
+                                        @empty
+                                            <li class="nav-item text-body-dark mt-3">
+                                                <h5 class="mx-2 fw-medium">No Flights Available</h5>
+                                            </li>
+                                        @endforelse
+                                    @else
+                                        <p class="mt-4 fw-medium">Flights Not Loaded.</p>
+                                    @endisset
                                 </ul>
                             </div>
                             <div class="dropdown mt-auto mb-3">
@@ -60,18 +64,28 @@
                                     <strong>{{ auth()->user()->name }}</strong>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                                    <li>
+                                        <form action="{{ route('migrate.fresh.seed') }}" method="GET" style="margin: 0;">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                Seed Database
+                                            </button>
+                                        </form>
+                                    </li>
                                     <li><a class="dropdown-item" href="#">Settings</a></li>
                                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
                                     <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
+                                            onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();">
-                                         {{ __('Sign Out') }}
-                                     </a>
- 
-                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                         @csrf
-                                     </form>
+                                            {{ __('Sign Out') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
                                     </li>
                                 </ul>
                             </div>

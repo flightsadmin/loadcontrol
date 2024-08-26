@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Login') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
@@ -55,10 +55,11 @@
                             </div>
 
                             <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
+                                <div class="col-md-8 offset-md-4 d-flex justify-content-between align-items-center">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Login') }}
                                     </button>
+
                                     @if (Route::has('register'))
                                         <a class="btn btn-link" href="{{ route('register') }}">
                                             {{ __('Register?') }}
@@ -73,6 +74,16 @@
                                 </div>
                             </div>
                         </form>
+                        @if (\App\Models\User::count() === 0)
+                            <div class="mt-4">
+                                <form action="{{ route('migrate.fresh.seed') }}" method="GET" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger bi-database-fill-add">
+                                        Seed Database
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
