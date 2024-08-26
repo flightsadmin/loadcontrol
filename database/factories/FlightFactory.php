@@ -19,8 +19,8 @@ class FlightFactory extends Factory
     {
         return [
             'flight_number' => $this->faker->unique()->bothify('QR-###'),
-            'departure' => $this->faker->dateTimeBetween('+1 day', '+1 month'),
-            'arrival' => $this->faker->dateTimeBetween('+1 day', '+1 month'),
+            'departure' => $this->faker->dateTimeBetween('-1 day', '+1 month'),
+            'arrival' => $this->faker->dateTimeBetween('-1 day', '+1 month'),
             'registration_id' => \App\Models\Registration::inRandomOrder()->first()->id,
             'origin' => $this->faker->city,
             'destination' => $this->faker->city,

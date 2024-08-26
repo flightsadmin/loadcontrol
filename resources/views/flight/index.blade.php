@@ -6,7 +6,7 @@
             <div class="mt-2">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="flight-tab" data-bs-toggle="tab" href="#flight" role="tab" aria-controls="flight"
+                        <a class="nav-link" id="flight-tab" data-bs-toggle="tab" href="#flight" role="tab" aria-controls="flight"
                             data-tab="flight" aria-selected="true">Flight Data</a>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -20,7 +20,7 @@
                 </ul>
 
                 <div class="tab-content mt-3" id="myTabContent">
-                    <div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
+                    <div class="tab-pane fade" id="flight" role="tabpanel" aria-labelledby="flight-tab">
                         @include('flight.partials.index', ['flight' => $flight])
                     </div>
                     <div class="tab-pane fade" id="passengers" role="tabpanel" aria-labelledby="passengers-tab">
@@ -32,7 +32,44 @@
                 </div>
             </div>
         @else
-            <p class="mt-4">Select a flight from the sidebar to view details.</p>
+            <p class="mt-4 fw-medium">Select a flight from the sidebar to view details.</p>
         @endisset
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('#myTab .nav-link');
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeTab = urlParams.get('tab') || 'flight';
+            const setActiveTab = (tabId) => {
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('show', 'active'));
+                document.querySelector(`#${tabId}-tab`).classList.add('active');
+                document.querySelector(`#${tabId}`).classList.add('show', 'active');
+            };
+            setActiveTab(activeTab);
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    const newUrl = new URL(window.location.href);
+                    newUrl.searchParams.set('tab', tabId);
+                    window.history.pushState({}, '', newUrl);
+                    setActiveTab(tabId);
+                });
+            });
+        });
+    </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const savedDate = localStorage.getItem('selectedDate');
+                if (savedDate) {
+                    document.getElementById('date-picker').value = savedDate;
+                }
+                
+                document.getElementById('date-picker').addEventListener('change', function() {
+                    localStorage.setItem('selectedDate', this.value);
+                });
+            });
+        </script>
 @endsection

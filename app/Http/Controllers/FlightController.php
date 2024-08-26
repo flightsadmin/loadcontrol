@@ -9,9 +9,16 @@ use Illuminate\Http\Request;
 
 class FlightController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $flights = Flight::with('registration')->simplePaginate();
+        $query = Flight::query();
+        if ($request->has('date') && $request->date) {
+            $date = \Carbon\Carbon::parse($request->date)->format('Y-m-d');
+            $query->whereDate('departure', $date);
+        }
+
+        $flights = $query->with('registration')->orderBy('departure')->simplePaginate();
+
         return view('flight.index', compact('flights'));
     }
 

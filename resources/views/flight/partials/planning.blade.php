@@ -42,7 +42,7 @@
                                     @foreach ($flight->cargos->where('hold_id', $hold->id) as $cargo)
                                         <li class="list-group-item cargo-item d-flex justify-content-between align-items-start"
                                             draggable="true" data-cargo-id="{{ $cargo->id }}">
-                                            <span>{{ $cargo->weight }} kg</span>
+                                            <span>{{ $cargo->weight }}kg</span>
                                             <span class="badge text-bg-primary rounded-pill">{{ $cargo->type }}</span>
                                         </li>
                                     @endforeach

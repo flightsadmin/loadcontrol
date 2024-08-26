@@ -31,7 +31,10 @@ class CargoController extends Controller
 
         Cargo::create($validated);
 
-        return redirect()->route('flights.show', $flight_id)->with('success', 'Cargo created successfully.');
+        return redirect()->route('flights.show', [
+            'flight' => $flight_id,
+            'tab' => 'cargo'
+        ])->with('success', 'Cargo updated successfully.');
     }
 
     public function edit(Cargo $cargo)
@@ -52,8 +55,10 @@ class CargoController extends Controller
         ]);
 
         $cargo->update($request->all());
-
-        return redirect()->route('flights.show', $cargo->flight_id)->with('success', 'Cargo updated successfully.');
+        return redirect()->route('flights.show', [
+            'flight' => $cargo->flight_id,
+            'tab' => 'cargo'
+        ])->with('success', 'Cargo updated successfully.');
     }
 
     public function updateHold(Request $request, Cargo $cargo)

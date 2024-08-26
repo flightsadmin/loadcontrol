@@ -20,87 +20,65 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
         <div class="container-fluid">
             <div class="row">
                 @auth
-                    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark-subtle sidebar shadow-sm">
-                        <div class="position-sticky">
-                            <div class="d-flex justify-content-between align-items-center m-3">
-                                <h4 class="mb-0">Flights</h4>
-                                <a href="{{ route('flights.create') }}" class="btn btn-sm btn-secondary">Create Flight</a>
+                    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark-subtle sidebar shadow-sm vh-100">
+                        <div class="d-flex flex-column h-100 position-sticky">
+                            <div class="position-sticky top-0 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center m-2">
+                                    <form method="GET" action="{{ route('flights.index') }}" class="d-flex">
+                                        <input type="date" name="date" class="form-control form-control-sm" id="date-picker"
+                                            value="{{ old('date', session('selectedDate')) }}">
+                                        <button type="submit" class="btn btn-link p-0 bi-funnel-fill ms-3 text-reset"></button>
+                                    </form>
+                                    <a href="{{ route('flights.create') }}" class="btn-link text-secondary bi-plus-circle-fill"></a>
+                                </div>
                             </div>
-                            <ul class="nav flex-column mb-4">
-                                @forelse ($flights as $f)
-                                    <li class="nav-item text-body-dark">
-                                        <a class="nav-link {{ isset($flight) && $flight->id == $f->id ? 'active bg-secondary text-white' : '' }} text-reset"
-                                            href="{{ route('flights.show', ['flight' => $f->id, 'page' => request()->query('page')]) }}">
-                                            {{ $f->flight_number }} - {{ $f->departure->format('dS, M Y') }}
-                                        </a>
-                                    </li>
-                                @empty
-                                    <p>No Flights</p>
-                                @endforelse
+
+                            <div class="overflow-auto">
+                                <ul class="nav flex-column">
+                                    @forelse ($flights as $f)
+                                        <li class="nav-item text-body-dark">
+                                            <a class="nav-link {{ isset($flight) && $flight->id == $f->id ? 'active bg-secondary text-white' : '' }} text-reset"
+                                                href="{{ route('flights.show', ['flight' => $f->id, 'page' => request()->query('page')]) }}">
+                                                {{ $f->flight_number }} - {{ $f->departure->format('dS, M Y') }}
+                                            </a>
+                                        </li>
+                                    @empty
+                                        <li class="nav-item text-body-dark mt-3">
+                                            <h5 class="mx-2 fw-medium">No Flights Available</h5>
+                                        </li>
+                                    @endforelse
+                                </ul>
+                            </div>
+                            <div class="dropdown mt-auto mb-3">
                                 {{ $flights->links() }}
-                            </ul>
+                                <hr>
+                                <a href="#" class="d-flex align-items-center text-center text-reset text-decoration-none dropdown-toggle"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <strong>{{ auth()->user()->name }}</strong>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                      document.getElementById('logout-form').submit();">
+                                         {{ __('Sign Out') }}
+                                     </a>
+ 
+                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                         @csrf
+                                     </form>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </nav>
-                @endauth
 
+                @endauth
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-4">
                     @yield('content')
                 </main>

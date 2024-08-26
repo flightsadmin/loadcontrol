@@ -21,14 +21,17 @@ class PassengerController extends Controller
             'count' => 'required|integer|min:0',
             'zone' => 'required|string',
         ]);
-
+    
         $flight->passengers()->updateOrCreate(
             ['zone' => $request->zone, 'type' => $request->type],
             ['count' => $request->count]
         );
-
-        return redirect()->route('flights.show', $flight->id);
+        return redirect()->route('flights.show', [
+            'flight' => $flight->id,
+            'tab' => 'passengers'
+        ]);
     }
+    
 
     public function update(Request $request, Flight $flight, Passenger $passenger)
     {

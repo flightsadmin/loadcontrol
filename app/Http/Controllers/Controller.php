@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
@@ -12,9 +13,17 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        // Share flights data with all views
         view()->composer('*', function ($view) {
-            $view->with('flights', \App\Models\Flight::simplePaginate());
+            if ($date = request()->input('date')) {
+                session(['selectedDate' => $date]);
+            }
+            $selectedDate = session('selectedDate');
+            $query = \App\Models\Flight::query();
+            if ($selectedDate) {
+                $query->whereDate('departure', $selectedDate);
+            }
+            $view->with('flights', $query->orderBy('departure')->simplePaginate());
         });
+        
     }
 }

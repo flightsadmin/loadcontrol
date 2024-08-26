@@ -7,13 +7,14 @@ use App\Http\Controllers\FlightController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\RegistrationController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::post('/cargos/{cargo}/update-hold', [CargoController::class, 'updateHold'])->name('cargos.update-hold');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::resource('/', FlightController::class);
     Route::resource('cargos', CargoController::class);
     Route::resource('flights', FlightController::class);
     Route::resource('registrations', RegistrationController::class);
