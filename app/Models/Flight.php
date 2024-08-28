@@ -42,4 +42,9 @@ class Flight extends Model
     {
         return $this->hasMany(Message::class);
     }
+
+    public function loadSheet()
+    {
+        return $this->hasOne(LoadSheet::class);
+    }
 }

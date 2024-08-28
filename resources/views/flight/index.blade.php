@@ -18,6 +18,10 @@
                             data-tab="cargo" aria-selected="false">Deadload</a>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="documents-tab" data-bs-toggle="tab" href="#documents" role="tab" aria-controls="documents"
+                            data-tab="documents" aria-selected="false">Documents</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
                         <a class="nav-link" id="fuel-tab" data-bs-toggle="tab" href="#fuel" role="tab" aria-controls="fuel"
                             data-tab="fuel" aria-selected="false">Fuel</a>
                     </li>
@@ -36,6 +40,9 @@
                     </div>
                     <div class="tab-pane fade" id="cargo" role="tabpanel" aria-labelledby="cargo-tab">
                         @include('flight.partials.planning', ['flight' => $flight])
+                    </div>
+                    <div class="tab-pane fade" id="documents" role="tabpanel" aria-labelledby="documents-tab">
+                        @include('flight.partials.documents', ['flight' => $flight])
                     </div>
                     <div class="tab-pane fade" id="fuel" role="tabpanel" aria-labelledby="fuel-tab">
                         @include('flight.partials.fuel', ['flight' => $flight])

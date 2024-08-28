@@ -54,8 +54,5 @@ class FuelFigureController extends Controller
             'flight' => $fuelFigure->flight->id,
             'tab' => 'fuel'
         ])->with('success', 'Fuel updated successfully.');
-
-        // return redirect()->route('flights.fuel-figures.index', $fuelFigure->flight->id)
-        //     ->with('success', 'Fuel Figure deleted successfully.');
     }
 }

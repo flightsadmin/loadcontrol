@@ -62,6 +62,17 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        Schema::create('loadsheets', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('flight_id')->constrained()->onDelete('cascade');
+            $table->decimal('total_deadload_weight', 8, 2);
+            $table->decimal('total_passengers_weight', 8, 2);
+            $table->decimal('total_fuel_weight', 8, 2);
+            $table->decimal('gross_weight', 8, 2);
+            $table->string('balance');
+            $table->timestamps();
+        });
+
         Schema::create('holds', function (Blueprint $table) {
             $table->id();
             $table->foreignId('registration_id')->constrained()->onDelete('cascade');

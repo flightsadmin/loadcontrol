@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoadsheetController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HoldController;
@@ -22,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('cargos', CargoController::class);
     Route::resource('flights', FlightController::class);
     Route::resource('registrations', RegistrationController::class);
+    Route::resource('flights.loadsheets', LoadsheetController::class);
     Route::resource('registrations.holds', HoldController::class)->shallow();
     Route::resource('flights.cargos', CargoController::class)->shallow();
     Route::resource('flights.passengers', PassengerController::class)->shallow();
