@@ -63,9 +63,7 @@ class FlightController extends Controller
             $totalCG = $totalCG / $totalWeight;
         }
 
-        $flights = Flight::all();
-
-        return view('flight.index', compact('flight', 'totalWeight', 'totalCG', 'flights'));
+        return view('flight.index', compact('flight'));
     }
 
     public function edit(Flight $flight)

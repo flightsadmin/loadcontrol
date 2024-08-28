@@ -69,7 +69,7 @@ return new class extends Migration {
             $table->decimal('total_passengers_weight', 8, 2);
             $table->decimal('total_fuel_weight', 8, 2);
             $table->decimal('gross_weight', 8, 2);
-            $table->string('balance');
+            $table->decimal('balance', 8, 2);
             $table->timestamps();
         });
 

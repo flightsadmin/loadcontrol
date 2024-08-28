@@ -31,6 +31,11 @@ class LoadsheetController extends Controller
         ])->with('success', 'Fuel updated successfully.');
     }
 
+    public function calculateDOW(Flight $flight)
+    {
+        return $flight->registration->empty_weight;
+    }
+
     private function calculateTotalDeadloadWeight(Flight $flight)
     {
         return $flight->cargos->sum('weight');
@@ -51,6 +56,21 @@ class LoadsheetController extends Controller
         });
     }
 
+    private function calculateTotalCrewWeight(Flight $flight)
+    {
+        $fuel = $flight->fuelFigure;
+        if ($fuel && $fuel->crew) {
+            $crewCounts = explode('/', $fuel->crew);
+            $deckCrewCount = (int) ($crewCounts[0] ?? 0);
+            $cabinCrewCount = (int) ($crewCounts[1] ?? 0);
+            $deckCrewWeight = $deckCrewCount * 88;
+            $cabinCrewWeight = $cabinCrewCount * 70;
+            
+            return $deckCrewWeight + $cabinCrewWeight;
+        }
+        return 0;        
+    }
+
     private function calculateTotalFuelWeight(Flight $flight)
     {
         $fuel = $flight->fuelFigure;
@@ -63,7 +83,9 @@ class LoadsheetController extends Controller
     private function calculateGrossWeight(Flight $flight)
     {
         return 
-            $this->calculateTotalWeight($flight) +
+            $this->calculateDOW($flight) +
+            $this->calculateTotalCrewWeight($flight) +
+            $this->calculateTotalDeadloadWeight($flight) +
             $this->calculateTotalPassengersWeight($flight) +
             $this->calculateTotalFuelWeight($flight);
     }

@@ -8,7 +8,7 @@ class Loadsheet extends Model
 {
     protected $fillable = [
         'flight_id',
-        'total_weight',
+        'total_deadload_weight',
         'total_passengers_weight',
         'total_fuel_weight',
         'gross_weight',

@@ -19,7 +19,6 @@
                         <p class="card-text"><strong>Registration:</strong> {{ $flight->registration->registration }}
                             <a href="{{ route('registrations.edit', $flight->registration->id) }}" class="btn btn-link p-0 ms-2 bi-pencil-square text-danger"></a>
                         </p>
-                        <p class="fw-bold">Total Weight: {{ round($totalWeight, 0) }} Kgs</p>
                     </div>
                 </div>
             </div>

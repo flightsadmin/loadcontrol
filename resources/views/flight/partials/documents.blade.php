@@ -25,7 +25,7 @@
                     @include('flight.partials.loadplan')
                 </div>
 
-                <!-- Load Plan Display -->
+                <!-- Load Message Display -->
                 <div id="loadmessage-content" style="display: none;">
                     @include('flight.partials.loadmessage')
                 </div>
