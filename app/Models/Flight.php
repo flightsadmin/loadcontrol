@@ -9,16 +9,7 @@ class Flight extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'registration_id',
-        'flight_number',
-        'origin',
-        'destination',
-        'airline',
-        'flight_type',
-        'departure',
-        'arrival',
-    ];
+    protected $fillable = ['registration_id', 'flight_number', 'origin', 'destination', 'airline', 'flight_type', 'departure', 'arrival'];
     protected function casts(): array
     {
         return [
@@ -40,5 +31,15 @@ class Flight extends Model
     public function passengers()
     {
         return $this->hasMany(Passenger::class);
+    }
+
+    public function fuelFigure()
+    {
+        return $this->hasOne(FuelFigure::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 }

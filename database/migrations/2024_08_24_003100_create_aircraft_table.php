@@ -43,6 +43,25 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        Schema::create('fuel_figures', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('flight_id')->constrained()->onDelete('cascade');
+            $table->double('block_fuel');
+            $table->double('taxi_fuel');
+            $table->double('trip_fuel');
+            $table->string('crew');
+            $table->integer('pantry');
+            $table->timestamps();
+        });
+
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('flight_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->text('content');
+            $table->timestamps();
+        });
+
         Schema::create('holds', function (Blueprint $table) {
             $table->id();
             $table->foreignId('registration_id')->constrained()->onDelete('cascade');

@@ -17,6 +17,14 @@
                         <a class="nav-link" id="cargo-tab" data-bs-toggle="tab" href="#cargo" role="tab" aria-controls="cargo"
                             data-tab="cargo" aria-selected="false">Deadload</a>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="fuel-tab" data-bs-toggle="tab" href="#fuel" role="tab" aria-controls="fuel"
+                            data-tab="fuel" aria-selected="false">Fuel</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="chat-tab" data-bs-toggle="tab" href="#chat" role="tab" aria-controls="chat"
+                            data-tab="chat" aria-selected="false">Chat</a>
+                    </li>
                 </ul>
 
                 <div class="tab-content mt-3" id="myTabContent">
@@ -28,6 +36,12 @@
                     </div>
                     <div class="tab-pane fade" id="cargo" role="tabpanel" aria-labelledby="cargo-tab">
                         @include('flight.partials.planning', ['flight' => $flight])
+                    </div>
+                    <div class="tab-pane fade" id="fuel" role="tabpanel" aria-labelledby="fuel-tab">
+                        @include('flight.partials.fuel', ['flight' => $flight])
+                    </div>
+                    <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                        @livewire('chat', ['flight' => $flight])
                     </div>
                 </div>
             </div>
