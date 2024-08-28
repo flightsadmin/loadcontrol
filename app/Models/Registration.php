@@ -10,7 +10,15 @@ class Registration extends Model
     use HasFactory;
 
     protected $fillable = [
-        'registration', 'max_takeoff_weight', 'empty_weight', 'fuel_capacity', 'cg_range_min', 'cg_range_max'
+        'registration',
+        'max_takeoff_weight',
+        'empty_weight',
+        'cabin_crew',
+        'deck_crew',
+        'passenger_zones',
+        'fuel_capacity',
+        'cg_range_min',
+        'cg_range_max'
     ];
 
     public function flights()

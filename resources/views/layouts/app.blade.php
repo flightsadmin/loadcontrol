@@ -24,8 +24,8 @@
             <div class="row">
                 @auth
                     <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark-subtle sidebar shadow-sm vh-100">
-                        <div class="d-flex flex-column h-100 position-sticky">
-                            <div class="position-sticky top-0 border-bottom">
+                        <div class="d-flex flex-column h-100">
+                            <div class="position-sticky top-0 border-bottom bg-dark-subtle">
                                 <div class="d-flex justify-content-between align-items-center m-2">
                                     <form method="GET" action="{{ route('flights.index') }}" class="d-flex">
                                         <input type="date" name="date" class="form-control form-control-sm" id="date-picker"
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
 
-                            <div class="overflow-auto">
+                            <div class="overflow-auto flex-grow-1">
                                 <ul class="nav flex-column">
                                     @isset($flights)
                                         @forelse ($flights as $f)
@@ -56,7 +56,7 @@
                                     @endisset
                                 </ul>
                             </div>
-                            <div class="dropdown mt-auto mb-3 position-sticky">
+                            <div class="dropdown mt-auto mb-3">
                                 {{ $flights->links() }}
                                 <hr>
                                 <a href="#" class="d-flex align-items-center text-center text-reset text-decoration-none dropdown-toggle"

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\FuelFigure;
 use App\Models\Hold;
 use App\Models\Passenger;
 use App\Models\User;
@@ -18,10 +19,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $registrations = Registration::factory(50)->create();
- 
-        $faker = Faker::create();
-        foreach ($registrations as $registration) {
+        Registration::factory(50)->create()->each(function ($registration) {
+            $faker = Faker::create();
             $previousFwd = 0;
             for ($i = 1; $i <= 5; $i++) {
                 $currentAft = $previousFwd + 20;
@@ -34,10 +33,14 @@ class DatabaseSeeder extends Seeder
                 ]);
                 $previousFwd = $currentAft;
             }
-        }
+        });
 
-        Flight::factory(50)->create();
-        Cargo::factory(100)->create();
+        Flight::factory(50)->create()->each(function ($id) {
+            FuelFigure::factory(1)->create([
+                'flight_id' => $id
+            ]);
+        });
+        Cargo::factory(200)->create();
         Passenger::factory(100)->create();
         User::factory()->create([
             'name' => 'Test User',

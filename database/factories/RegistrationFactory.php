@@ -22,6 +22,9 @@ class RegistrationFactory extends Factory
             'empty_weight' => $this->faker->numberBetween(43000, 45000),
             'max_takeoff_weight' => $this->faker->numberBetween(62000, 65000),
             'fuel_capacity' => $this->faker->numberBetween(1500, 18000),
+            'deck_crew' => $this->faker->numberBetween(2, 4),
+            'cabin_crew' => $this->faker->numberBetween(0, 6),
+            'passenger_zones' => $this->faker->numberBetween(3, 5),
             'cg_range_min' => $this->faker->numberBetween(20, 23),
             'cg_range_max' => $this->faker->numberBetween(30, 33),
         ];

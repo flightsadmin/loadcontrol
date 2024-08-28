@@ -35,6 +35,13 @@
                             <label for="crew" class="form-label">Crew</label>
                             <select id="crew" name="crew" class="form-select">
                                 <option value="2/4" {{ old('crew', $fuelFigure->crew ?? '') == '2/4' ? 'selected' : '' }}>2/4</option>
+                                <option value="2/5" {{ old('crew', $fuelFigure->crew ?? '') == '2/5' ? 'selected' : '' }}>2/5</option>
+                                <option value="2/6" {{ old('crew', $fuelFigure->crew ?? '') == '2/6' ? 'selected' : '' }}>2/6</option>
+                                <option value="2/7" {{ old('crew', $fuelFigure->crew ?? '') == '2/7' ? 'selected' : '' }}>2/7</option>
+                                <option value="3/4" {{ old('crew', $fuelFigure->crew ?? '') == '3/4' ? 'selected' : '' }}>3/4</option>
+                                <option value="3/5" {{ old('crew', $fuelFigure->crew ?? '') == '3/5' ? 'selected' : '' }}>3/5</option>
+                                <option value="3/6" {{ old('crew', $fuelFigure->crew ?? '') == '3/6' ? 'selected' : '' }}>3/6</option>
+                                <option value="4/4" {{ old('crew', $fuelFigure->crew ?? '') == '4/4' ? 'selected' : '' }}>4/4</option>
                                 <option value="3/4" {{ old('crew', $fuelFigure->crew ?? '') == '3/4' ? 'selected' : '' }}>3/4</option>
                             </select>
                         </div>
@@ -42,12 +49,18 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="pantry" class="form-label">Pantry</label>
-                            <input type="number" class="form-control" id="pantry" name="pantry"
-                                value="{{ old('pantry', $fuelFigure->pantry ?? '') }}">
+                            <label for="pantry" class="form-label">Crew</label>
+                            <select id="pantry" name="pantry" class="form-select">
+                                <option value="" selected>Select Pantry</option>
+                                <option value="A" {{ old('pantry', $fuelFigure->pantry ?? '') == 'A' ? 'selected' : '' }}>Pantry A
+                                </option>
+                                <option value="B" {{ old('pantry', $fuelFigure->pantry ?? '') == 'B' ? 'selected' : '' }}>Pantry B
+                                </option>
+                                <option value="C" {{ old('pantry', $fuelFigure->pantry ?? '') == 'C' ? 'selected' : '' }}>Pantry C
+                                </option>
+                            </select>
                         </div>
                     </div>
-
                     <button type="submit" class="btn btn-primary">{{ isset($fuelFigure) ? 'Update' : 'Save' }}</button>
                 </form>
             </div>

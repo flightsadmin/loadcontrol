@@ -28,7 +28,7 @@ class FuelFigureController extends Controller
             'taxi_fuel' => 'required|numeric',
             'trip_fuel' => 'required|numeric',
             'crew' => 'required|string',
-            'pantry' => 'required|numeric',
+            'pantry' => 'required|string',
         ]);
 
         FuelFigure::updateOrCreate(

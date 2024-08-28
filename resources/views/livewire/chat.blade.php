@@ -12,7 +12,7 @@
                         <div class="d-flex {{ auth()->id() === $message->user_id ? 'justify-content-end' : 'justify-content-start' }} mb-2">
                             <div
                                 class="d-flex flex-column {{ auth()->id() === $message->user_id ? 'align-items-end' : 'align-items-start' }}">
-                                <div class="bg-secondary-subtle rounded p-2">
+                                <div class="rounded p-2 {{ auth()->id() === $message->user_id ? 'bg-secondary-subtle' : 'bg-primary-subtle' }}">
                                     <strong>{{ $message->user->name }}</strong>
                                     <span class="text-muted"><small>{{ $message->created_at->format('H:i') }}</small></span>
                                     <p class="mb-0">{{ $message->content }}</p>

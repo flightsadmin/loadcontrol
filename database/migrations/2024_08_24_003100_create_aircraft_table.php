@@ -13,11 +13,14 @@ return new class extends Migration {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
             $table->string('registration');
-            $table->float('empty_weight');
-            $table->float('max_takeoff_weight');
-            $table->float('fuel_capacity');
-            $table->float('cg_range_min');
-            $table->float('cg_range_max');
+            $table->integer('empty_weight');
+            $table->integer('max_takeoff_weight');
+            $table->integer('deck_crew')->nullable();
+            $table->integer('cabin_crew')->nullable();
+            $table->integer('passenger_zones')->nullable();
+            $table->integer('fuel_capacity')->nullable();
+            $table->float('cg_range_min')->nullable();
+            $table->float('cg_range_max')->nullable();
             $table->timestamps();
         });
 
@@ -46,9 +49,9 @@ return new class extends Migration {
         Schema::create('fuel_figures', function (Blueprint $table) {
             $table->id();
             $table->foreignId('flight_id')->constrained()->onDelete('cascade');
-            $table->double('block_fuel');
-            $table->double('taxi_fuel');
-            $table->double('trip_fuel');
+            $table->integer('block_fuel');
+            $table->integer('taxi_fuel');
+            $table->integer('trip_fuel');
             $table->string('crew');
             $table->integer('pantry');
             $table->timestamps();

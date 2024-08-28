@@ -25,9 +25,9 @@ class RegistrationController extends Controller
             'registration' => 'required',
             'max_takeoff_weight' => 'required|numeric',
             'empty_weight' => 'required|numeric',
-            'fuel_capacity' => 'required|numeric',
-            'cg_range_min' => 'required|numeric',
-            'cg_range_max' => 'required|numeric',
+            'fuel_capacity' => 'nullable|numeric',
+            'cg_range_min' => 'nullable|numeric',
+            'cg_range_max' => 'nullable|numeric',
         ]);
 
         Registration::create($request->all());
@@ -52,9 +52,9 @@ class RegistrationController extends Controller
             'registration' => 'required',
             'max_takeoff_weight' => 'required|numeric',
             'empty_weight' => 'required|numeric',
-            'fuel_capacity' => 'required|numeric',
-            'cg_range_min' => 'required|numeric',
-            'cg_range_max' => 'required|numeric',
+            'fuel_capacity' => 'nullable|numeric',
+            'cg_range_min' => 'nullable|numeric',
+            'cg_range_max' => 'nullable|numeric',
         ]);
 
         $registration->update($request->all());
