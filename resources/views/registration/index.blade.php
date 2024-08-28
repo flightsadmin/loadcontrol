@@ -33,6 +33,9 @@
                         <p>No registrations available.</p>
                     @endforelse
                 </ul>
+                <div class="mt-3 float-end">
+                    {{ $registrations->links() }}
+                </div>
             </div>
         </div>
     </div>

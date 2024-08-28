@@ -6,28 +6,28 @@
             <div class="mt-2">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="flight-tab" data-bs-toggle="tab" href="#flight" role="tab" aria-controls="flight"
-                            data-tab="flight" aria-selected="true">Flight Data</a>
+                        <a class="nav-link bi-airplane-engines-fill" id="flight-tab" data-bs-toggle="tab" href="#flight" role="tab"
+                            aria-controls="flight" data-tab="flight" aria-selected="true"> Flight Data</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="passengers-tab" data-bs-toggle="tab" href="#passengers" role="tab" aria-controls="passengers"
-                            data-tab="passengers" aria-selected="false">Passengers</a>
+                        <a class="nav-link bi-people-fill" id="passengers-tab" data-bs-toggle="tab" href="#passengers" role="tab"
+                            aria-controls="passengers" data-tab="passengers" aria-selected="false"> Passengers</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="cargo-tab" data-bs-toggle="tab" href="#cargo" role="tab" aria-controls="cargo"
-                            data-tab="cargo" aria-selected="false">Deadload</a>
+                        <a class="nav-link bi-luggage-fill" id="cargo-tab" data-bs-toggle="tab" href="#cargo" role="tab"
+                            aria-controls="cargo" data-tab="cargo" aria-selected="false"> Deadload</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="fuel-tab" data-bs-toggle="tab" href="#fuel" role="tab" aria-controls="fuel"
-                            data-tab="fuel" aria-selected="false">Fuel</a>
+                        <a class="nav-link bi-fuel-pump-fill" id="fuel-tab" data-bs-toggle="tab" href="#fuel" role="tab"
+                            aria-controls="fuel" data-tab="fuel" aria-selected="false"> Fuel</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="documents-tab" data-bs-toggle="tab" href="#documents" role="tab" aria-controls="documents"
-                            data-tab="documents" aria-selected="false">Documents</a>
+                        <a class="nav-link bi-file-earmark-pdf-fill" id="documents-tab" data-bs-toggle="tab" href="#documents" role="tab"
+                            aria-controls="documents" data-tab="documents" aria-selected="false"> Documents</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="chat-tab" data-bs-toggle="tab" href="#chat" role="tab" aria-controls="chat"
-                            data-tab="chat" aria-selected="false">Chat</a>
+                        <a class="nav-link bi-chat-dots-fill" id="chat-tab" data-bs-toggle="tab" href="#chat" role="tab"
+                            aria-controls="chat" data-tab="chat" aria-selected="false"> Chat</a>
                     </li>
                 </ul>
 

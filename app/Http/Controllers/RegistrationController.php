@@ -10,7 +10,7 @@ class RegistrationController extends Controller
 {
     public function index()
     {
-        $registrations = Registration::with('holds')->simplePaginate();
+        $registrations = Registration::with('holds')->simplePaginate(10);
         return view('registration.index', compact('registrations'));
     }
 
@@ -25,13 +25,16 @@ class RegistrationController extends Controller
             'registration' => 'required',
             'max_takeoff_weight' => 'required|numeric',
             'empty_weight' => 'required|numeric',
+            'deck_crew' => 'nullable|numeric',
+            'cabin_crew' => 'nullable|numeric',
+            'passenger_zones' => 'nullable|numeric',
             'fuel_capacity' => 'nullable|numeric',
             'cg_range_min' => 'nullable|numeric',
             'cg_range_max' => 'nullable|numeric',
         ]);
 
-        Registration::create($request->all());
-        return redirect()->route('registrations.index');
+        $registration = Registration::create($request->all());
+        return redirect()->route('registrations.show', $registration->id)->with('success', 'Registration updated successfully.');
     }
 
     public function show(Registration $registration)
@@ -52,18 +55,21 @@ class RegistrationController extends Controller
             'registration' => 'required',
             'max_takeoff_weight' => 'required|numeric',
             'empty_weight' => 'required|numeric',
+            'deck_crew' => 'nullable|numeric',
+            'cabin_crew' => 'nullable|numeric',
+            'passenger_zones' => 'nullable|numeric',
             'fuel_capacity' => 'nullable|numeric',
             'cg_range_min' => 'nullable|numeric',
             'cg_range_max' => 'nullable|numeric',
         ]);
 
         $registration->update($request->all());
-        return redirect()->route('registrations.index');
+        return redirect()->route('registrations.show', $registration->id)->with('success', 'Registration updated successfully.');
     }
 
     public function destroy(Registration $registration)
     {
         $registration->delete();
-        return redirect()->route('registrations.index');
+        return redirect()->route('registrations.index')->with('success', 'Registration deleted successfully.');
     }
 }

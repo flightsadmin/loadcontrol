@@ -6,7 +6,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>Create Hold</h4>
-                    <a href="{{ route('registrations.holds.index', $registration->id) }}"
+                    <a href="{{ route('registrations.show', $registration->id) }}"
                         class="btn btn-secondary btn-sm bi-backspace float-end mt-0"> Back</a>
                 </div>
             </div>
