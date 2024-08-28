@@ -1,13 +1,11 @@
 <div class="container-fluid">
     <div class="row">
-        <!-- Chat Box -->
         <div class="col-12 col-md-12 mx-auto">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Chat with for: {{ $flight->flight_number }}</h5>
+                    <h5 class="mb-0">Chat for: {{ $flight->flight_number }}</h5>
                 </div>
-                <div class="card-body p-4" style="height: 500px; overflow-y: auto;">
-                    <!-- Messages -->
+                <div class="card-body p-4" style="height: 520px; overflow-y: auto;">
                     @foreach ($messages as $message)
                         <div class="d-flex {{ auth()->id() === $message->user_id ? 'justify-content-end' : 'justify-content-start' }} mb-2">
                             <div
