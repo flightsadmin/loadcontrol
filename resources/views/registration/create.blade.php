@@ -22,8 +22,8 @@
                         <input type="number" id="max_takeoff_weight" name="max_takeoff_weight" class="form-control" required>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="empty_weight" class="form-label">Empty Weight</label>
-                        <input type="number" id="empty_weight" name="empty_weight" class="form-control" required>
+                        <label for="basic_weight" class="form-label">Empty Weight</label>
+                        <input type="number" id="basic_weight" name="basic_weight" class="form-control" required>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="fuel_capacity" class="form-label">Fuel Capacity</label>

@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
             $table->string('registration');
-            $table->integer('empty_weight');
+            $table->integer('basic_weight');
             $table->integer('max_takeoff_weight');
             $table->integer('deck_crew')->nullable();
             $table->integer('cabin_crew')->nullable();
@@ -87,6 +87,7 @@ return new class extends Migration {
             $table->string('hold_no');
             $table->float('fwd');
             $table->float('aft');
+            $table->float('max');
             $table->text('restrictions')->nullable();
             $table->timestamps();
         });

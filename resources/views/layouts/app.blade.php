@@ -93,7 +93,7 @@
                     </nav>
 
                 @endauth
-                <main class="col-md-9 ms-sm-auto col-lg-10 px-4 vh-100 border">
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-4 vh-100">
                     @yield('content')
                 </main>
             </div>

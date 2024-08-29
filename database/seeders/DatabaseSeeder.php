@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
                     'hold_no' => 'H-' . str_pad($i, 3, '0', STR_PAD_LEFT),
                     'fwd' => $previousFwd,
                     'aft' => $currentAft,
+                    'max' => $faker->numberBetween(1400, 2300),
                     'restrictions' => $faker->optional()->randomElement(['No Avi', 'No HUM']),
                 ]);
                 $previousFwd = $currentAft;

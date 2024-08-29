@@ -12,7 +12,7 @@ class Registration extends Model
     protected $fillable = [
         'registration',
         'max_takeoff_weight',
-        'empty_weight',
+        'basic_weight',
         'cabin_crew',
         'deck_crew',
         'passenger_zones',

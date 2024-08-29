@@ -19,7 +19,7 @@ class LoadsheetController extends Controller
     {
         $passengers = $flight->passengers;
         $deadloads = $flight->cargos->whereNotNull('hold_id');
-        $basicWeight = $flight->registration->empty_weight;
+        $basicWeight = $flight->registration->basic_weight;
         $fuelFigure = $flight->fuelFigure;
 
         if (!$basicWeight || !$fuelFigure) {
@@ -50,7 +50,7 @@ class LoadsheetController extends Controller
             $totalCrewWeight = $deckCrewWeight + $cabinCrewWeight;
         }
 
-        $dryOperatingWeight = $flight->registration->empty_weight + $totalCrewWeight;
+        $dryOperatingWeight = $flight->registration->basic_weight + $totalCrewWeight;
 
         $takeOffFuel = $fuelFigure->block_fuel ?? 0;
         $taxiFuel = $fuelFigure->taxi_fuel ?? 0;

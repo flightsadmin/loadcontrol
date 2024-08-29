@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="list-group col-md-6">
                     <div class="list-group-item"><strong>Max Takeoff Weight:</strong> {{ $registration->max_takeoff_weight }} kg</div>
-                    <div class="list-group-item"><strong>Empty Weight:</strong> {{ $registration->empty_weight }} kg</div>
+                    <div class="list-group-item"><strong>Empty Weight:</strong> {{ $registration->basic_weight }} kg</div>
                     <div class="list-group-item"><strong>Fuel Capacity:</strong> {{ $registration->fuel_capacity }}</div>
                     <div class="list-group-item"><strong>CG Range:</strong> {{ $registration->cg_range_min }} -
                         {{ $registration->cg_range_max }}</div>

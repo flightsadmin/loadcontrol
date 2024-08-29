@@ -24,7 +24,7 @@ class RegistrationController extends Controller
         $request->validate([
             'registration' => 'required',
             'max_takeoff_weight' => 'required|numeric',
-            'empty_weight' => 'required|numeric',
+            'basic_weight' => 'required|numeric',
             'deck_crew' => 'nullable|numeric',
             'cabin_crew' => 'nullable|numeric',
             'passenger_zones' => 'nullable|numeric',
@@ -54,7 +54,7 @@ class RegistrationController extends Controller
         $request->validate([
             'registration' => 'required',
             'max_takeoff_weight' => 'required|numeric',
-            'empty_weight' => 'required|numeric',
+            'basic_weight' => 'required|numeric',
             'deck_crew' => 'nullable|numeric',
             'cabin_crew' => 'nullable|numeric',
             'passenger_zones' => 'nullable|numeric',

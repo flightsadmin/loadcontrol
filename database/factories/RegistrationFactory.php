@@ -19,7 +19,7 @@ class RegistrationFactory extends Factory
     {
         return [
             'registration' => strtoupper($this->faker->unique()->bothify('A7-???')),
-            'empty_weight' => $this->faker->numberBetween(43000, 45000),
+            'basic_weight' => $this->faker->numberBetween(43000, 45000),
             'max_takeoff_weight' => $this->faker->numberBetween(62000, 65000),
             'fuel_capacity' => $this->faker->numberBetween(1500, 18000),
             'deck_crew' => $this->faker->numberBetween(2, 4),

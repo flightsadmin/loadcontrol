@@ -18,7 +18,7 @@
                                     <span>{{ $registration->registration }}</span>
                                     <span class="text-muted">
                                         <span><strong>MTOW: </strong>{{ $registration->max_takeoff_weight }}Kgs</span>
-                                        <span><strong>Basic Weight: </strong>{{ $registration->empty_weight }}Kgs</span>
+                                        <span><strong>Basic Weight: </strong>{{ $registration->basic_weight }}Kgs</span>
                                         <span><strong>Fuel Capacity: </strong>{{ $registration->fuel_capacity }}Kgs</span>
                                         <span><strong>CG Margins: </strong>{{ $registration->cg_range_min }} -
                                             {{ $registration->cg_range_max }}</span>
