@@ -39,9 +39,12 @@ class DatabaseSeeder extends Seeder
             FuelFigure::factory(1)->create([
                 'flight_id' => $id
             ]);
+            Passenger::factory(4)->create([
+                'flight_id' => $id,
+                'zone' => rand(1, $id->registration->passenger_zones)
+            ]);
         });
         Cargo::factory(200)->create();
-        Passenger::factory(100)->create();
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

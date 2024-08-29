@@ -8,11 +8,15 @@ class Loadsheet extends Model
 {
     protected $fillable = [
         'flight_id',
-        'total_deadload_weight',
-        'total_passengers_weight',
-        'total_fuel_weight',
-        'gross_weight',
-        'balance'
+        'total_traffic_load',
+        'dry_operating_weight',
+        'zero_fuel_weight_actual',
+        'take_off_fuel',
+        'take_off_weight_actual',
+        'trip_fuel',
+        'landing_weight_actual',
+        'compartment_loads',
+        'passenger_distribution',
     ];
 
     public function flight()

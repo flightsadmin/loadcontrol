@@ -99,8 +99,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         var passengerModal = document.getElementById('addPassengerModal');
         passengerModal.addEventListener('show.bs.modal', function(event) {
-            var button = event.relatedTarget; // Button that triggered the modal
-            var zone = button.getAttribute('data-zone'); // Extract info from data-* attributes
+            var button = event.relatedTarget;
+            var zone = button.getAttribute('data-zone');
 
             var modalTitle = passengerModal.querySelector('.modal-title');
             var zoneInput = passengerModal.querySelector('#zoneInput');

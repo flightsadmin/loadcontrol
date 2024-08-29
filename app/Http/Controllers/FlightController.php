@@ -49,20 +49,6 @@ class FlightController extends Controller
     public function show(Flight $flight)
     {
         $flight->load('cargos', 'registration.holds');
-
-        $fuelWeight = $flight->registration->fuel_capacity * 0.8;
-        $totalWeight = $flight->registration->empty_weight + $fuelWeight;
-        $totalCG = $flight->registration->cg_range_min;
-
-        foreach ($flight->cargos as $cargo) {
-            $totalWeight += $cargo->weight;
-            $totalCG += $cargo->weight * $cargo->position;
-        }
-
-        if ($totalWeight > 0) {
-            $totalCG = $totalCG / $totalWeight;
-        }
-
         return view('flight.index', compact('flight'));
     }
 

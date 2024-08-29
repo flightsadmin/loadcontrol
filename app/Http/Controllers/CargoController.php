@@ -72,6 +72,9 @@ class CargoController extends Controller
     public function destroy(Cargo $cargo)
     {
         $cargo->delete();
-        return redirect()->route('flights.show', $cargo->flight_id)->with('success', 'Cargo deleted successfully.');
+        return redirect()->route('flights.show', [
+            'flight' => $cargo->flight_id,
+            'tab' => 'cargo'
+        ])->with('success', 'Cargo Deleted successfully.');
     }
 }

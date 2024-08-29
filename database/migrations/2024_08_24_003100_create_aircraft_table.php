@@ -64,17 +64,22 @@ return new class extends Migration {
             $table->text('content');
             $table->timestamps();
         });
-
+        
         Schema::create('loadsheets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('flight_id')->constrained()->onDelete('cascade');
-            $table->decimal('total_deadload_weight', 8, 2);
-            $table->decimal('total_passengers_weight', 8, 2);
-            $table->decimal('total_fuel_weight', 8, 2);
-            $table->decimal('gross_weight', 8, 2);
-            $table->decimal('balance', 8, 2);
+            $table->integer('total_traffic_load')->default(0);
+            $table->integer('dry_operating_weight')->default(0);
+            $table->integer('zero_fuel_weight_actual')->default(0);
+            $table->integer('take_off_fuel')->default(0);
+            $table->integer('take_off_weight_actual')->default(0);
+            $table->integer('trip_fuel')->default(0);
+            $table->integer('landing_weight_actual')->default(0);
+            $table->json('compartment_loads');
+            $table->json('passenger_distribution');
             $table->timestamps();
         });
+
 
         Schema::create('holds', function (Blueprint $table) {
             $table->id();
