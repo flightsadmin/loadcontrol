@@ -61,7 +61,7 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary bi-floppy float-end"> {{ isset($fuelFigure) ? 'Update' : 'Save' }}</button>
+                    <button type="submit" class="btn btn-primary bi-floppy-fill float-end"> {{ isset($fuelFigure) ? 'Update' : 'Save' }}</button>
                 </form>
             </div>
         </div>

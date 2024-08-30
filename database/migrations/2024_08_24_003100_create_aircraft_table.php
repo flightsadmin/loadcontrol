@@ -78,13 +78,13 @@ return new class extends Migration {
         Schema::create('envelopes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('registration_id')->constrained()->onDelete('cascade');
-            $table->string('envelope_type'); // 'ZFW', 'TOW', 'LDW', etc.
+            $table->string('envelope_type');
             $table->decimal('x', 5, 2);
             $table->decimal('y', 5, 2);
             $table->timestamps();
         });
 
-        Schema::create('holds', function (Blueprint $table) {
+        Schema::create('holds', function (Blueprint $table)  {
             $table->id();
             $table->foreignId('registration_id')->constrained()->onDelete('cascade');
             $table->string('hold_no');

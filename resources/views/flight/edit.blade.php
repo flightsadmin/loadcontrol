@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-sm btn-primary bi-floppy float-end"> Update Flight</button>
+                        <button type="submit" class="btn btn-sm btn-primary bi-floppy-fill float-end"> Update Flight</button>
                     </div>
                 </form>
             </div>

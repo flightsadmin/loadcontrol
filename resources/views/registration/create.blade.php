@@ -62,7 +62,7 @@
                         <input type="number" id="aft_cg_limit" name="aft_cg_limit" class="form-control" required>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary bi-floppy float-end"> Save</button>
+                        <button type="submit" class="btn btn-primary bi-floppy-fill float-end"> Save</button>
                     </div>
                 </form>
             </div>

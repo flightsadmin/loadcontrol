@@ -120,7 +120,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-sm btn-primary bi-floppy float-end"> Save Flight</button>
+                        <button type="submit" class="btn btn-sm btn-primary bi-floppy-fill float-end"> Save Flight</button>
                     </form>
                 </div>
             </div>

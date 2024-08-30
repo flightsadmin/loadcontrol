@@ -75,7 +75,7 @@
                             value="{{ $registration->aft_cg_limit }}">
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary bi-floppy float-end"> Update</button>
+                        <button type="submit" class="btn btn-primary bi-floppy-fill float-end"> Update</button>
                     </div>
                 </form>
             </div>
