@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Flight;
+use App\Models\Envelope;
 use App\Models\Loadsheet;
 
 class LoadsheetController extends Controller
@@ -44,8 +45,8 @@ class LoadsheetController extends Controller
             $crewCounts = explode('/', $fuelFigure->crew);
             $deckCrewCount = (int) ($crewCounts[0] ?? 0);
             $cabinCrewCount = (int) ($crewCounts[1] ?? 0);
-            $deckCrewWeight = $deckCrewCount * 88;
-            $cabinCrewWeight = $cabinCrewCount * 70;
+            $deckCrewWeight = $deckCrewCount * 85;
+            $cabinCrewWeight = $cabinCrewCount * 75;
 
             $totalCrewWeight = $deckCrewWeight + $cabinCrewWeight;
         }
@@ -91,15 +92,21 @@ class LoadsheetController extends Controller
                 'passenger_distribution' => $passengerDistribution,
             ]
         );
-        return redirect()->route('flights.show', [
+        return redirect()->route('flights.loadsheets.show', [
             'flight' => $flight->id,
-            'tab' => 'documents'
+            'loadsheet' => $flight->loadsheet->id,
         ])->with('success', 'Loadsheet Generated successfully.');
     }
 
-    public function show($id)
+    public function show(Flight $flight)
     {
-        $loadsheet = Loadsheet::findOrFail($id);
-        return view('loadsheets.show', compact('loadsheet'));
+        $flight = $flight->load('registration.envelopes');
+        $envelopes = $flight->registration->envelopes->groupBy('envelope_type');
+
+        $zfwEnvelope = $envelopes->get('ZFW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
+        $towEnvelope = $envelopes->get('TOW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
+        $ldwEnvelope = $envelopes->get('LDW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
+        
+        return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'ldwEnvelope'));
     }
 }

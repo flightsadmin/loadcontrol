@@ -14,13 +14,16 @@ return new class extends Migration {
             $table->id();
             $table->string('registration');
             $table->integer('basic_weight');
+            $table->decimal('basic_index', 5, 2);
+            $table->integer('max_zero_fuel_weight');
             $table->integer('max_takeoff_weight');
+            $table->integer('max_landing_weight');
             $table->integer('deck_crew')->nullable();
             $table->integer('cabin_crew')->nullable();
             $table->integer('passenger_zones')->nullable();
             $table->integer('fuel_capacity')->nullable();
-            $table->float('cg_range_min')->nullable();
-            $table->float('cg_range_max')->nullable();
+            $table->decimal('fwd_cg_limit', 5, 2)->nullable();
+            $table->decimal('aft_cg_limit', 5, 2)->nullable();
             $table->timestamps();
         });
 
@@ -57,14 +60,6 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('messages', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('flight_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->text('content');
-            $table->timestamps();
-        });
-        
         Schema::create('loadsheets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('flight_id')->constrained()->onDelete('cascade');
@@ -80,6 +75,14 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        Schema::create('envelopes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('registration_id')->constrained()->onDelete('cascade');
+            $table->string('envelope_type'); // 'ZFW', 'TOW', 'LDW', etc.
+            $table->decimal('x', 5, 2);
+            $table->decimal('y', 5, 2);
+            $table->timestamps();
+        });
 
         Schema::create('holds', function (Blueprint $table) {
             $table->id();
@@ -99,6 +102,14 @@ return new class extends Migration {
             $table->enum('type', ['baggage', 'cargo', 'mail'])->nullable();
             $table->float('pieces');
             $table->float('weight');
+            $table->timestamps();
+        });
+
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('flight_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->text('content');
             $table->timestamps();
         });
     }

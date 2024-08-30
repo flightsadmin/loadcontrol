@@ -15,9 +15,24 @@
                     @csrf
                     @method('PUT')
                     <div class="col-md-4 mb-3">
-                        <label for="registration" class="form-label">Name</label>
+                        <label for="registration" class="form-label">Registration</label>
                         <input type="text" id="registration" name="registration" class="form-control"
                             value="{{ $registration->registration }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="basic_weight" class="form-label">Basic Weight</label>
+                        <input type="number" id="basic_weight" name="basic_weight" class="form-control"
+                            value="{{ $registration->basic_weight }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="basic_index" class="form-label">Basic Index</label>
+                        <input type="number" id="basic_index" name="basic_index" class="form-control"
+                            value="{{ $registration->basic_index }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="max_zero_fuel_weight" class="form-label">Max Zero Fuel Weight</label>
+                        <input type="number" id="max_zero_fuel_weight" name="max_zero_fuel_weight" class="form-control"
+                            value="{{ $registration->max_zero_fuel_weight }}" required>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="max_takeoff_weight" class="form-label">Max Takeoff Weight</label>
@@ -25,9 +40,9 @@
                             value="{{ $registration->max_takeoff_weight }}" required>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="basic_weight" class="form-label">Empty Weight</label>
-                        <input type="number" id="basic_weight" name="basic_weight" class="form-control"
-                            value="{{ $registration->basic_weight }}" required>
+                        <label for="max_landing_weight" class="form-label">Max Landing Weight</label>
+                        <input type="number" id="max_landing_weight" name="max_landing_weight" class="form-control"
+                            value="{{ $registration->max_landing_weight }}" required>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="fuel_capacity" class="form-label">Fuel Capacity</label>
@@ -50,17 +65,17 @@
                             value="{{ $registration->passenger_zones }}">
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="cg_range_min" class="form-label">CG Range Min</label>
-                        <input type="number" id="cg_range_min" name="cg_range_min" class="form-control"
-                            value="{{ $registration->cg_range_min }}">
+                        <label for="fwd_cg_limit" class="form-label">CG Range Min</label>
+                        <input type="number" id="fwd_cg_limit" name="fwd_cg_limit" class="form-control"
+                            value="{{ $registration->fwd_cg_limit }}">
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="cg_range_max" class="form-label">CG Range Max</label>
-                        <input type="number" id="cg_range_max" name="cg_range_max" class="form-control"
-                            value="{{ $registration->cg_range_max }}">
+                        <label for="aft_cg_limit" class="form-label">CG Range Max</label>
+                        <input type="number" id="aft_cg_limit" name="aft_cg_limit" class="form-control"
+                            value="{{ $registration->aft_cg_limit }}">
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary float-end">Update</button>
+                        <button type="submit" class="btn btn-primary bi-floppy float-end"> Update</button>
                     </div>
                 </form>
             </div>

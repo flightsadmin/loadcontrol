@@ -36,6 +36,44 @@ class DatabaseSeeder extends Seeder
             }
         });
 
+        $data = [
+            ['envelope_type' => 'ZFW', 'x' => 45, 'y' => 37],
+            ['envelope_type' => 'ZFW', 'x' => 38, 'y' => 49],
+            ['envelope_type' => 'ZFW', 'x' => 38, 'y' => 54],
+            ['envelope_type' => 'ZFW', 'x' => 37, 'y' => 55],
+            ['envelope_type' => 'ZFW', 'x' => 37, 'y' => 60],
+            ['envelope_type' => 'ZFW', 'x' => 36.4, 'y' => 62.5],
+            ['envelope_type' => 'ZFW', 'x' => 90, 'y' => 62.5],
+            ['envelope_type' => 'ZFW', 'x' => 73, 'y' => 37],
+            ['envelope_type' => 'ZFW', 'x' => 45, 'y' => 37],
+            ['envelope_type' => 'TOW', 'x' => 43, 'y' => 37],
+            ['envelope_type' => 'TOW', 'x' => 35, 'y' => 53],
+            ['envelope_type' => 'TOW', 'x' => 35, 'y' => 63],
+            ['envelope_type' => 'TOW', 'x' => 33, 'y' => 72],
+            ['envelope_type' => 'TOW', 'x' => 36, 'y' => 73.5],
+            ['envelope_type' => 'TOW', 'x' => 89, 'y' => 73.5],
+            ['envelope_type' => 'TOW', 'x' => 90, 'y' => 72],
+            ['envelope_type' => 'TOW', 'x' => 86, 'y' => 62],
+            ['envelope_type' => 'TOW', 'x' => 67, 'y' => 43],
+            ['envelope_type' => 'TOW', 'x' => 64, 'y' => 37],
+            ['envelope_type' => 'TOW', 'x' => 43, 'y' => 37],
+            ['envelope_type' => 'LDW', 'x' => 43, 'y' => 37 ],
+            ['envelope_type' => 'LDW', 'x' => 35, 'y' => 53 ],
+            ['envelope_type' => 'LDW', 'x' => 35, 'y' => 63 ],
+            ['envelope_type' => 'LDW', 'x' => 34.5, 'y' => 66 ],
+            ['envelope_type' => 'LDW', 'x' => 87.5, 'y' => 66 ],
+            ['envelope_type' => 'LDW', 'x' => 86, 'y' => 62 ],
+            ['envelope_type' => 'LDW', 'x' => 67, 'y' => 43 ],
+            ['envelope_type' => 'LDW', 'x' => 64, 'y' => 37 ],
+            ['envelope_type' => 'LDW', 'x' => 43, 'y' => 37 ]
+        ];
+
+        foreach ($data as $point) {
+            Registration::all()->each(function ($registration) use ($point) {
+                $registration->envelopes()->create($point);
+            });
+        }
+
         Flight::factory(50)->create()->each(function ($id) {
             FuelFigure::factory(1)->create([
                 'flight_id' => $id

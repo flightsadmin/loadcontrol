@@ -29,8 +29,8 @@ class RegistrationController extends Controller
             'cabin_crew' => 'nullable|numeric',
             'passenger_zones' => 'nullable|numeric',
             'fuel_capacity' => 'nullable|numeric',
-            'cg_range_min' => 'nullable|numeric',
-            'cg_range_max' => 'nullable|numeric',
+            'fwd_cg_limit' => 'nullable|numeric',
+            'aft_cg_limit' => 'nullable|numeric',
         ]);
 
         $registration = Registration::create($request->all());
@@ -59,8 +59,8 @@ class RegistrationController extends Controller
             'cabin_crew' => 'nullable|numeric',
             'passenger_zones' => 'nullable|numeric',
             'fuel_capacity' => 'nullable|numeric',
-            'cg_range_min' => 'nullable|numeric',
-            'cg_range_max' => 'nullable|numeric',
+            'fwd_cg_limit' => 'nullable|numeric',
+            'aft_cg_limit' => 'nullable|numeric',
         ]);
 
         $registration->update($request->all());

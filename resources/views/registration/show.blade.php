@@ -23,8 +23,8 @@
                     <div class="list-group-item"><strong>Max Takeoff Weight:</strong> {{ $registration->max_takeoff_weight }} kg</div>
                     <div class="list-group-item"><strong>Empty Weight:</strong> {{ $registration->basic_weight }} kg</div>
                     <div class="list-group-item"><strong>Fuel Capacity:</strong> {{ $registration->fuel_capacity }}</div>
-                    <div class="list-group-item"><strong>CG Range:</strong> {{ $registration->cg_range_min }} -
-                        {{ $registration->cg_range_max }}</div>
+                    <div class="list-group-item"><strong>CG Range:</strong> {{ $registration->fwd_cg_limit }} -
+                        {{ $registration->aft_cg_limit }}</div>
                 </div>
                 <ul class="list-group col-md-6">
                     @forelse ($registration->holds as $hold)

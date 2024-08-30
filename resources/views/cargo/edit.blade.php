@@ -44,7 +44,7 @@
                             </select>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary float-end">Update</button>
+                            <button type="submit" class="btn btn-sm btn-primary bi-floppy float-end"> Update</button>
                         </div>
                     </form>
                 </div>

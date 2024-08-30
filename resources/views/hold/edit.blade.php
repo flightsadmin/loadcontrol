@@ -37,7 +37,7 @@
                             value="{{ $hold->restrictions ?? old('restrictions') }}">
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary float-end">Update</button>
+                        <button type="submit" class="btn btn-primary bi-floppy float-end"> Update</button>
                     </div>
                 </form>
             </div>

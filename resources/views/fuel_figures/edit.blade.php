@@ -42,7 +42,7 @@
                                 <option value="3/5" {{ old('crew', $fuelFigure->crew ?? '') == '3/5' ? 'selected' : '' }}>3/5</option>
                                 <option value="3/6" {{ old('crew', $fuelFigure->crew ?? '') == '3/6' ? 'selected' : '' }}>3/6</option>
                                 <option value="4/4" {{ old('crew', $fuelFigure->crew ?? '') == '4/4' ? 'selected' : '' }}>4/4</option>
-                                <option value="3/4" {{ old('crew', $fuelFigure->crew ?? '') == '3/4' ? 'selected' : '' }}>3/4</option>
+                                <option value="4/5" {{ old('crew', $fuelFigure->crew ?? '') == '4/5' ? 'selected' : '' }}>4/5</option>
                             </select>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">{{ isset($fuelFigure) ? 'Update' : 'Save' }}</button>
+                    <button type="submit" class="btn btn-primary bi-floppy float-end"> {{ isset($fuelFigure) ? 'Update' : 'Save' }}</button>
                 </form>
             </div>
         </div>

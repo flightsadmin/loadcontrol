@@ -17,8 +17,8 @@ class Registration extends Model
         'deck_crew',
         'passenger_zones',
         'fuel_capacity',
-        'cg_range_min',
-        'cg_range_max'
+        'fwd_cg_limit',
+        'aft_cg_limit'
     ];
 
     public function flights()
@@ -29,5 +29,10 @@ class Registration extends Model
     public function holds()
     {
         return $this->hasMany(Hold::class);
+    }
+
+    public function envelopes()
+    {
+        return $this->hasMany(Envelope::class);
     }
 }
