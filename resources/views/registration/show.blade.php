@@ -10,11 +10,13 @@
                     </a>
                 </h4>
                 <div>
-                    <a href="{{ route('registrations.edit', $registration->id) }}" class="btn btn-warning btn-sm bi-pencil-square"> Edit Registration</a>
+                    <a href="{{ route('registrations.edit', $registration->id) }}" class="btn btn-warning btn-sm bi-pencil-square">
+                        Edit Registration</a>
                     <form action="{{ route('registrations.destroy', $registration->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm bi-trash-fill"> Delete Registration</button>
+                        <button type="submit" class="btn btn-danger btn-sm bi-trash-fill" onclick="return confirm('Are you sure?')">
+                            Delete Registration</button>
                     </form>
                 </div>
             </div>
@@ -50,8 +52,12 @@
                     @endforelse
                 </ul>
             </div>
-            <a href="{{ route('registrations.holds.create', $registration->id) }}" class="btn btn-primary btn-sm float-end mt-4 bi-plus-lg">
-                Add New Hold</a>
+            <div>
+                <a href="{{ route('registrations.envelopes.create', $registration->id) }}"
+                    class="btn btn-primary btn-sm mt-4 bi-plus-lg"> Add Envelope</a>
+                <a href="{{ route('registrations.holds.create', $registration->id) }}"
+                    class="btn btn-primary btn-sm float-end mt-4 bi-plus-lg"> Add New Hold</a>
+            </div>
         </div>
     </div>
 @endsection

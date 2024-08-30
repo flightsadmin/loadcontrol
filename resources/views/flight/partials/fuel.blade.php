@@ -32,7 +32,8 @@
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger bi-trash-fill mx-4"> Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger bi-trash-fill mx-4"
+                                        onclick="return confirm('Are you sure?')"> Delete</button>
                                 </form>
                             </div>
                         </div>

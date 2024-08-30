@@ -26,11 +26,15 @@
                         <input type="number" id="aft" name="aft" class="form-control" required>
                     </div>
                     <div class="col-md-6 mb-3">
+                        <label for="max" class="form-label">AFT Distance (m)</label>
+                        <input type="number" id="max" name="max" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
                         <label for="restrictions" class="form-label">Restrictions</label>
                         <input type="text" id="restrictions" name="restrictions" class="form-control">
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary float-end">Create</button>
+                        <button type="submit" class="btn btn-sm btn-primary float-end">Create</button>
                     </div>
                 </form>
             </div>

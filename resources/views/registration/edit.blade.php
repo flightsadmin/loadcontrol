@@ -6,7 +6,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>Edit Aircraft</h4>
-                    <a href="{{ route('registrations.index') }}"
+                    <a href="{{ route('registrations.show', $registration) }}"
                         class="btn btn-secondary btn-sm bi-backspace float-end mt-0"> Back</a>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                             value="{{ $registration->aft_cg_limit }}">
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary bi-floppy-fill float-end"> Update</button>
+                        <button type="submit" class="btn btn-sm btn-primary bi-floppy float-end"> Update</button>
                     </div>
                 </form>
             </div>

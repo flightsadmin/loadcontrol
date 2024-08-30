@@ -6,8 +6,8 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>Edit Flight: {{ $flight->flight_number }}</h4>
-                    <a href="{{ route('flights.cargos.create', $flight->id) }}"
-                        class="btn btn-primary btn-sm bi-plus-circle-dotted float-end mt-0"> Add Deadload</a>
+                    <a href="{{ route('flights.show', $flight) }}"
+                        class="btn btn-secondary btn-sm bi-backspace float-end mt-0"> Back</a>
                 </div>
             </div>
             <div class="card-body">

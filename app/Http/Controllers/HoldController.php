@@ -8,9 +8,8 @@ use Illuminate\Http\Request;
 
 class HoldController extends Controller
 {
-    public function create($registration_id)
+    public function create(Registration $registration)
     {
-        $registration = Registration::findOrFail($registration_id);
         return view('hold.create', compact('registration'));
     }
 
@@ -20,6 +19,7 @@ class HoldController extends Controller
             'hold_no' => 'required|string|max:255',
             'fwd' => 'required|numeric',
             'aft' => 'required|numeric',
+            'max' => 'required|numeric',
             'restrictions' => 'nullable|string',
         ]);
 
@@ -44,6 +44,7 @@ class HoldController extends Controller
             'hold_no' => 'required|string|max:255',
             'fwd' => 'required|numeric',
             'aft' => 'required|numeric',
+            'max' => 'required|numeric',
             'restrictions' => 'nullable|string',
         ]);
 

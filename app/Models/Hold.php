@@ -14,6 +14,7 @@ class Hold extends Model
         'hold_no',
         'fwd',
         'aft',
+        'max',
         'restrictions'
     ];
 

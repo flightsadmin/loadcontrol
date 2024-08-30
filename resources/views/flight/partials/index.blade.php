@@ -3,7 +3,7 @@
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
                 <h5>Flight Number: {{ $flight->flight_number }}</h5>
-                <a href="{{ route('flights.edit', $flight->id) }}" class="btn btn-sm btn-warning">Edit Flight</a>
+                <a href="{{ route('flights.edit', $flight->id) }}" class="btn btn-sm btn-warning bi-pencil-square"> Edit Flight</a>
             </div>
         </div>
         <div class="card-body">

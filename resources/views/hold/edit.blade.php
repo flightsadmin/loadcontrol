@@ -11,7 +11,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <form class="row" action="{{ isset($hold) ? route('holds.update', $hold->id) : route('holds.store', $registration->id) }}" method="POST">
+                <form class="row" action="{{ isset($hold) ? route('holds.update', $hold->id) : route('holds.store', $registration->id) }}"
+                    method="POST">
                     @csrf
                     @if (isset($hold))
                         @method('PUT')
@@ -29,6 +30,11 @@
                     <div class="col-md-6 mb-3">
                         <label for="aft" class="form-label">AFT Distance (m)</label>
                         <input type="number" id="aft" name="aft" class="form-control" value="{{ $hold->aft ?? old('aft') }}"
+                            required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="max" class="form-label">AFT Distance (m)</label>
+                        <input type="number" id="max" name="max" class="form-control" value="{{ $hold->max ?? old('max') }}"
                             required>
                     </div>
                     <div class="col-md-6 mb-3">
