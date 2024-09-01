@@ -54,12 +54,12 @@
                                                         <td>{{ $registration->basic_weight }}</td>
                                                         <td>{{ $registration->basic_index }}</td>
                                                         <td>
-                                                            <a href="{{ route('aircraft_types.registrations.show', ['aircraft_type' => $aircraftType->id, 'registration' => $registration->id]) }}"
+                                                            <a href="{{ route('registrations.show', $registration->id) }}"
                                                                 class="btn btn-link btn-sm bi-eye text-info"></a>
-                                                            <a href="{{ route('aircraft_types.registrations.edit', ['aircraft_type' => $aircraftType->id, 'registration' => $registration->id]) }}"
+                                                            <a href="{{ route('registrations.edit', $registration->id) }}"
                                                                 class="btn btn-link btn-sm bi-pencil-square text-primary"></a>
                                                             <form
-                                                                action="{{ route('aircraft_types.registrations.destroy', ['aircraft_type' => $aircraftType->id, 'registration' => $registration->id]) }}"
+                                                                action="{{ route('registrations.destroy', $registration->id) }}"
                                                                 method="POST" style="display:inline;">
                                                                 @csrf
                                                                 @method('DELETE')

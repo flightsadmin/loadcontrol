@@ -8,7 +8,7 @@
             </div>
             <div class="row my-1 align-items-center">
                 <div class="col-sm-2"> <strong>{{ $flight->flight_number }}</strong> </div>
-                <div class="col-sm-2"> <strong>{{ $flight->registration->registration }} </strong></div>
+                <div class="col-sm-2"> <strong>{{ $flight->registration->registration_number }} </strong></div>
                 <div class="col-sm-2"> <strong>{{ $flight->departure }} </strong></div>
                 <div class="col-sm-2"> <strong>{{ $flight->origin }} </strong></div>
                 <div class="col-sm-2"> <strong>{{ $flight->destination }} </strong></div>

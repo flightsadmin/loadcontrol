@@ -15,7 +15,7 @@
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <span>{{ $registration->registration }}</span>
+                                    <span>{{ $registration->registration_number }}</span>
                                     <span class="text-muted">
                                         <span><strong>MTOW: </strong>{{ $registration->aircraftType->max_takeoff_weight }}Kgs</span>
                                         <span><strong>Basic Weight: </strong>{{ $registration->basic_weight }}Kgs</span>

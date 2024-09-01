@@ -26,7 +26,7 @@
                                 <option value="" selected disabled>Select Registration</option>
                                 @foreach ($registrations as $registration)
                                     <option value="{{ $registration->id }}"
-                                        {{ $flight->registration_id == $registration->id ? 'selected' : '' }}> {{ $registration->registration }}
+                                        {{ $flight->registration_id == $registration->id ? 'selected' : '' }}> {{ $registration->registration_number }}
                                     </option>
                                 @endforeach
                             </select>

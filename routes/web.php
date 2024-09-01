@@ -9,6 +9,7 @@ use App\Http\Controllers\EnvelopeController;
 use App\Http\Controllers\LoadsheetController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\FuelFigureController;
+use App\Http\Controllers\AircraftTypeController;
 use App\Http\Controllers\RegistrationController;
 
 Route::get('/database', function () {
@@ -23,7 +24,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/', FlightController::class);
     Route::resource('cargos', CargoController::class);
     Route::resource('flights', FlightController::class);
-    Route::resource('registrations', RegistrationController::class);
+    Route::resource('aircraft_types', AircraftTypeController::class);
+    Route::resource('aircraft_types.registrations', RegistrationController::class)->shallow();
     Route::resource('flights.loadsheets', LoadsheetController::class);
     Route::resource('registrations.holds', HoldController::class)->shallow();
     Route::resource('registrations.envelopes', EnvelopeController::class);

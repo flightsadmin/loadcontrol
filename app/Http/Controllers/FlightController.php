@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Registration;
 use App\Models\Cargo;
 use App\Models\Flight;
+use App\Models\AircraftType;
+use App\Models\Registration;
 use Illuminate\Http\Request;
 
 class FlightController extends Controller
@@ -22,10 +23,10 @@ class FlightController extends Controller
         return view('flight.index', compact('flights'));
     }
 
-    public function create()
+    public function create(AircraftType $aircraftType)
     {
         $registrations = Registration::all();
-        return view('flight.create', compact('registrations'));
+        return view('flight.create', compact('aircraftType', 'registrations'));
     }
 
     public function store(Request $request)

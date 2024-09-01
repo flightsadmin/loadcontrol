@@ -16,13 +16,13 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="registration_id" class="form-label">Registration</label>
-                                <span><a class="btn btn-link bi-pencil-square p-0" href="{{ route('registrations.create') }}"></a></span>
+                                <span><a class="btn btn-link bi-pencil-square p-0" href="{{ route('aircraft_types.index') }}"></a></span>
                                 <select id="registration_id" name="registration_id"
                                     class="form-select @error('registration_id') is-invalid @enderror">
                                     @foreach ($registrations as $registration)
                                         <option value="{{ $registration->id }}"
                                             {{ old('registration_id') == $registration->id ? 'selected' : '' }}>
-                                            {{ $registration->registration }}
+                                            {{ $registration->registration_number }}
                                         </option>
                                     @endforeach
                                 </select>

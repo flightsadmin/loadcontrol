@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hold;
 use App\Models\AircraftType;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
 {
-    public function index()
-    {
-        $registrations = Registration::with('holds')->simplePaginate(10);
-        return view('registration.index', compact('registrations'));
-    }
-
+    // Show the form to create a new registration
     public function create(AircraftType $aircraftType)
     {
-        return view('registration.create', compact('aircraftType'));
+        return view('registrations.create', compact('aircraftType'));
     }
 
+    // Store the new registration in the database
     public function store(Request $request, AircraftType $aircraftType)
     {
         $validated = $request->validate([
@@ -27,26 +22,28 @@ class RegistrationController extends Controller
             'basic_weight' => 'required|numeric',
             'basic_index' => 'required|numeric',
         ]);
-        $validated['aircraft_type_id'] = $aircraftType->id;
 
-        Registration::create($validated);
+        $registration = new Registration($validated);
+        $registration->aircraft_type_id = $aircraftType->id;
+        $registration->save();
 
         return redirect()->route('aircraft_types.show', $aircraftType->id)->with('success', 'Registration created successfully.');
     }
 
-    public function show($aircraft_type, $registration)
+    // Show the specific registration details
+    public function show(Registration $registration)
     {
-        $registration = Registration::with('holds')->findOrFail($registration);
-        $holds = Hold::where('registration_id', $registration->id)->get();
-        return view('registration.show', compact('registration', 'holds'));
+        return view('registrations.show', compact('registration'));
     }
 
-    public function edit(AircraftType $aircraftType, Registration $registration)
+    // Show the form to edit a specific registration
+    public function edit(Registration $registration)
     {
-        return view('registration.edit', compact('aircraftType', 'registration'));
+        return view('registrations.edit', compact('registration'));
     }
 
-    public function update(Request $request, AircraftType $aircraftType, Registration $registration)
+    // Update the specific registration in the database
+    public function update(Request $request, Registration $registration)
     {
         $validated = $request->validate([
             'registration_number' => 'required|string',
@@ -56,12 +53,15 @@ class RegistrationController extends Controller
 
         $registration->update($validated);
 
-        return redirect()->route('aircraft_types.show', $aircraftType->id)->with('success', 'Registration updated successfully.');
+        return redirect()->route('aircraft_types.show', $registration->aircraft_type_id)->with('success', 'Registration updated successfully.');
     }
 
-    public function destroy(AircraftType $aircraftType, Registration $registration)
+    // Delete the specific registration from the database
+    public function destroy(Registration $registration)
     {
+        $aircraftTypeId = $registration->aircraft_type_id;
         $registration->delete();
-        return redirect()->route('aircraft_types.show',  $aircraftType->id)->with('success', 'Registration deleted successfully.');
+
+        return redirect()->route('aircraft_types.show', $aircraftTypeId)->with('success', 'Registration deleted successfully.');
     }
 }

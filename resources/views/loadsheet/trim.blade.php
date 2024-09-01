@@ -45,7 +45,7 @@
                                         <tr>
                                             <td>{{ $flight->origin }} {{ $flight->destination }}</td>
                                             <td>{{ $flight->flight_number }}</td>
-                                            <td>{{ strtoupper($flight->registration->registration) }}</td>
+                                            <td>{{ strtoupper($flight->registration->registration_number) }}</td>
                                             <td></td>
                                             <td>{{ $flight->fuelFigure->crew }}</td>
                                             <td>{{ strtoupper($flight->departure->format('dMY')) }}</td>
@@ -74,7 +74,7 @@
                                     <dd class="col-sm-4">Zero Fuel Weight Actual</dd>
                                     <dd class="col-sm-8 d-flex align-items-center">
                                         {{ $flight->loadsheet->zero_fuel_weight_actual }}
-                                        <span class="ms-3 text-muted">MAX {{ $flight->registration->max_zero_fuel_weight }}</span>
+                                        <span class="ms-3 text-muted">MAX {{ $flight->registration->aircraftType->max_zero_fuel_weight }}</span>
                                         <span class="ms-4 text-muted">ADJ</span>
                                     </dd>
 
@@ -84,7 +84,7 @@
                                     <dd class="col-sm-4">Takeoff Weight Actual</dd>
                                     <dd class="col-sm-8 d-flex align-items-center">
                                         {{ $flight->loadsheet->take_off_weight_actual }}
-                                        <span class="ms-3 text-muted">MAX {{ $flight->registration->max_takeoff_weight }}</span>
+                                        <span class="ms-3 text-muted">MAX {{ $flight->registration->aircraftType->max_takeoff_weight }}</span>
                                         <span class="ms-4 text-muted">ADJ</span>
                                     </dd>
 
@@ -94,7 +94,7 @@
                                     <dd class="col-sm-4">Landing Weight Actual</dd>
                                     <dd class="col-sm-8 d-flex align-items-center">
                                         {{ $flight->loadsheet->landing_weight_actual }}
-                                        <span class="ms-3 text-muted">MAX {{ $flight->registration->max_landing_weight }}</span>
+                                        <span class="ms-3 text-muted">MAX {{ $flight->registration->aircraftType->max_landing_weight }}</span>
                                         <span class="ms-4 text-muted">ADJ</span>
                                     </dd>
 

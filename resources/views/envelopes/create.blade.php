@@ -5,7 +5,7 @@
         <div class="card mt-4">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4>Create Envelope for Registration: {{ $registration->registration }}</h4>
+                    <h4>Create Envelope for Registration: {{ $registration->registration_number }}</h4>
                     <a href="{{ route('registrations.show', $registration->id) }}"
                         class="btn btn-secondary btn-sm bi-backspace float-end mt-0"> Back</a>
                 </div>

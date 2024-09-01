@@ -5,8 +5,8 @@
         <div class="mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="mb-0">
-                    <a href="{{ route('registrations.index') }}" class="text-decoration-none">
-                        {{ $registration->registration }}
+                    <a href="{{ route('aircraft_types.show', $registration->aircraft_type_id) }}" class="text-decoration-none">
+                        {{ $registration->registration_number }}
                     </a>
                 </h4>
                 <div>

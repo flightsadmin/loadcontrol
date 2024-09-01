@@ -16,8 +16,9 @@
                         <p class="card-text"><strong>Destination:</strong> {{ $flight->destination }}</p>
                         <p class="card-text"><strong>Airline:</strong> {{ $flight->airline }}</p>
                         <p class="card-text"><strong>Flight Type:</strong> {{ $flight->flight_type }}</p>
-                        <p class="card-text"><strong>Registration:</strong> {{ $flight->registration->registration }}
-                            <a href="{{ route('registrations.edit', $flight->registration->id) }}" class="btn btn-link p-0 ms-2 bi-pencil-square text-danger"></a>
+                        <p class="card-text"><strong>Registration:</strong> {{ $flight->registration->registration_number }}
+                            <a href="{{ route('registrations.edit', $flight->registration->id) }}"
+                                class="btn btn-link p-0 ms-2 bi-pencil-square text-danger"></a>
                         </p>
                     </div>
                 </div>

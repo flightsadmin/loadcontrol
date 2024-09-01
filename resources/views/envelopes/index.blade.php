@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Envelopes for Registration: {{ $registration->registration }}</h2>
+    <h2>Envelopes for Registration: {{ $registration->registration_number }}</h2>
     <a href="{{ route('registrations.envelopes.create', $registration) }}" class="btn btn-primary mb-3">Create Envelope</a>
     <table class="table table-bordered table-sm">
         <thead>
