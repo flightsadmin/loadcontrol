@@ -31,7 +31,7 @@ class LoadsheetController extends Controller
                 'male' => 88,
                 'female' => 70,
                 'child' => 35,
-                'infant' => 10,
+                'infant' => 0,
                 default => 84,
             };
 
@@ -67,8 +67,8 @@ class LoadsheetController extends Controller
         })->toJson();
 
         // Calculate passenger distribution by gender
-        $passengerDistribution = $passengers->groupBy('type')->map(function ($typeGroup) {
-            return $typeGroup->sum('count');
+        $passengerDistribution = $passengers->groupBy('type')->map(function ($paxGroup) {
+            return $paxGroup->sum('count');
         })->toArray();
 
         $passengerDistribution = json_encode(array_merge([

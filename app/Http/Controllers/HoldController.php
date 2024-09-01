@@ -36,7 +36,7 @@ class HoldController extends Controller
 
     public function show(Hold $hold)
     {
-        $aircraftType = $hold->aircraftType;
+        $aircraftType = $hold->load('aircraftType');
         return view('holds.show', compact('hold', 'aircraftType'));
     }
 

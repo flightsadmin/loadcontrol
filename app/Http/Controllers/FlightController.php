@@ -17,16 +17,15 @@ class FlightController extends Controller
             $date = \Carbon\Carbon::parse($request->date)->format('Y-m-d');
             $query->whereDate('departure', $date);
         }
-
         $flights = $query->with('registration')->orderBy('departure')->simplePaginate();
 
         return view('flight.index', compact('flights'));
     }
 
-    public function create(AircraftType $aircraftType)
+    public function create()
     {
         $registrations = Registration::all();
-        return view('flight.create', compact('aircraftType', 'registrations'));
+        return view('flight.create', compact('registrations'));
     }
 
     public function store(Request $request)
@@ -38,18 +37,18 @@ class FlightController extends Controller
             'destination' => 'required|string',
             'airline' => 'required|string',
             'flight_type' => 'required|in:Domestic,International',
-            'departure' => 'required',
-            'arrival' => 'required',
+            'departure' => 'required|date',
+            'arrival' => 'required|date',
         ]);
 
         $flight = Flight::create($validated);
 
-        return redirect()->route('flights.show', $flight->id);
+        return redirect()->route('flights.show', $flight->id)->with('success', 'Flight created successfully!');
     }
 
     public function show(Flight $flight)
     {
-        $flight->load('cargos', 'registration.holds');
+        $flight->load('registration.aircraftType.holds', 'cargos');
         return view('flight.index', compact('flight'));
     }
 
@@ -68,18 +67,18 @@ class FlightController extends Controller
             'destination' => 'required|string',
             'airline' => 'required|string',
             'flight_type' => 'required|in:Domestic,International',
-            'departure' => 'required',
-            'arrival' => 'required',
+            'departure' => 'required|date',
+            'arrival' => 'required|date',
         ]);
 
         $flight->update($validated);
 
-        return redirect()->route('flights.show', $flight->id);
+        return redirect()->route('flights.show', $flight->id)->with('success', 'Flight updated successfully!');
     }
 
     public function destroy(Flight $flight)
     {
         $flight->delete();
-        return redirect()->route('flights.index');
+        return redirect()->route('flights.index')->with('success', 'Flight deleted successfully!');
     }
 }

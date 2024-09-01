@@ -66,7 +66,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Holds</h5>
                                     <a href="{{ route('aircraft_types.holds.create', $aircraftType->id) }}"
-                                        class="btn btn-primary btn-sm mb-3">Add New Hold</a>
+                                        class="btn btn-primary btn-sm mb-3 bi-plus-lg"> Add New Hold</a>
                                 </div>
                                 <ul class="list-group">
                                     @forelse ($holds as $hold)

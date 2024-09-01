@@ -76,13 +76,13 @@ class DatabaseSeeder extends Seeder
             });
         }
 
-        Flight::factory(50)->create()->each(function ($id) {
+        Flight::factory(10)->create()->each(function ($id_no) {
             FuelFigure::factory(1)->create([
-                'flight_id' => $id
+                'flight_id' => $id_no
             ]);
-            Passenger::factory(4)->create([
-                'flight_id' => $id,
-                'zone' => rand(1, $id->registration->passenger_zones)
+            Passenger::factory(2)->create([
+                'flight_id' => $id_no,
+                'zone' => rand(1, $id_no->registration->aircraftType->passenger_zones)
             ]);
         });
         // Cargo::factory(200)->create();

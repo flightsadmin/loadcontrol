@@ -20,7 +20,7 @@
                     style="top: 70%; left: -20px; transform: translateY(-50%) rotate(-90deg); transform-origin: left top;">
                     <span class="">Arrival</span>
                 </div>
-                @foreach ($flight->registration->holds as $hold)
+                @foreach($flight->registration->aircraftType->holds as $hold)
                     <div class="hold position-absolute"
                         style="top: 0; left: {{ $hold->fwd }}%; width: {{ $hold->aft - $hold->fwd }}%; height: 100%; background-color: grey; border: 10px solid #6c757d;">
                         <span class="text-white">{{ $hold->hold_no }} <small class="ms-3">Max {{ $hold->max }}</small></span>
@@ -33,7 +33,7 @@
                     style="top: 70%; left: -20px; transform: translateY(-50%) rotate(-90deg); transform-origin: left top;">
                     <span class="">Loading</span>
                 </div>
-                @foreach ($flight->registration->holds as $hold)
+                @foreach($flight->registration->aircraftType->holds as $hold)
                     <div class="hold position-absolute"
                         style="top: 0; left: {{ $hold->fwd }}%; width: {{ $hold->aft - $hold->fwd }}%; height: 100%; background-color: grey; border: 10px solid #6c757d;">
                         <span class="text-white">{{ $hold->hold_no }} <small class="ms-3">Max {{ $hold->max }}</small></span>
@@ -54,7 +54,7 @@
                     style="top: 70%; left: -20px; transform: translateY(-50%) rotate(-90deg); transform-origin: left top;">
                     <span class="">Departure</span>
                 </div>
-                @foreach ($flight->registration->holds as $hold)
+                @foreach($flight->registration->aircraftType->holds as $hold)
                     <div class="hold position-absolute"
                         style="top: 0; left: {{ $hold->fwd }}%; width: {{ $hold->aft - $hold->fwd }}%; height: 100%; background-color: grey; border: 10px solid #6c757d;">
                         <span class="text-white">{{ $hold->hold_no }} <small class="ms-3">Max {{ $hold->max }}</small></span>
