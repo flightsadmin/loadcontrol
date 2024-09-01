@@ -10,15 +10,10 @@ class Registration extends Model
     use HasFactory;
 
     protected $fillable = [
-        'registration',
-        'max_takeoff_weight',
+        'registration_number',
+        'aircraft_type_id',
         'basic_weight',
-        'cabin_crew',
-        'deck_crew',
-        'passenger_zones',
-        'fuel_capacity',
-        'fwd_cg_limit',
-        'aft_cg_limit'
+        'basic_index',
     ];
 
     public function flights()
@@ -34,5 +29,10 @@ class Registration extends Model
     public function envelopes()
     {
         return $this->hasMany(Envelope::class);
+    }
+
+    public function aircraftType()
+    {
+        return $this->belongsTo(AircraftType::class);
     }
 }

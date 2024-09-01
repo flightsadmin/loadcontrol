@@ -20,7 +20,7 @@ class Chat extends Component
 
     public function loadMessages()
     {
-        $this->messages = $this->flight->messages()->groupBy('created_at')->latest()->get();
+        $this->messages = $this->flight->messages()->latest()->get();
     }
 
     public function sendMessage()

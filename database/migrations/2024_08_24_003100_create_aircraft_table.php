@@ -10,20 +10,28 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('registrations', function (Blueprint $table) {
+        Schema::create('aircraft_types', function (Blueprint $table) {
             $table->id();
-            $table->string('registration');
-            $table->integer('basic_weight');
-            $table->decimal('basic_index', 5, 2);
+            $table->string('aircraft_type');
+            $table->string('manufacturer');
             $table->integer('max_zero_fuel_weight');
             $table->integer('max_takeoff_weight');
             $table->integer('max_landing_weight');
             $table->integer('deck_crew')->nullable();
             $table->integer('cabin_crew')->nullable();
             $table->integer('passenger_zones')->nullable();
-            $table->integer('fuel_capacity')->nullable();
+            $table->integer('max_fuel_weight')->nullable();
             $table->decimal('fwd_cg_limit', 5, 2)->nullable();
             $table->decimal('aft_cg_limit', 5, 2)->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('registrations', function (Blueprint $table) {
+            $table->id();
+            $table->string('registration_number');
+            $table->integer('basic_weight');
+            $table->decimal('basic_index', 5, 2);
+            $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -56,7 +64,7 @@ return new class extends Migration {
             $table->integer('taxi_fuel');
             $table->integer('trip_fuel');
             $table->string('crew');
-            $table->integer('pantry');
+            $table->string('pantry');
             $table->timestamps();
         });
 
@@ -84,7 +92,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('holds', function (Blueprint $table)  {
+        Schema::create('holds', function (Blueprint $table) {
             $table->id();
             $table->foreignId('registration_id')->constrained()->onDelete('cascade');
             $table->string('hold_no');

@@ -2,15 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\FuelFigure;
 use App\Models\Hold;
-use App\Models\Passenger;
 use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Flight;
+use App\Models\Passenger;
+use App\Models\FuelFigure;
+use Faker\Factory as Faker;
+use App\Models\AircraftType;
 use App\Models\Registration;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,7 +20,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Registration::factory(50)->create()->each(function ($registration) {
+        AircraftType::factory(3)->create();
+        Registration::factory(10)->create()->each(function ($registration) {
             $faker = Faker::create();
             $previousFwd = 0;
             for ($i = 1; $i <= 5; $i++) {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hold;
+use App\Models\AircraftType;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 
@@ -14,62 +15,53 @@ class RegistrationController extends Controller
         return view('registration.index', compact('registrations'));
     }
 
-    public function create()
+    public function create(AircraftType $aircraftType)
     {
-        return view('registration.create');
+        return view('registration.create', compact('aircraftType'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, AircraftType $aircraftType)
     {
-        $request->validate([
-            'registration' => 'required',
-            'max_takeoff_weight' => 'required|numeric',
+        $validated = $request->validate([
+            'registration_number' => 'required|string',
             'basic_weight' => 'required|numeric',
-            'deck_crew' => 'nullable|numeric',
-            'cabin_crew' => 'nullable|numeric',
-            'passenger_zones' => 'nullable|numeric',
-            'fuel_capacity' => 'nullable|numeric',
-            'fwd_cg_limit' => 'nullable|numeric',
-            'aft_cg_limit' => 'nullable|numeric',
+            'basic_index' => 'required|numeric',
         ]);
+        $validated['aircraft_type_id'] = $aircraftType->id;
 
-        $registration = Registration::create($request->all());
-        return redirect()->route('registrations.show', $registration->id)->with('success', 'Registration updated successfully.');
+        Registration::create($validated);
+
+        return redirect()->route('aircraft_types.show', $aircraftType->id)->with('success', 'Registration created successfully.');
     }
 
-    public function show(Registration $registration)
+    public function show($aircraft_type, $registration)
     {
-        $registration = Registration::with('holds')->findOrFail($registration->id);
+        $registration = Registration::with('holds')->findOrFail($registration);
         $holds = Hold::where('registration_id', $registration->id)->get();
         return view('registration.show', compact('registration', 'holds'));
     }
 
-    public function edit(Registration $registration)
+    public function edit(AircraftType $aircraftType, Registration $registration)
     {
-        return view('registration.edit', compact('registration'));
+        return view('registration.edit', compact('aircraftType', 'registration'));
     }
 
-    public function update(Request $request, Registration $registration)
+    public function update(Request $request, AircraftType $aircraftType, Registration $registration)
     {
-        $request->validate([
-            'registration' => 'required',
-            'max_takeoff_weight' => 'required|numeric',
+        $validated = $request->validate([
+            'registration_number' => 'required|string',
             'basic_weight' => 'required|numeric',
-            'deck_crew' => 'nullable|numeric',
-            'cabin_crew' => 'nullable|numeric',
-            'passenger_zones' => 'nullable|numeric',
-            'fuel_capacity' => 'nullable|numeric',
-            'fwd_cg_limit' => 'nullable|numeric',
-            'aft_cg_limit' => 'nullable|numeric',
+            'basic_index' => 'required|numeric',
         ]);
 
-        $registration->update($request->all());
-        return redirect()->route('registrations.show', $registration->id)->with('success', 'Registration updated successfully.');
+        $registration->update($validated);
+
+        return redirect()->route('aircraft_types.show', $aircraftType->id)->with('success', 'Registration updated successfully.');
     }
 
-    public function destroy(Registration $registration)
+    public function destroy(AircraftType $aircraftType, Registration $registration)
     {
         $registration->delete();
-        return redirect()->route('registrations.index')->with('success', 'Registration deleted successfully.');
+        return redirect()->route('aircraft_types.show',  $aircraftType->id)->with('success', 'Registration deleted successfully.');
     }
 }

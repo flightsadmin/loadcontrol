@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class AircraftType extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'aircraft_type',
+        'manufacturer',
+        'max_zero_fuel_weight',
+        'max_takeoff_weight',
+        'max_landing_weight',
+        'cabin_crew',
+        'deck_crew',
+        'passenger_zones',
+        'max_fuel_weight',
+        'fwd_cg_limit',
+        'aft_cg_limit'
+    ];
+
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
+    }
+}
