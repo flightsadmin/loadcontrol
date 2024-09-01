@@ -26,8 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('flights', FlightController::class);
     Route::resource('aircraft_types', AircraftTypeController::class);
     Route::resource('aircraft_types.registrations', RegistrationController::class)->shallow();
+    Route::resource('aircraft_types.holds', HoldController::class)->shallow();
     Route::resource('flights.loadsheets', LoadsheetController::class);
-    Route::resource('registrations.holds', HoldController::class)->shallow();
     Route::resource('registrations.envelopes', EnvelopeController::class);
     Route::resource('flights.cargos', CargoController::class)->shallow();
     Route::resource('flights.passengers', PassengerController::class)->shallow();

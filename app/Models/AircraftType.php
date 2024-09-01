@@ -27,4 +27,9 @@ class AircraftType extends Model
     {
         return $this->hasMany(Registration::class);
     }
+
+    public function holds()
+    {
+        return $this->hasMany(Hold::class);
+    }
 }

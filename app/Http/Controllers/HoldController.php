@@ -2,46 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AircraftType;
 use App\Models\Hold;
-use App\Models\Registration;
 use Illuminate\Http\Request;
 
 class HoldController extends Controller
 {
-    public function create(Registration $registration)
+    public function index(AircraftType $aircraftType)
     {
-        return view('hold.create', compact('registration'));
+        $holds = $aircraftType->holds;
+        return view('holds.index', compact('aircraftType', 'holds'));
     }
 
-    public function store(Request $request, $registration_id)
+    public function create(AircraftType $aircraftType)
+    {
+        return view('holds.create', compact('aircraftType'));
+    }
+
+    public function store(Request $request, AircraftType $aircraftType)
     {
         $validated = $request->validate([
-            'hold_no' => 'required|string|max:255',
+            'hold_no' => 'required|string',
             'fwd' => 'required|numeric',
             'aft' => 'required|numeric',
             'max' => 'required|numeric',
             'restrictions' => 'nullable|string',
         ]);
 
-        $validated['registration_id'] = $registration_id;
+        $aircraftType->holds()->create($validated);
 
-        Hold::create($validated);
-
-        return redirect()->route('registrations.show', $registration_id)->with('success', 'Hold created successfully.');
-    }
-    
-    public function edit($id)
-    {
-        $hold = Hold::findOrFail($id);
-        return view('hold.edit', compact('hold'));
+        return redirect()->route('aircraft_types.holds.index', $aircraftType)->with('success', 'Hold created successfully.');
     }
 
-    public function update(Request $request, $id)
+    public function show(Hold $hold)
     {
-        $hold = Hold::findOrFail($id);
+        $aircraftType = $hold->aircraftType;
+        return view('holds.show', compact('hold', 'aircraftType'));
+    }
 
+    public function edit(Hold $hold)
+    {
+        $aircraftType = $hold->aircraftType;
+        return view('holds.edit', compact('hold', 'aircraftType'));
+    }
+
+    public function update(Request $request, Hold $hold)
+    {
         $validated = $request->validate([
-            'hold_no' => 'required|string|max:255',
+            'hold_no' => 'required|string',
             'fwd' => 'required|numeric',
             'aft' => 'required|numeric',
             'max' => 'required|numeric',
@@ -50,14 +58,13 @@ class HoldController extends Controller
 
         $hold->update($validated);
 
-        return redirect()->route('registrations.show', $hold->registration_id)->with('success', 'Hold updated successfully.');
+        return redirect()->route('aircraft_types.holds.index', $hold->aircraftType)->with('success', 'Hold updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy(Hold $hold)
     {
-        $hold = Hold::findOrFail($id);
+        $aircraftType = $hold->aircraftType;
         $hold->delete();
-
-        return redirect()->route('registrations.show', $hold->registration_id)->with('success', 'Hold deleted successfully.');
+        return redirect()->route('aircraft_types.holds.index', $aircraftType)->with('success', 'Hold deleted successfully.');
     }
 }

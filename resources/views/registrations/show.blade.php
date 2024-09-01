@@ -27,7 +27,7 @@
                     <div class="list-group-item"><strong>Basic Weight:</strong> {{ $registration->basic_weight }} kg</div>
                     <div class="list-group-item"><strong>Basic Index:</strong> {{ $registration->basic_index }}</div>
                 </div>
-                <ul class="list-group col-md-6">
+                {{-- <ul class="list-group col-md-6">
                     @forelse ($registration->holds as $hold)
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between align-items-center">
@@ -49,7 +49,7 @@
                     @empty
                         <p>No holds available for this registration.</p>
                     @endforelse
-                </ul>
+                </ul> --}}
             </div>
             <div>
                 <a href="{{ route('registrations.envelopes.create', $registration->id) }}"

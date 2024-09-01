@@ -8,13 +8,11 @@ use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
 {
-    // Show the form to create a new registration
     public function create(AircraftType $aircraftType)
     {
         return view('registrations.create', compact('aircraftType'));
     }
 
-    // Store the new registration in the database
     public function store(Request $request, AircraftType $aircraftType)
     {
         $validated = $request->validate([
@@ -30,13 +28,11 @@ class RegistrationController extends Controller
         return redirect()->route('aircraft_types.show', $aircraftType->id)->with('success', 'Registration created successfully.');
     }
 
-    // Show the specific registration details
     public function show(Registration $registration)
     {
         return view('registrations.show', compact('registration'));
     }
 
-    // Show the form to edit a specific registration
     public function edit(Registration $registration)
     {
         return view('registrations.edit', compact('registration'));

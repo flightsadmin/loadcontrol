@@ -10,7 +10,7 @@ class Hold extends Model
     use HasFactory;
 
     protected $fillable = [
-        'registration_id',
+        'aircraft_type_id',
         'hold_no',
         'fwd',
         'aft',
@@ -18,8 +18,8 @@ class Hold extends Model
         'restrictions'
     ];
 
-    public function registration()
+    public function aircraftType()
     {
-        return $this->belongsTo(Registration::class);
+        return $this->belongsTo(AircraftType::class);
     }
 }

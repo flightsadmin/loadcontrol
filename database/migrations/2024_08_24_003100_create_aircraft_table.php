@@ -94,7 +94,7 @@ return new class extends Migration {
 
         Schema::create('holds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('registration_id')->constrained()->onDelete('cascade');
+            $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->string('hold_no');
             $table->float('fwd');
             $table->float('aft');

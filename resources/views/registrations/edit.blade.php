@@ -6,7 +6,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>Edit Aircraft Registration</h4>
-                    <a href="{{ route('registrations.update', $registration->id) }}"
+                    <a href="{{ route('aircraft_types.show', $registration->aircraftType->id) }}"
                         class="btn btn-secondary btn-sm bi-backspace float-end mt-0"> Back</a>
                 </div>
             </div>

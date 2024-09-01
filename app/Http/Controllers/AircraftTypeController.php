@@ -42,7 +42,8 @@ class AircraftTypeController extends Controller
     public function show(AircraftType $aircraftType)
     {
         $aircraftType->load('registrations');
-        return view('aircraft_types.show', compact('aircraftType'));
+        $holds = $aircraftType->holds;
+        return view('aircraft_types.show', compact('aircraftType', 'holds'));
     }
 
     public function edit(AircraftType $aircraftType)

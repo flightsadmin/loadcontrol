@@ -20,14 +20,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        AircraftType::factory(3)->create();
-        Registration::factory(10)->create()->each(function ($registration) {
+        AircraftType::factory(3)->create()->each(function ($value) {
             $faker = Faker::create();
             $previousFwd = 0;
             for ($i = 1; $i <= 5; $i++) {
                 $currentAft = $previousFwd + 20;
                 Hold::create([
-                    'registration_id' => $registration->id,
+                    'aircraft_type_id' => $value->id,
                     'hold_no' => 'H-' . str_pad($i, 3, '0', STR_PAD_LEFT),
                     'fwd' => $previousFwd,
                     'aft' => $currentAft,
@@ -37,6 +36,7 @@ class DatabaseSeeder extends Seeder
                 $previousFwd = $currentAft;
             }
         });
+        Registration::factory(10)->create();
 
         $data = [
             ['envelope_type' => 'ZFW', 'x' => 45, 'y' => 37],
@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
                 'zone' => rand(1, $id->registration->passenger_zones)
             ]);
         });
-        Cargo::factory(200)->create();
+        // Cargo::factory(200)->create();
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
