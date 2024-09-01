@@ -56,7 +56,7 @@ return new class extends Migration {
             $table->integer('taxi_fuel');
             $table->integer('trip_fuel');
             $table->string('crew');
-            $table->integer('pantry');
+            $table->string('pantry');
             $table->timestamps();
         });
 

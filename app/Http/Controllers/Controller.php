@@ -23,6 +23,5 @@ class Controller extends BaseController
             }
             $view->with('flights', $query->orderBy('departure')->simplePaginate());
         });
-        
     }
 }
