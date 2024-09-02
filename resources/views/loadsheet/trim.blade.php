@@ -65,6 +65,15 @@
                                         <span class="ms-3">TTL</span>
                                     </dd>
 
+                                    <dd class="col-sm-4">Compartment Loads</dd>
+                                    <dd class="col-sm-8">
+                                        @forelse (json_decode($flight->loadsheet->compartment_loads, true) as $compartment)
+                                            {{ ucfirst($compartment['hold_no']) }}/{{ $compartment['weight'] }}.
+                                        @empty
+                                            Nil
+                                        @endforelse
+                                    </dd>
+
                                     <dd class="col-sm-4">Total Traffic Load</dd>
                                     <dd class="col-sm-8">{{ $flight->loadsheet->total_traffic_load }}</dd>
 
@@ -97,15 +106,6 @@
                                         {{ $flight->loadsheet->landing_weight_actual }}
                                         <span class="ms-3 text-muted">MAX {{ $flight->registration->aircraftType->max_landing_weight }}</span>
                                         <span class="ms-4 text-muted">ADJ</span>
-                                    </dd>
-
-                                    <dd class="col-sm-4">Compartment Loads</dd>
-                                    <dd class="col-sm-8">
-                                        @forelse (json_decode($flight->loadsheet->compartment_loads, true) as $compartment => $weight)
-                                            {{ ucfirst($compartment) }}: {{ $weight }}<br>
-                                        @empty
-                                            Nil
-                                        @endforelse
                                     </dd>
                                 </dl>
                             </div>

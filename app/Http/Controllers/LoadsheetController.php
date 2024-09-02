@@ -62,10 +62,17 @@ class LoadsheetController extends Controller
         $landingWeightActual = $takeOffWeightActual - $tripFuel;
 
         // Calculate total deadload weight by hold
-        $compartmentLoads = $deadloads->groupBy('hold_id')->map(function ($typeGroup) {
-            return $typeGroup->sum('weight');
-        })->toJson();
+        // $compartmentLoadss = $deadloads->groupBy('hold_id')->map(function ($typeGroup) {
+        //     return $typeGroup->sum('weight');
+        // })->toJson();
 
+        $compartmentLoads = $deadloads->groupBy('hold_id')->map(function ($group) {
+            $totalWeight = $group->sum('weight');
+            $holdNo = $group->first()->hold->hold_no; // Assuming 'hold' is the relationship
+            return ['hold_no' => $holdNo, 'weight' => $totalWeight];
+        })->sortBy('hold_no')->values()->toJson();
+
+        // dd($compartmentLoadss, $compartmentLoads);
         // Calculate passenger distribution by gender
         $passengerDistribution = $passengers->groupBy('type')->map(function ($paxGroup) {
             return $paxGroup->sum('count');
@@ -106,7 +113,7 @@ class LoadsheetController extends Controller
         $zfwEnvelope = $envelopes->get('ZFW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
         $towEnvelope = $envelopes->get('TOW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
         $ldwEnvelope = $envelopes->get('LDW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
-        
+
         return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'ldwEnvelope'));
     }
 }

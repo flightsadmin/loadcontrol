@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
                 $currentAft = $previousFwd + 20;
                 Hold::create([
                     'aircraft_type_id' => $value->id,
-                    'hold_no' => 'H-' . str_pad($i, 3, '0', STR_PAD_LEFT),
+                    'hold_no' => str_pad($i, 2, '0', STR_PAD_LEFT),
                     'fwd' => $previousFwd,
                     'aft' => $currentAft,
                     'max' => $faker->numberBetween(1400, 2300),

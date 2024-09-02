@@ -7,7 +7,7 @@
                 </div>
                 <div class="card-body p-4" style="height: 520px; overflow-y: auto;">
                     @foreach ($messages as $message)
-                        <div class="d-flex {{ auth()->id() === $message->user_id ? 'justify-content-end' : 'justify-content-start' }} mb-2">
+                        <div class="small d-flex {{ auth()->id() === $message->user_id ? 'justify-content-end' : 'justify-content-start' }} mb-2">
                             <div
                                 class="d-flex flex-column {{ auth()->id() === $message->user_id ? 'align-items-end' : 'align-items-start' }}">
                                 <div class="rounded p-2 {{ auth()->id() === $message->user_id ? 'bg-secondary-subtle' : 'bg-primary-subtle' }}">

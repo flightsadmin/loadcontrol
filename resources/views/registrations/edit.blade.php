@@ -17,7 +17,7 @@
                     @csrf
                     @method('PUT')
                     <div class="col-6 mb-3">
-                        <label for="registration_number" class="form-label">Registration Code</label>
+                        <label for="registration_number" class="form-label">Registration Number</label>
                         <input type="text" name="registration_number" id="registration_number"
                             class="form-control @error('registration_number') is-invalid @enderror"
                             value="{{ $registration->registration_number }}">

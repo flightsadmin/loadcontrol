@@ -4,7 +4,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-sm mb-0">
+                        <table class="table table-sm table-borderless mb-0">
                             <tbody>
                                 <tr>
                                     <td>LOADSHEET</td>
@@ -20,7 +20,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-sm mb-1">
+                        <table class="table table-sm table-borderless mb-1">
                             <tbody>
                                 <tr>
                                     <td>FROM/TO</td>
@@ -44,7 +44,7 @@
                         </table>
 
                         <dl class="row">
-                            <dt class="col-sm-4">Passenger / Cabin Bag</dt>
+                            <dd class="col-sm-4">Passenger / Cabin Bag</dd>
                             <dd class="col-sm-8">
                                 @forelse (json_decode($flight->loadsheet->passenger_distribution, true) as $type => $count)
                                     {{ $count . '/' }}
@@ -54,43 +54,53 @@
                                 <span class="ms-3">TTL</span>
                             </dd>
 
-                            <dt class="col-sm-4">Total Traffic Load</dt>
+                            <dd class="col-sm-4">Compartment Loads</dd>
+                            <dd class="col-sm-8">
+                                @forelse (json_decode($flight->loadsheet->compartment_loads, true) as $compartment)
+                                    {{ ucfirst($compartment['hold_no']) }}/{{ $compartment['weight'] }}.
+                                @empty
+                                    Nil
+                                @endforelse
+                            </dd>
+
+                            <dd class="col-sm-4">Total Traffic Load</dd>
                             <dd class="col-sm-8">{{ $flight->loadsheet->total_traffic_load }}</dd>
 
-                            <dt class="col-sm-4">Dry Operating Weight</dt>
+                            <dd class="col-sm-4">Dry Operating Weight</dd>
                             <dd class="col-sm-8">{{ $flight->loadsheet->dry_operating_weight }}</dd>
 
-                            <dt class="col-sm-4">Zero Fuel Weight Actual</dt>
+                            <dd class="col-sm-4">Zero Fuel Weight Actual</dd>
                             <dd class="col-sm-8 d-flex align-items-center">
                                 {{ $flight->loadsheet->zero_fuel_weight_actual }}
-                                <span class="ms-3 text-muted">MAX {{ $flight->registration->aircraftType->max_zero_fuel_weight }}</span>
+                                <span class="ms-3 text-muted">MAX
+                                    {{ $flight->registration->aircraftType->max_zero_fuel_weight }}</span>
                                 <span class="ms-4 text-muted">ADJ</span>
                             </dd>
 
-                            <dt class="col-sm-4">Takeoff Fuel</dt>
+                            <dd class="col-sm-4">Takeoff Fuel</dd>
                             <dd class="col-sm-8">{{ $flight->loadsheet->take_off_fuel }}</dd>
 
-                            <dt class="col-sm-4">Takeoff Weight Actual</dt>
+                            <dd class="col-sm-4">Takeoff Weight Actual</dd>
                             <dd class="col-sm-8 d-flex align-items-center">
                                 {{ $flight->loadsheet->take_off_weight_actual }}
                                 <span class="ms-3 text-muted">MAX {{ $flight->registration->aircraftType->max_takeoff_weight }}</span>
                                 <span class="ms-4 text-muted">ADJ</span>
                             </dd>
 
-                            <dt class="col-sm-4">Trip Fuel</dt>
+                            <dd class="col-sm-4">Trip Fuel</dd>
                             <dd class="col-sm-8">{{ $flight->loadsheet->trip_fuel }}</dd>
 
-                            <dt class="col-sm-4">Landing Weight Actual</dt>
+                            <dd class="col-sm-4">Landing Weight Actual</dd>
                             <dd class="col-sm-8 d-flex align-items-center">
                                 {{ $flight->loadsheet->landing_weight_actual }}
                                 <span class="ms-3 text-muted">MAX {{ $flight->registration->aircraftType->max_landing_weight }}</span>
                                 <span class="ms-4 text-muted">ADJ</span>
                             </dd>
 
-                            <dt class="col-sm-4">Compartment Loads</dt>
+                            <dd class="col-sm-4">Compartment Loads</dd>
                             <dd class="col-sm-8">
-                                @forelse (json_decode($flight->loadsheet->compartment_loads, true) as $compartment => $weight)
-                                    {{ ucfirst($compartment) }}: {{ $weight }}<br>
+                                @forelse (json_decode($flight->loadsheet->compartment_loads, true) as $compartment)
+                                    {{ ucfirst($compartment['hold_no']) }}/{{ $compartment['weight'] }}.
                                 @empty
                                     Nil
                                 @endforelse

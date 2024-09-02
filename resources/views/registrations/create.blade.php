@@ -14,7 +14,7 @@
                 <form class="row" action="{{ route('aircraft_types.registrations.store', $aircraftType->id) }}" method="POST">
                     @csrf
                     <div class="col-6 mb-3">
-                        <label for="registration_number" class="form-label">Registration Code</label>
+                        <label for="registration_number" class="form-label">Registration Number</label>
                         <input type="text" name="registration_number" id="registration_number"
                             class="form-control @error('registration_number') is-invalid @enderror"
                             value="{{ old('registration_number') }}">
