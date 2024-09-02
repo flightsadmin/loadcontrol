@@ -73,18 +73,18 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($data as $point) {
-            Registration::all()->each(function ($registration) use ($point) {
-                $registration->envelopes()->create($point);
+            AircraftType::all()->each(function ($aircraft) use ($point) {
+                $aircraft->envelopes()->create($point);
             });
         }
 
-        Flight::factory(10)->create()->each(function ($id_no) {
+        Flight::factory(50)->create()->each(function ($id_no) {
             FuelFigure::factory(1)->create([
                 'flight_id' => $id_no
             ]);
-            Passenger::factory(2)->create([
+            Passenger::factory(1)->create([
                 'flight_id' => $id_no,
-                'zone' => rand(1, $id_no->registration->aircraftType->passenger_zones)
+                // 'zone' => rand(1, $id_no->registration->aircraftType->passenger_zones)
             ]);
             Cargo::factory(5)->create([
                 'flight_id' => $id_no,

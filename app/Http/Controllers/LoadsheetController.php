@@ -100,8 +100,8 @@ class LoadsheetController extends Controller
 
     public function show(Flight $flight)
     {
-        $flight = $flight->load('registration.envelopes');
-        $envelopes = $flight->registration->envelopes->groupBy('envelope_type');
+        $flight = $flight->load('registration.aircraftType');
+        $envelopes = $flight->registration->aircraftType->envelopes->groupBy('envelope_type');
 
         $zfwEnvelope = $envelopes->get('ZFW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
         $towEnvelope = $envelopes->get('TOW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();

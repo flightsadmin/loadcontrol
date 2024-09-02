@@ -24,7 +24,7 @@ class AircraftTypeFactory extends Factory
             'max_landing_weight' => $this->faker->numberBetween(55000, 58000),
             'deck_crew' => $this->faker->numberBetween(2, 4),
             'cabin_crew' => $this->faker->numberBetween(4, 8),
-            'passenger_zones' => $this->faker->numberBetween(3, 5),
+            'passenger_zones' => 3,
             'max_fuel_weight' => $this->faker->numberBetween(1500, 18000),
             'fwd_cg_limit' => $this->faker->numberBetween(20, 23),
             'aft_cg_limit' => $this->faker->numberBetween(30, 33),

@@ -3,26 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Envelope;
-use App\Models\Registration;
+use App\Models\AircraftType;
 use Illuminate\Http\Request;
 
 class EnvelopeController extends Controller
 {
-    // Display a listing of envelopes for a specific registration
-    public function index(Registration $registration)
+    public function index(AircraftType $aircraftType)
     {
-        $envelopes = $registration->envelopes;
-        return view('envelopes.index', compact('envelopes', 'registration'));
+        $envelopes = $aircraftType->envelopes;
+        return view('envelopes.index', compact('envelopes', 'aircraftType'));
     }
 
-    // Show the form for creating a new envelope
-    public function create(Registration $registration)
+    public function create(AircraftType $aircraftType)
     {
-        return view('envelopes.create', compact('registration'));
+        return view('envelopes.create', compact('aircraftType'));
     }
 
-    // Store a newly created envelope in the database
-    public function store(Request $request, Registration $registration)
+    public function store(Request $request, AircraftType $aircraftType)
     {
         $validated = $request->validate([
             'envelope_type' => 'required|string|max:255',
@@ -30,19 +27,23 @@ class EnvelopeController extends Controller
             'y' => 'required|numeric',
         ]);
 
-        $registration->envelopes()->create($validated);
+        $aircraftType->envelopes()->create($validated);
 
-        return redirect()->route('registrations.envelopes.index', $registration)->with('success', 'Envelope created successfully.');
+        return redirect()->route('aircraft_types.envelopes.index', $aircraftType->id)
+            ->with('success', 'Envelope created successfully!');
     }
 
-    // Show the form for editing an existing envelope
-    public function edit(Registration $registration, Envelope $envelope)
+    public function show(AircraftType $aircraftType, Envelope $envelope)
     {
-        return view('envelopes.edit', compact('registration', 'envelope'));
+        return view('envelopes.show', compact('envelope', 'aircraftType'));
     }
 
-    // Update the specified envelope in the database
-    public function update(Request $request, Registration $registration, Envelope $envelope)
+    public function edit(AircraftType $aircraftType, Envelope $envelope)
+    {
+        return view('envelopes.edit', compact('envelope', 'aircraftType'));
+    }
+
+    public function update(Request $request, AircraftType $aircraftType, Envelope $envelope)
     {
         $validated = $request->validate([
             'envelope_type' => 'required|string|max:255',
@@ -52,14 +53,15 @@ class EnvelopeController extends Controller
 
         $envelope->update($validated);
 
-        return redirect()->route('registrations.envelopes.index', $registration)->with('success', 'Envelope updated successfully.');
+        return redirect()->route('aircraft_types.envelopes.show', [$aircraftType->id, $envelope->id])
+            ->with('success', 'Envelope updated successfully!');
     }
 
-    // Delete the specified envelope from the database
-    public function destroy(Registration $registration, Envelope $envelope)
+    public function destroy(AircraftType $aircraftType, Envelope $envelope)
     {
         $envelope->delete();
 
-        return redirect()->route('registrations.envelopes.index', $registration)->with('success', 'Envelope deleted successfully.');
+        return redirect()->route('aircraft_types.envelopes.index', $aircraftType->id)
+            ->with('success', 'Envelope deleted successfully!');
     }
 }

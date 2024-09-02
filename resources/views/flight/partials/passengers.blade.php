@@ -15,9 +15,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (range(1, $flight->registration->aircraftType->passenger_zones) as $zone)
+                    @foreach (['A', 'B', 'C'] as $zone)
                         <tr>
-                            <td>Zone {{ $zone }}</td>
+                            <td>Zone O{{ $zone }}</td>
                             @foreach (['male', 'female', 'child', 'infant'] as $type)
                                 <td>
                                     @php

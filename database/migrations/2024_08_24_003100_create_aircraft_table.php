@@ -85,7 +85,7 @@ return new class extends Migration {
 
         Schema::create('envelopes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('registration_id')->constrained()->onDelete('cascade');
+            $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->string('envelope_type');
             $table->decimal('x', 5, 2);
             $table->decimal('y', 5, 2);

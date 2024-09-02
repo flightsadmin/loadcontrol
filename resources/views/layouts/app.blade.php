@@ -91,9 +91,9 @@
                             </div>
                         </div>
                     </nav>
-
                 @endauth
-                <main class="col-md-9 ms-sm-auto col-lg-10 px-4 vh-100">
+
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-4 vh-100 overflow-auto">
                     @yield('content')
                 </main>
             </div>

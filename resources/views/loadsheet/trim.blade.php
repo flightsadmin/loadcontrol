@@ -15,7 +15,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <table class="table table-sm mb-0">
+                                <table class="table table-sm table-borderless mb-0">
                                     <tbody>
                                         <tr>
                                             <td>LOADSHEET</td>
@@ -31,7 +31,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <table class="table table-sm mb-1">
+                                <table class="table table-sm table-borderless mb-1">
                                     <tbody>
                                         <tr>
                                             <td>FROM/TO</td>
@@ -74,7 +74,8 @@
                                     <dd class="col-sm-4">Zero Fuel Weight Actual</dd>
                                     <dd class="col-sm-8 d-flex align-items-center">
                                         {{ $flight->loadsheet->zero_fuel_weight_actual }}
-                                        <span class="ms-3 text-muted">MAX {{ $flight->registration->aircraftType->max_zero_fuel_weight }}</span>
+                                        <span class="ms-3 text-muted">MAX
+                                            {{ $flight->registration->aircraftType->max_zero_fuel_weight }}</span>
                                         <span class="ms-4 text-muted">ADJ</span>
                                     </dd>
 

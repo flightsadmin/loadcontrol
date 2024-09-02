@@ -3,7 +3,10 @@
 @section('content')
     <div class="container-fluid">
         @isset($flight)
-            <div class="mt-2">
+            <div class="mt-2 position-relative">
+                <a href="{{ route('aircraft_types.index') }}" class="btn btn-sm btn-primary bi-gear-wide-connected position-absolute top-0 end-0">
+                    Settings
+                </a>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link bi-airplane-engines-fill" id="flight-tab" data-bs-toggle="tab" href="#flight" role="tab"

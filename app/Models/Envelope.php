@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Envelope extends Model
 {
-    protected $fillable = ['registration_id', 'envelope_type', 'x', 'y'];
+    protected $fillable = ['aircraft_type_id', 'envelope_type', 'x', 'y'];
 
-    public function registration()
+    public function aircraftType()
     {
-        return $this->belongsTo(Registration::class);
+        return $this->belongsTo(AircraftType::class);
     }
 }

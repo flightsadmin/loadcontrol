@@ -32,4 +32,9 @@ class AircraftType extends Model
     {
         return $this->hasMany(Hold::class);
     }
+
+    public function envelopes()
+    {
+        return $this->hasMany(Envelope::class);
+    }
 }

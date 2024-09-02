@@ -20,7 +20,7 @@ class PassengerFactory extends Factory
             'flight_id' => \App\Models\Flight::inRandomOrder()->first()->id,
             'type' => $this->faker->randomElement(['male', 'female', 'child', 'infant']),
             'count' => $this->faker->numberBetween(1, 50),
-            'zone' => $this->faker->numberBetween(1, 4),
+            'zone' => $this->faker->randomElement(['A', 'B', 'C']),
         ];
     }
 }

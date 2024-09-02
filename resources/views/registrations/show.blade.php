@@ -28,10 +28,6 @@
                     <div class="list-group-item"><strong>Basic Index:</strong> {{ $registration->basic_index }}</div>
                 </div>
             </div>
-            <div>
-                <a href="{{ route('registrations.envelopes.create', $registration->id) }}"
-                    class="btn btn-primary btn-sm mt-4 bi-plus-lg"> Add Envelope</a>
-            </div>
         </div>
     </div>
 @endsection

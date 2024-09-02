@@ -2,10 +2,16 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="card mt-4">
+        <div class="card my-4">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>{{ $aircraftType->manufacturer }} - {{ $aircraftType->aircraft_type }}</h4>
+                    <a href="{{ route('aircraft_types.envelopes.index', $aircraftType->id) }}"
+                        class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Envelope</a>
+                    <a href="{{ route('aircraft_types.holds.create', $aircraftType->id) }}"
+                        class="btn btn-primary btn-sm mb-0 bi-plus-lg"> Add New Hold</a>
+                    <a href="{{ route('aircraft_types.registrations.create', $aircraftType->id) }}"
+                        class="btn btn-primary btn-sm mb-0 float-end bi-plus-lg"> Add New Registration</a>
                     <a href="{{ route('aircraft_types.index') }}"
                         class="btn btn-secondary btn-sm bi-backspace float-end mt-0"> Back</a>
                 </div>
@@ -17,8 +23,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4>Associated Registrations</h4>
-                                    <a href="{{ route('aircraft_types.registrations.create', $aircraftType->id) }}"
-                                        class="btn btn-primary btn-sm mb-2 float-end bi-plus-lg"> Add New Registration</a>
+                                    <span class="bi-card-list h5"></span>
                                 </div>
                                 @if ($aircraftType->registrations->isEmpty())
                                     <p>No registrations found.</p>
@@ -65,8 +70,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Holds</h5>
-                                    <a href="{{ route('aircraft_types.holds.create', $aircraftType->id) }}"
-                                        class="btn btn-primary btn-sm mb-3 bi-plus-lg"> Add New Hold</a>
+                                    <span class="bi-back h5"></span>
                                 </div>
                                 <ul class="list-group">
                                     @forelse ($holds as $hold)
