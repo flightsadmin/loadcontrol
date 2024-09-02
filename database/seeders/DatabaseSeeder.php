@@ -35,8 +35,10 @@ class DatabaseSeeder extends Seeder
                 ]);
                 $previousFwd = $currentAft;
             }
+            Registration::factory(5)->create([
+                'aircraft_type_id' => $value
+            ]);
         });
-        Registration::factory(10)->create();
 
         $data = [
             ['envelope_type' => 'ZFW', 'x' => 45, 'y' => 37],
@@ -84,8 +86,11 @@ class DatabaseSeeder extends Seeder
                 'flight_id' => $id_no,
                 'zone' => rand(1, $id_no->registration->aircraftType->passenger_zones)
             ]);
+            Cargo::factory(5)->create([
+                'flight_id' => $id_no,
+                'hold_id' => null //$id_no->registration->aircraftType->holds->random()->id
+            ]);
         });
-        // Cargo::factory(200)->create();
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

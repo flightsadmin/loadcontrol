@@ -35,7 +35,7 @@
                         <label for="hold_id" class="form-label">Position (Hold)</label>
                         <select id="hold_id" name="hold_id" class="form-select">
                             <option value="">Select Hold</option>
-                            @foreach ($flight->registration->holds as $hold)
+                            @foreach ($flight->registration->aircraftType->holds as $hold)
                                 <option value="{{ $hold->id }}">{{ $hold->hold_no }}</option>
                             @endforeach
                         </select>

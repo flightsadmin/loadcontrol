@@ -40,7 +40,7 @@ class CargoController extends Controller
     public function edit(Cargo $cargo)
     {
         $flight = $cargo->flight;
-        $holds = $flight->registration->holds;
+        $holds = $flight->registration->aircraftType->holds;
         return view('cargo.edit', compact('cargo', 'flight', 'holds'));
     }
 

@@ -17,11 +17,9 @@ class CargoFactory extends Factory
     public function definition(): array
     {
         $flight = \App\Models\Flight::inRandomOrder()->first();
-        $holds = $flight->registration->holds;
-
         return [
             'flight_id' => $flight->id,
-            'hold_id' => $holds->random()->id,
+            'hold_id' => null,
             'type' => $this->faker->randomElement(['baggage', 'cargo', 'mail']),
             'pieces' => $this->faker->numberBetween(50, 500),
             'weight' => $this->faker->numberBetween(2000, 5000),
