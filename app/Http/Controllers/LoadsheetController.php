@@ -40,30 +40,27 @@ class LoadsheetController extends Controller
 
         $totalDeadloadWeight = $deadloads->sum('weight');
 
-        $totalCrewWeight = 0;
-        if ($fuelFigure && $fuelFigure->crew) {
-            $crewCounts = explode('/', $fuelFigure->crew);
-            $deckCrewCount = (int) ($crewCounts[0] ?? 0);
-            $cabinCrewCount = (int) ($crewCounts[1] ?? 0);
-            $deckCrewWeight = $deckCrewCount * 85;
-            $cabinCrewWeight = $cabinCrewCount * 75;
+        $pantryWeight = $flight->fuelFigure->pantry = 'A' ? setting('pantry_a') : setting('pantry_b');
 
-            $totalCrewWeight = $deckCrewWeight + $cabinCrewWeight;
-        }
+        $standard_crew = [setting('deck_crew_weight'), setting('cabin_crew_weight')];
+        $totalCrewWeight = collect(explode('/', $fuelFigure->crew ?? ''))->map(function ($crew, $index) use ($standard_crew) {
+            $crewCount = (int) $crew;
+            return $crewCount * ($standard_crew[$index] ?? 0);
+        })->sum();
 
-        $dryOperatingWeight = $flight->registration->basic_weight + $totalCrewWeight;
+        $dryOperatingWeight = $flight->registration->basic_weight + $totalCrewWeight + $pantryWeight;
 
-        $takeOffFuel = $fuelFigure->block_fuel ?? 0;
+        $blockFuel = $fuelFigure->block_fuel ?? 0;
         $taxiFuel = $fuelFigure->taxi_fuel ?? 0;
         $tripFuel = $fuelFigure->trip_fuel ?? 0;
 
         $zeroFuelWeightActual = $dryOperatingWeight + $totalPassengerWeight + $totalDeadloadWeight;
-        $takeOffWeightActual = $zeroFuelWeightActual + $takeOffFuel - $taxiFuel;
+        $takeOffWeightActual = $zeroFuelWeightActual + $blockFuel - $taxiFuel;
         $landingWeightActual = $takeOffWeightActual - $tripFuel;
 
-        $compartmentLoads = $deadloads->groupBy('hold_id')->map(function ($group) {
-            $totalWeight = $group->sum('weight');
-            $hold = $group->first()->hold;
+        $compartmentLoads = $deadloads->groupBy('hold_id')->map(function ($cargoGroup) {
+            $totalWeight = $cargoGroup->sum('weight');
+            $hold = $cargoGroup->first()->hold;
             $holdNo = $hold->hold_no;
             $weightPerKg = $hold->index_per_kg ?? 0;
 
@@ -93,7 +90,7 @@ class LoadsheetController extends Controller
                 'total_traffic_load' => $totalPassengerWeight + $totalDeadloadWeight,
                 'dry_operating_weight' => $dryOperatingWeight,
                 'zero_fuel_weight_actual' => $zeroFuelWeightActual,
-                'take_off_fuel' => $takeOffFuel - $taxiFuel,
+                'take_off_fuel' => $blockFuel - $taxiFuel,
                 'take_off_weight_actual' => $takeOffWeightActual,
                 'trip_fuel' => $tripFuel,
                 'landing_weight_actual' => $landingWeightActual,
