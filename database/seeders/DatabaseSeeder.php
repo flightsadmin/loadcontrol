@@ -91,6 +91,13 @@ class DatabaseSeeder extends Seeder
                 'hold_id' => null //$id_no->registration->aircraftType->holds->random()->id
             ]);
         });
+        // Default App Setting
+        foreach (config("config.default") as $key => $value) {
+            \App\Models\Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value],
+            );
+        }
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

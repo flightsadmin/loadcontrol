@@ -24,8 +24,9 @@ class HoldController extends Controller
         $validated = $request->validate([
             'hold_no' => 'required|string',
             'fwd' => 'required|numeric',
-            'aft' => 'required|numeric',
-            'max' => 'required|numeric',
+            'aft' => 'nullable|numeric',
+            'max' => 'nullable|numeric',
+            'index_per_kg' => 'nullable|numeric',
             'restrictions' => 'nullable|string',
         ]);
 
@@ -51,8 +52,9 @@ class HoldController extends Controller
         $validated = $request->validate([
             'hold_no' => 'required|string',
             'fwd' => 'required|numeric',
-            'aft' => 'required|numeric',
-            'max' => 'required|numeric',
+            'aft' => 'nullable|numeric',
+            'max' => 'nullable|numeric',
+            'index_per_kg' => 'nullable|numeric',
             'restrictions' => 'nullable|string',
         ]);
 

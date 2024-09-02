@@ -10,6 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
+        Schema::create('settings', function (Blueprint $table) {
+            $table->id();
+            $table->string('key', 50)->unique();
+            $table->string('value', 100)->nullable();
+            $table->timestamps();
+        });
+        
         Schema::create('aircraft_types', function (Blueprint $table) {
             $table->id();
             $table->string('aircraft_type');
@@ -96,9 +103,10 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->string('hold_no');
-            $table->float('fwd');
-            $table->float('aft');
-            $table->float('max');
+            $table->float('fwd')->nullable();
+            $table->float('aft')->nullable();
+            $table->float('max')->nullable();
+            $table->decimal('index_per_kg', 5, 5)->nullable();
             $table->text('restrictions')->nullable();
             $table->timestamps();
         });

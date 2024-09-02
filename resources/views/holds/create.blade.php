@@ -1,5 +1,3 @@
-<!-- resources/views/holds/create.blade.php -->
-
 @extends('layouts.app')
 
 @section('content')
@@ -13,19 +11,24 @@
                     @csrf
                     <div class="mb-3">
                         <label for="hold_no" class="form-label">Hold Number</label>
-                        <input type="number" id="hold_no" name="hold_no" class="form-control" value="{{ old('hold_no') }}" required>
+                        <input type="number" id="hold_no" name="hold_no" class="form-control" value="{{ old('hold_no') }}">
                     </div>
                     <div class="mb-3">
                         <label for="fwd" class="form-label">Forward Distance</label>
-                        <input type="number" id="fwd" name="fwd" class="form-control" value="{{ old('fwd') }}" required>
+                        <input type="number" id="fwd" name="fwd" class="form-control" value="{{ old('fwd') }}">
                     </div>
                     <div class="mb-3">
                         <label for="aft" class="form-label">Aft Distance</label>
-                        <input type="number" id="aft" name="aft" class="form-control" value="{{ old('aft') }}" required>
+                        <input type="number" id="aft" name="aft" class="form-control" value="{{ old('aft') }}">
                     </div>
                     <div class="mb-3">
                         <label for="max" class="form-label">Maximum Weight</label>
-                        <input type="number" id="max" name="max" class="form-control" value="{{ old('max') }}" required>
+                        <input type="number" id="max" name="max" class="form-control" value="{{ old('max') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="index_per_kg" class="form-label">Index per KG</label>
+                        <input type="number" id="index_per_kg" name="index_per_kg" class="form-control" step="any"
+                            value="{{ old('index_per_kg') }}">
                     </div>
                     <div class="mb-3">
                         <label for="restrictions" class="form-label">Restrictions</label>

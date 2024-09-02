@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HoldController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\FlightController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\EnvelopeController;
 use App\Http\Controllers\LoadsheetController;
 use App\Http\Controllers\PassengerController;
@@ -17,8 +18,9 @@ Route::get('/database', function () {
     Artisan::call('db:seed');
     return redirect()->back()->with('success', 'Database migrated and seeded successfully!');
 })->name('migrate.fresh.seed');
+Route::get('import', [ImportController::class, 'showForm'])->name('import.form');
+Route::post('import', [ImportController::class, 'import'])->name('import');
 
-Route::post('/cargos/{cargo}/update-hold', [CargoController::class, 'updateHold'])->name('cargos.update-hold');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('/', FlightController::class);
@@ -32,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('aircraft_types.holds', HoldController::class)->shallow();
     Route::resource('aircraft_types.envelopes', EnvelopeController::class)->shallow();
     Route::resource('aircraft_types.registrations', RegistrationController::class)->shallow();
+    Route::post('/cargos/{cargo}/update-hold', [CargoController::class, 'updateHold'])->name('cargos.update-hold');
 });
 
 Auth::routes();

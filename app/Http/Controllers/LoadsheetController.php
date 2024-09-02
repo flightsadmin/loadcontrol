@@ -61,19 +61,20 @@ class LoadsheetController extends Controller
         $takeOffWeightActual = $zeroFuelWeightActual + $takeOffFuel - $taxiFuel;
         $landingWeightActual = $takeOffWeightActual - $tripFuel;
 
-        // Calculate total deadload weight by hold
-        // $compartmentLoadss = $deadloads->groupBy('hold_id')->map(function ($typeGroup) {
-        //     return $typeGroup->sum('weight');
-        // })->toJson();
-
         $compartmentLoads = $deadloads->groupBy('hold_id')->map(function ($group) {
             $totalWeight = $group->sum('weight');
-            $holdNo = $group->first()->hold->hold_no; // Assuming 'hold' is the relationship
-            return ['hold_no' => $holdNo, 'weight' => $totalWeight];
-        })->sortBy('hold_no')->values()->toJson();
+            $hold = $group->first()->hold;
+            $holdNo = $hold->hold_no;
+            $weightPerKg = $hold->weight_per_kg ?? -0.000122;
 
-        // dd($compartmentLoadss, $compartmentLoads);
-        // Calculate passenger distribution by gender
+            $index = $totalWeight * ($hold->fwd - $hold->aft) / ($weightPerKg * 1000);
+
+            return [
+                'hold_no' => $holdNo,
+                'weight' => $totalWeight,
+                'index' => $index
+            ];
+        })->sortBy('hold_no')->values()->toJson();
         $passengerDistribution = $passengers->groupBy('type')->map(function ($paxGroup) {
             return $paxGroup->sum('count');
         })->toArray();

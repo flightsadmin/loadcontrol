@@ -24,6 +24,7 @@
                                 <th>Forward Distance</th>
                                 <th>Aft Distance</th>
                                 <th>Maximun</th>
+                                <th>Index Per Kg</th>
                                 <th>Restrictions</th>
                                 <th>Actions</th>
                             </tr>
@@ -35,6 +36,7 @@
                                     <td>{{ $hold->fwd }}</td>
                                     <td>{{ $hold->aft }}</td>
                                     <td>{{ $hold->max }}</td>
+                                    <td>{{ $hold->index_per_kg }}</td>
                                     <td>{{ $hold->restrictions }}</td>
                                     <td>
                                         <a href="{{ route('holds.show', $hold->id) }}" class="btn btn-info btn-sm bi-eye"></a>

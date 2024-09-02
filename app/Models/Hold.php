@@ -15,6 +15,7 @@ class Hold extends Model
         'fwd',
         'aft',
         'max',
+        'index_per_kg',
         'restrictions'
     ];
 
