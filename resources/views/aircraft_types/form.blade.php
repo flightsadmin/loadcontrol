@@ -73,15 +73,6 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="col-md-4">
-        <label for="passenger_zones" class="form-label">Passenger Zones</label>
-        <input type="number" name="passenger_zones" id="passenger_zones"
-            class="form-control @error('passenger_zones') is-invalid @enderror"
-            value="{{ old('passenger_zones', $aircraftType->passenger_zones ?? '') }}">
-        @error('passenger_zones')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
 </div>
 
 <div class="row mb-3">

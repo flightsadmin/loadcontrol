@@ -36,7 +36,7 @@
                                     <td>{{ $hold->fwd }}</td>
                                     <td>{{ $hold->aft }}</td>
                                     <td>{{ $hold->max }}</td>
-                                    <td>{{ $hold->index_per_kg }}</td>
+                                    <td>{{ $hold->index }}</td>
                                     <td>{{ $hold->restrictions }}</td>
                                     <td>
                                         <a href="{{ route('holds.show', $hold->id) }}" class="btn btn-info btn-sm bi-eye"></a>

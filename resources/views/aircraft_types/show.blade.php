@@ -10,6 +10,8 @@
                         class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Envelope</a>
                     <a href="{{ route('aircraft_types.holds.create', $aircraftType->id) }}"
                         class="btn btn-primary btn-sm mb-0 bi-plus-lg"> Add New Hold</a>
+                    <a href="{{ route('aircraft_types.cabin_zones.create', $aircraftType->id) }}"
+                        class="btn btn-primary btn-sm bi-plus-lg mt-0"> Add Cabin Zone</a>
                     <a href="{{ route('aircraft_types.registrations.create', $aircraftType->id) }}"
                         class="btn btn-primary btn-sm mb-0 float-end bi-plus-lg"> Add New Registration</a>
                     <a href="{{ route('aircraft_types.index') }}"

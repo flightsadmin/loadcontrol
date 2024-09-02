@@ -15,26 +15,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (['A', 'B', 'C'] as $zone)
+                    @foreach ($flight->registration->aircraftType->cabinZones as $zone)
                         <tr>
-                            <td>Zone O{{ $zone }}</td>
+                            <td>Zone O {{ $zone->zone_name }}</td>
                             @foreach (['male', 'female', 'child', 'infant'] as $type)
                                 <td>
                                     @php
-                                        $count = $flight->passengers->where('zone', $zone)->where('type', $type)->sum('count');
+                                        $count = $flight->passengers->where('zone', $zone->zone_name)->where('type', $type)->sum('count');
                                     @endphp
                                     {{ $count }}
                                 </td>
                             @endforeach
                             <td class="fw-bold">
                                 @php
-                                    $total = $flight->passengers->where('zone', $zone)->sum('count');
+                                    $total = $flight->passengers->where('zone', $zone->zone_name)->sum('count');
                                 @endphp
                                 {{ $total }}
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addPassengerModal"
-                                    data-zone="{{ $zone }}">Add/Update</button>
+                                    data-zone="{{ $zone->zone_name }}"> Add/Update</button>
                             </td>
                         </tr>
                     @endforeach
@@ -85,7 +85,7 @@
                                     <label for="count" class="form-label">Count</label>
                                     <input type="number" class="form-control" name="count" id="count" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary bi-floppy-fill float-end"> Save</button>
+                                <button type="submit" class="btn btn-sm btn-primary bi-floppy-fill float-end"> Save</button>
                             </form>
                         </div>
                     </div>

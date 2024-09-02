@@ -17,7 +17,6 @@ class AircraftType extends Model
         'max_landing_weight',
         'cabin_crew',
         'deck_crew',
-        'passenger_zones',
         'max_fuel_weight',
         'fwd_cg_limit',
         'aft_cg_limit'
@@ -36,5 +35,10 @@ class AircraftType extends Model
     public function envelopes()
     {
         return $this->hasMany(Envelope::class);
+    }
+
+    public function cabinZones()
+    {
+        return $this->hasMany(CabinZone::class);
     }
 }

@@ -26,9 +26,9 @@
                         <input type="number" id="max" name="max" class="form-control" value="{{ old('max') }}">
                     </div>
                     <div class="mb-3">
-                        <label for="index_per_kg" class="form-label">Index per KG</label>
-                        <input type="number" id="index_per_kg" name="index_per_kg" class="form-control" step="any"
-                            value="{{ old('index_per_kg') }}">
+                        <label for="index" class="form-label">Index per KG</label>
+                        <input type="number" id="index" name="index" class="form-control" step="any"
+                            value="{{ old('index') }}">
                     </div>
                     <div class="mb-3">
                         <label for="restrictions" class="form-label">Restrictions</label>

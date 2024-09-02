@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Hold extends Model
+class CabinZone extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'aircraft_type_id',
-        'hold_no',
+        'zone_name',
         'fwd',
         'aft',
-        'max',
+        'max_capacity',
         'index',
-        'restrictions'
     ];
 
     public function aircraftType()

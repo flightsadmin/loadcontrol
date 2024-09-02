@@ -31,19 +31,6 @@ class PassengerController extends Controller
             'tab' => 'passengers'
         ]);
     }
-    
-
-    // public function update(Request $request, Flight $flight, Passenger $passenger)
-    // {
-    //     $request->validate([
-    //         'type' => 'required|in:male,female,child,infant',
-    //         'count' => 'required|integer|min:0',
-    //         'zone' => 'required|string',
-    //     ]);
-
-    //     $passenger->update($request->all());
-    //     return redirect()->route('flights.show', $flight->id);
-    // }
 
     public function destroy(Flight $flight, Passenger $passenger)
     {

@@ -65,9 +65,9 @@ class LoadsheetController extends Controller
             $totalWeight = $group->sum('weight');
             $hold = $group->first()->hold;
             $holdNo = $hold->hold_no;
-            $weightPerKg = $hold->weight_per_kg ?? -0.000122;
+            $weightPerKg = $hold->index_per_kg ?? 0;
 
-            $index = $totalWeight * ($hold->fwd - $hold->aft) / ($weightPerKg * 1000);
+            $index = $totalWeight * $weightPerKg;
 
             return [
                 'hold_no' => $holdNo,
@@ -75,6 +75,7 @@ class LoadsheetController extends Controller
                 'index' => $index
             ];
         })->sortBy('hold_no')->values()->toJson();
+
         $passengerDistribution = $passengers->groupBy('type')->map(function ($paxGroup) {
             return $paxGroup->sum('count');
         })->toArray();

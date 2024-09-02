@@ -26,7 +26,7 @@ class HoldController extends Controller
             'fwd' => 'required|numeric',
             'aft' => 'nullable|numeric',
             'max' => 'nullable|numeric',
-            'index_per_kg' => 'nullable|numeric',
+            'index' => 'nullable|numeric',
             'restrictions' => 'nullable|string',
         ]);
 
@@ -54,7 +54,7 @@ class HoldController extends Controller
             'fwd' => 'required|numeric',
             'aft' => 'nullable|numeric',
             'max' => 'nullable|numeric',
-            'index_per_kg' => 'nullable|numeric',
+            'index' => 'nullable|numeric',
             'restrictions' => 'nullable|string',
         ]);
 

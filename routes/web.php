@@ -7,6 +7,7 @@ use App\Http\Controllers\CargoController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\EnvelopeController;
+use App\Http\Controllers\CabinZoneController;
 use App\Http\Controllers\LoadsheetController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\FuelFigureController;
@@ -32,10 +33,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('flights.passengers', PassengerController::class)->shallow();
     Route::resource('flights.fuel-figures', FuelFigureController::class)->shallow();
     Route::resource('aircraft_types.holds', HoldController::class)->shallow();
+    Route::resource('aircraft_types.cabin_zones', CabinZoneController::class)->shallow();
     Route::resource('aircraft_types.envelopes', EnvelopeController::class)->shallow();
     Route::resource('aircraft_types.registrations', RegistrationController::class)->shallow();
     Route::post('/cargos/{cargo}/update-hold', [CargoController::class, 'updateHold'])->name('cargos.update-hold');
 });
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\FlightController::class, 'index'])->name('home');

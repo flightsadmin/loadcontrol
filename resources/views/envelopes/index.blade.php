@@ -27,7 +27,6 @@
                                 <td>{{ $envelope->x }}</td>
                                 <td>{{ $envelope->y }}</td>
                                 <td>
-                                    <a href="{{ route('envelopes.show', $envelope->id) }}" class="btn btn-sm btn-info">View</a>
                                     <a href="{{ route('envelopes.edit', $envelope->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                     <form action="{{ route('envelopes.destroy', $envelope->id) }}" method="POST" style="display:inline-block;">
                                         @csrf

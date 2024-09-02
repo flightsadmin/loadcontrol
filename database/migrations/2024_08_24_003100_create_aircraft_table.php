@@ -26,7 +26,6 @@ return new class extends Migration {
             $table->integer('max_landing_weight');
             $table->integer('deck_crew')->nullable();
             $table->integer('cabin_crew')->nullable();
-            $table->integer('passenger_zones')->nullable();
             $table->integer('max_fuel_weight')->nullable();
             $table->decimal('fwd_cg_limit', 5, 2)->nullable();
             $table->decimal('aft_cg_limit', 5, 2)->nullable();
@@ -106,8 +105,19 @@ return new class extends Migration {
             $table->float('fwd')->nullable();
             $table->float('aft')->nullable();
             $table->float('max')->nullable();
-            $table->decimal('index_per_kg', 5, 5)->nullable();
+            $table->decimal('index', 5, 5)->nullable();
             $table->text('restrictions')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('cabin_zones', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
+            $table->string('zone_name')->nullable();
+            $table->float('fwd')->nullable();
+            $table->float('aft')->nullable();
+            $table->float('max_capacity')->nullable();
+            $table->decimal('index', 5, 5)->nullable();
             $table->timestamps();
         });
 

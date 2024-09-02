@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CabinZone;
 use App\Models\Hold;
 use App\Models\User;
 use App\Models\Cargo;
@@ -38,6 +39,9 @@ class DatabaseSeeder extends Seeder
             Registration::factory(5)->create([
                 'aircraft_type_id' => $value
             ]);
+            CabinZone::factory(3)->create([
+                'aircraft_type_id' => $value
+            ]);
         });
 
         $data = [
@@ -61,15 +65,15 @@ class DatabaseSeeder extends Seeder
             ['envelope_type' => 'TOW', 'x' => 67, 'y' => 43],
             ['envelope_type' => 'TOW', 'x' => 64, 'y' => 37],
             ['envelope_type' => 'TOW', 'x' => 43, 'y' => 37],
-            ['envelope_type' => 'LDW', 'x' => 43, 'y' => 37 ],
-            ['envelope_type' => 'LDW', 'x' => 35, 'y' => 53 ],
-            ['envelope_type' => 'LDW', 'x' => 35, 'y' => 63 ],
-            ['envelope_type' => 'LDW', 'x' => 34.5, 'y' => 66 ],
-            ['envelope_type' => 'LDW', 'x' => 87.5, 'y' => 66 ],
-            ['envelope_type' => 'LDW', 'x' => 86, 'y' => 62 ],
-            ['envelope_type' => 'LDW', 'x' => 67, 'y' => 43 ],
-            ['envelope_type' => 'LDW', 'x' => 64, 'y' => 37 ],
-            ['envelope_type' => 'LDW', 'x' => 43, 'y' => 37 ]
+            ['envelope_type' => 'LDW', 'x' => 43, 'y' => 37],
+            ['envelope_type' => 'LDW', 'x' => 35, 'y' => 53],
+            ['envelope_type' => 'LDW', 'x' => 35, 'y' => 63],
+            ['envelope_type' => 'LDW', 'x' => 34.5, 'y' => 66],
+            ['envelope_type' => 'LDW', 'x' => 87.5, 'y' => 66],
+            ['envelope_type' => 'LDW', 'x' => 86, 'y' => 62],
+            ['envelope_type' => 'LDW', 'x' => 67, 'y' => 43],
+            ['envelope_type' => 'LDW', 'x' => 64, 'y' => 37],
+            ['envelope_type' => 'LDW', 'x' => 43, 'y' => 37]
         ];
 
         foreach ($data as $point) {
@@ -84,15 +88,15 @@ class DatabaseSeeder extends Seeder
             ]);
             Passenger::factory(1)->create([
                 'flight_id' => $id_no,
-                // 'zone' => rand(1, $id_no->registration->aircraftType->passenger_zones)
+                'zone' => $id_no->registration->aircraftType->cabinZones->random()->zone_name
             ]);
             Cargo::factory(5)->create([
                 'flight_id' => $id_no,
-                'hold_id' => null //$id_no->registration->aircraftType->holds->random()->id
+                'hold_id' => null
             ]);
         });
         // Default App Setting
-        foreach (config("config.default") as $key => $value) {
+        foreach (config("admin.default") as $key => $value) {
             \App\Models\Setting::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value],

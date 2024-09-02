@@ -13,8 +13,8 @@ return [
         'date_format'       => 'd/m/Y',
         'time_format'       => 'H:i:s',
         'week_start'        => 'monday',
-        'min_deck_crew'     => 2,
-        'min_cabin_crew'    => 2,
+        'deck_crew_weight'  => 85,
+        'cabin_crew_weight' => 75,
         'site_description'  => 'Load Control Weight and Balance System',
     ],
 ];
