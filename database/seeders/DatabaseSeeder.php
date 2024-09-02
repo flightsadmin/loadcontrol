@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
                 $currentAft = $previousFwd + 20;
                 Hold::create([
                     'aircraft_type_id' => $value->id,
-                    'hold_no' => str_pad($i, 2, '0', STR_PAD_LEFT),
+                    'hold_no' => $i,
                     'fwd' => $previousFwd,
                     'aft' => $currentAft,
                     'max' => $faker->numberBetween(1400, 2300),
@@ -95,6 +95,12 @@ class DatabaseSeeder extends Seeder
                 'hold_id' => null
             ]);
         });
+
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+
         // Default App Setting
         foreach (config("admin.default") as $key => $value) {
             \App\Models\Setting::updateOrCreate(
@@ -102,9 +108,5 @@ class DatabaseSeeder extends Seeder
                 ['value' => $value],
             );
         }
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
     }
 }

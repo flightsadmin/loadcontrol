@@ -6,28 +6,30 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>Create Envelope for: {{ $aircraftType->aircraft_type }}</h4>
-                    <a href="{{ route('aircraft_types.show', $aircraftType->id) }}"
+                    <a href="{{ route('aircraft_types.envelopes.index', $aircraftType->id) }}"
                         class="btn btn-secondary btn-sm bi-backspace float-end mt-0"> Back</a>
                 </div>
             </div>
             <div class="card-body">
-                <form class="row" action="{{ route('aircraft_types.envelopes.store', $aircraftType) }}" method="POST">
+                <form action="{{ route('aircraft_types.envelopes.store', $aircraftType->id) }}" method="POST">
                     @csrf
-                    <div class="col-md-4 mb-3">
-                        <label for="envelope_type">Envelope Type</label>
-                        <input type="text" class="form-control" id="envelope_type" name="envelope_type" required>
+                    <div class="mb-3">
+                        <label for="envelope_type" class="form-label">Envelope Type</label>
+                        <input type="text" name="envelope_type" id="envelope_type" class="form-control" value="{{ old('envelope_type') }}" required>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="x">X</label>
-                        <input type="number" class="form-control" id="x" name="x" required>
+            
+                    <div class="mb-3">
+                        <label for="x" class="form-label">X</label>
+                        <input type="number" step="0.01" name="x" id="x" class="form-control" value="{{ old('x') }}" required>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="y">Y</label>
-                        <input type="number" class="form-control" id="y" name="y" required>
+            
+                    <div class="mb-3">
+                        <label for="y" class="form-label">Y</label>
+                        <input type="number" step="0.01" name="y" id="y" class="form-control" value="{{ old('y') }}" required>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-sm btn-info float-end"> Create Envelope</button>
-                    </div>
+            
+                    <button type="submit" class="btn btn-success">Create Envelope</button>
+                    <a href="{{ route('aircraft_types.show', $aircraftType->id) }}" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>

@@ -2,9 +2,9 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use App\Models\Message;
 use App\Models\Flight;
+use App\Models\Message;
+use Livewire\Component;
 
 class Chat extends Component
 {

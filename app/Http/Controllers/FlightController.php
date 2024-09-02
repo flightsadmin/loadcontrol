@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cargo;
 use App\Models\Flight;
-use App\Models\AircraftType;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 
