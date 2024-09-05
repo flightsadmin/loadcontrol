@@ -95,20 +95,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="pantry_setting">Pantry Setting</label>
-                                <select name="settings[pantry]" id="pantry_setting" class="form-control" required>
-                                    <option value="A" {{ old('settings[pantry]', 'A') === 'A' ? 'selected' : '' }}>A</option>
-                                    <option value="B" {{ old('settings[pantry]', 'A') === 'B' ? 'selected' : '' }}>B</option>
-                                    <!-- Add more options if needed -->
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Create Airline</button>
+                    <button type="submit" class="btn btn-sm btn-primary float-end">Create Airline</button>
                 </form>
             </div>
         </div>

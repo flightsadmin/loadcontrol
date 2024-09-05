@@ -25,7 +25,6 @@ class AirlineController extends Controller
             'settings.passenger_weights.female' => 'required|numeric|min:0',
             'settings.passenger_weights.child' => 'required|numeric|min:0',
             'settings.passenger_weights.infant' => 'required|numeric|min:0',
-            'settings.pantry' => 'required|string|max:1',
         ]);
         Airline::updateOrCreate(
             ['iata_code' => $request->input('iata_code')],
@@ -43,7 +42,7 @@ class AirlineController extends Controller
 
     public function update(Request $request, Airline $airline)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'iata_code' => 'required|string|max:3',
             'base' => 'required|string|max:255',
@@ -54,16 +53,9 @@ class AirlineController extends Controller
             'settings.passenger_weights.female' => 'required|numeric|min:0',
             'settings.passenger_weights.child' => 'required|numeric|min:0',
             'settings.passenger_weights.infant' => 'required|numeric|min:0',
-            'settings.pantry' => 'required|string|max:1',
         ]);
 
-        $airline->update([
-            'name' => $request->input('name'),
-            'iata_code' => $request->input('iata_code'),
-            'base' => $request->input('base'),
-            'base_iata_code' => $request->input('base_iata_code'),
-            'settings' => $request->input('settings'),
-        ]);
+        $airline->update($validated);
 
         return redirect()->route('airlines.index')->with('success', 'Airline updated successfully.');
     }
