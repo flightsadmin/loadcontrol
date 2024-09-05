@@ -94,8 +94,9 @@ return new class extends Migration {
             $table->integer('take_off_weight_actual')->default(0);
             $table->integer('trip_fuel')->default(0);
             $table->integer('landing_weight_actual')->default(0);
-            $table->json('compartment_loads');
-            $table->json('passenger_distribution');
+            $table->json('compartment_loads')->nullable();
+            $table->json('passenger_distribution')->nullable();
+            $table->json('passenger_index_by_zone')->nullable();
             $table->timestamps();
         });
 
@@ -103,8 +104,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->string('envelope_type');
-            $table->decimal('x', 5, 2);
-            $table->decimal('y', 5, 2);
+            $table->float('x');
+            $table->float('y');
             $table->timestamps();
         });
 

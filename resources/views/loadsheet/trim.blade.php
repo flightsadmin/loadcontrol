@@ -182,7 +182,7 @@
                         pointRadius: 5
                     },
                     {
-                        label: 'Landing Weight',
+                        label: 'LDW',
                         data: [{
                             x: 53,
                             y: {{ $flight->loadsheet->landing_weight_actual / 1000 ?? 0 }}
@@ -210,8 +210,8 @@
                             display: true,
                             text: 'Aircraft Weight (kg x 1000)'
                         },
-                        min: 37,
-                        max: 75
+                        min: 40.6,
+                        max: 85
                     }
                 },
                 plugins: {

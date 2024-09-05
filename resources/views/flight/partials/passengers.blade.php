@@ -17,7 +17,7 @@
                 <tbody>
                     @foreach ($flight->registration->aircraftType->cabinZones as $zone)
                         <tr>
-                            <td>Zone O {{ $zone->zone_name }}</td>
+                            <td>Zone O{{ $zone->zone_name }}</td>
                             @foreach (['male', 'female', 'child', 'infant'] as $type)
                                 <td>
                                     @php

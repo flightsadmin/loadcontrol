@@ -42,41 +42,54 @@ class DatabaseSeeder extends Seeder
             Registration::factory(5)->create([
                 'aircraft_type_id' => $value
             ]);
-            CabinZone::factory(3)->create([
-                'aircraft_type_id' => $value
-            ]);
+
+            foreach (['A', 'B', 'C'] as $zone) {
+                CabinZone::factory(1)->create([
+                    'aircraft_type_id' => $value,
+                    'zone_name' => $zone
+                ]);
+            }
         });
 
         $data = [
-            ['envelope_type' => 'ZFW', 'x' => 45, 'y' => 37],
-            ['envelope_type' => 'ZFW', 'x' => 38, 'y' => 49],
-            ['envelope_type' => 'ZFW', 'x' => 38, 'y' => 54],
-            ['envelope_type' => 'ZFW', 'x' => 37, 'y' => 55],
-            ['envelope_type' => 'ZFW', 'x' => 37, 'y' => 60],
-            ['envelope_type' => 'ZFW', 'x' => 36.4, 'y' => 62.5],
-            ['envelope_type' => 'ZFW', 'x' => 90, 'y' => 62.5],
-            ['envelope_type' => 'ZFW', 'x' => 73, 'y' => 37],
-            ['envelope_type' => 'ZFW', 'x' => 45, 'y' => 37],
-            ['envelope_type' => 'TOW', 'x' => 43, 'y' => 37],
-            ['envelope_type' => 'TOW', 'x' => 35, 'y' => 53],
-            ['envelope_type' => 'TOW', 'x' => 35, 'y' => 63],
-            ['envelope_type' => 'TOW', 'x' => 33, 'y' => 72],
-            ['envelope_type' => 'TOW', 'x' => 36, 'y' => 73.5],
-            ['envelope_type' => 'TOW', 'x' => 89, 'y' => 73.5],
-            ['envelope_type' => 'TOW', 'x' => 90, 'y' => 72],
-            ['envelope_type' => 'TOW', 'x' => 86, 'y' => 62],
-            ['envelope_type' => 'TOW', 'x' => 67, 'y' => 43],
-            ['envelope_type' => 'TOW', 'x' => 64, 'y' => 37],
-            ['envelope_type' => 'TOW', 'x' => 43, 'y' => 37],
-            ['envelope_type' => 'LDW', 'x' => 43, 'y' => 37],
-            ['envelope_type' => 'LDW', 'x' => 35, 'y' => 53],
-            ['envelope_type' => 'LDW', 'x' => 35, 'y' => 63],
-            ['envelope_type' => 'LDW', 'x' => 34.5, 'y' => 66],
-            ['envelope_type' => 'LDW', 'x' => 87.5, 'y' => 66],
-            ['envelope_type' => 'LDW', 'x' => 86, 'y' => 62],
-            ['envelope_type' => 'LDW', 'x' => 67, 'y' => 43],
-            ['envelope_type' => 'LDW', 'x' => 64, 'y' => 37],
-            ['envelope_type' => 'LDW', 'x' => 43, 'y' => 37]
+            ['envelope_type' => 'TOW', 'x' => 39.02, 'y' => 40.600],
+            ['envelope_type' => 'TOW', 'x' => 36.66, 'y' => 45.279],
+            ['envelope_type' => 'TOW', 'x' => 33.43, 'y' => 53.000],
+            ['envelope_type' => 'TOW', 'x' => 34.52, 'y' => 63.000],
+            ['envelope_type' => 'TOW', 'x' => 31.50, 'y' => 72.000],
+            ['envelope_type' => 'TOW', 'x' => 37.16, 'y' => 73.500],
+            ['envelope_type' => 'TOW', 'x' => 62.28, 'y' => 79.000],
+            ['envelope_type' => 'TOW', 'x' => 80.83, 'y' => 79.000],
+            ['envelope_type' => 'TOW', 'x' => 87.90, 'y' => 74.708],
+            ['envelope_type' => 'TOW', 'x' => 90.18, 'y' => 73.326],
+            ['envelope_type' => 'TOW', 'x' => 86.45, 'y' => 67.400],
+            ['envelope_type' => 'TOW', 'x' => 70.21, 'y' => 51.000],
+            ['envelope_type' => 'TOW', 'x' => 69.22, 'y' => 50.000],
+            ['envelope_type' => 'TOW', 'x' => 65.36, 'y' => 47.038],
+            ['envelope_type' => 'TOW', 'x' => 60.62, 'y' => 45.249],
+            ['envelope_type' => 'TOW', 'x' => 59.56, 'y' => 42.735],
+            ['envelope_type' => 'TOW', 'x' => 56.62, 'y' => 40.600],
+
+            ['envelope_type' => 'ZFW', 'x' => 40.70, 'y' => 40.600],
+            ['envelope_type' => 'ZFW', 'x' => 39.02, 'y' => 43.941],
+            ['envelope_type' => 'ZFW', 'x' => 37.05, 'y' => 48.658],
+            ['envelope_type' => 'ZFW', 'x' => 37.56, 'y' => 53.398],
+            ['envelope_type' => 'ZFW', 'x' => 37.56, 'y' => 53.872],
+            ['envelope_type' => 'ZFW', 'x' => 37.43, 'y' => 54.346],
+            ['envelope_type' => 'ZFW', 'x' => 37.01, 'y' => 55.611],
+            ['envelope_type' => 'ZFW', 'x' => 37.50, 'y' => 60.143],
+            ['envelope_type' => 'ZFW', 'x' => 36.11, 'y' => 64.300],
+            ['envelope_type' => 'ZFW', 'x' => 83.40, 'y' => 64.300],
+            ['envelope_type' => 'ZFW', 'x' => 69.31, 'y' => 50.080],
+            ['envelope_type' => 'ZFW', 'x' => 69.84, 'y' => 49.606],
+            ['envelope_type' => 'ZFW', 'x' => 68.10, 'y' => 49.132],
+            ['envelope_type' => 'ZFW', 'x' => 65.39, 'y' => 47.049],
+            ['envelope_type' => 'ZFW', 'x' => 60.86, 'y' => 45.340],
+            ['envelope_type' => 'ZFW', 'x' => 61.39, 'y' => 44.866],
+            ['envelope_type' => 'ZFW', 'x' => 60.26, 'y' => 44.392],
+            ['envelope_type' => 'ZFW', 'x' => 59.66, 'y' => 42.970],
+            ['envelope_type' => 'ZFW', 'x' => 58.80, 'y' => 42.022],
+            ['envelope_type' => 'ZFW', 'x' => 58.20, 'y' => 40.600],
         ];
 
         foreach ($data as $point) {

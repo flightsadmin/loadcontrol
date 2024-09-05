@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CabinZone;
 use App\Models\Flight;
 use App\Models\Loadsheet;
 
@@ -72,6 +73,39 @@ class LoadsheetController extends Controller
             ];
         })->sortBy('hold_no')->values()->toJson();
 
+
+
+        // Calculate passenger index by cabin zone
+        $cabinZones = $flight->registration->aircraftType->cabinZones;
+
+        $passengerIndexByZone = $cabinZones->map(function ($zone) use ($passengers) {
+            $zonePassengers = $passengers->filter(function ($passenger) use ($zone) {
+                return $passenger->zone === $zone->zone_name;
+            });
+            $totalWeight = $zonePassengers->sum(function ($passenger) {
+                $weightPerPassenger = match ($passenger->type) {
+                    'male' => 88,
+                    'female' => 70,
+                    'child' => 35,
+                    'infant' => 10,
+                    default => 84,
+                };
+
+                return $passenger->count * $weightPerPassenger;
+            });
+
+            $indexPerKg = $zone->index ?? 0;
+
+            $index = $totalWeight * $indexPerKg;
+
+            return [
+                'zone_name' => $zone->zone_name,
+                'weight' => $totalWeight,
+                'index' => $index
+            ];
+        })->sortBy('zone_name')->values()->toJson();
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $passengerDistribution = $passengers->groupBy('type')->map(function ($paxGroup) {
             return $paxGroup->sum('count');
         })->toArray();
@@ -95,6 +129,7 @@ class LoadsheetController extends Controller
                 'landing_weight_actual' => $landingWeightActual,
                 'compartment_loads' => $compartmentLoads,
                 'passenger_distribution' => $passengerDistribution,
+                'passenger_index_by_zone' => $passengerIndexByZone,
             ]
         );
         return redirect()->route('flights.loadsheets.show', [
