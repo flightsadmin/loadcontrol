@@ -7,6 +7,7 @@ use App\Http\Controllers\CargoController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\AirlineController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EnvelopeController;
 use App\Http\Controllers\CabinZoneController;
 use App\Http\Controllers\LoadsheetController;
@@ -40,6 +41,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('aircraft_types.registrations', RegistrationController::class)->shallow();
     Route::post('/cargos/{cargo}/update-hold', [CargoController::class, 'updateHold'])->name('cargos.update-hold');
     Route::get('/home', [App\Http\Controllers\FlightController::class, 'index'])->name('home');
+});
+
+Route::group(['middleware' => ['auth', 'role:super-admin|admin']], function() {
+
+    Route::resource('users', App\Http\Controllers\UserController::class);
+    Route::resource('permissions', App\Http\Controllers\PermissionController::class);
+
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    
+    Route::resource('roles', App\Http\Controllers\RoleController::class);
+    Route::get('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
+    Route::put('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'givePermissionToRole']);
+
+
 });
 
 Auth::routes();

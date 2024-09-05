@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            AdminSeeder::class
+        ]);
         AircraftType::factory(3)->create()->each(function ($value) {
             $faker = Faker::create();
             $previousFwd = 0;
