@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-lg-12 col-md-12">
                 @if ($errors->any())
@@ -51,7 +51,7 @@
                                 <label for="roles" class="form-label">Roles</label>
                                 <div class="row">
                                     @foreach ($roles as $role)
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <div class="form-check">
                                                 <input type="checkbox" name="roles[]" value="{{ $role }}" class="form-check-input"
                                                     id="role-{{ $role }}" {{ in_array($role, $userRoles) ? 'checked' : '' }}>

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container mt-5">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-md-12">
 
@@ -41,7 +41,7 @@
                                 <label for="roles" class="form-label">Roles</label>
                                 <div class="row">
                                     @foreach ($roles as $role)
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <div class="form-check">
                                                 <input type="checkbox" name="roles[]" value="{{ $role }}"
                                                     class="form-check-input" id="role-{{ $role }}">

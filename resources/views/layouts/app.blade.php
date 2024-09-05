@@ -57,7 +57,7 @@
                                 </ul>
                             </div>
                             <div class="dropdown mt-auto mb-3">
-                                {{-- {{ $flights->links() }} --}}
+                                {{ $flights->links() }}
                                 <hr>
                                 <a href="#" class="d-flex align-items-center text-center text-reset text-decoration-none dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-expanded="false">

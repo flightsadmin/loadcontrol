@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-4">
         <a href="{{ url('roles') }}" class="btn btn-sm btn-primary mx-1">Roles</a>
         <a href="{{ url('permissions') }}" class="btn btn-sm btn-info mx-1">Permissions</a>
         <a href="{{ url('users') }}" class="btn btn-sm btn-warning mx-1">Users</a>

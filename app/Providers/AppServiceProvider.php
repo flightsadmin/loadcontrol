@@ -19,6 +19,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        view()->composer('*', function ($view) {
+            if ($date = request()->input('date')) {
+                session(['selectedDate' => $date]);
+            }
+            $selectedDate = session('selectedDate');
+            $query = \App\Models\Flight::query();
+            if ($selectedDate) {
+                $query->whereDate('departure', $selectedDate);
+            }
+            $view->with('flights', $query->orderBy('departure')->simplePaginate());
+        });
     }
 }
