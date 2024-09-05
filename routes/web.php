@@ -6,6 +6,7 @@ use App\Http\Controllers\HoldController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\AirlineController;
 use App\Http\Controllers\EnvelopeController;
 use App\Http\Controllers\CabinZoneController;
 use App\Http\Controllers\LoadsheetController;
@@ -27,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/', FlightController::class);
     Route::resource('cargos', CargoController::class);
     Route::resource('flights', FlightController::class);
+    Route::resource('airlines', AirlineController::class);
     Route::resource('aircraft_types', AircraftTypeController::class);
     Route::resource('flights.loadsheets', LoadsheetController::class);
     Route::resource('flights.cargos', CargoController::class)->shallow();
@@ -37,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('aircraft_types.envelopes', EnvelopeController::class)->shallow();
     Route::resource('aircraft_types.registrations', RegistrationController::class)->shallow();
     Route::post('/cargos/{cargo}/update-hold', [CargoController::class, 'updateHold'])->name('cargos.update-hold');
+    Route::get('/home', [App\Http\Controllers\FlightController::class, 'index'])->name('home');
 });
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\FlightController::class, 'index'])->name('home');

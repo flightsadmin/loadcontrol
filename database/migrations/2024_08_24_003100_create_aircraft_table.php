@@ -17,6 +17,16 @@ return new class extends Migration {
             $table->timestamps();
         });
         
+        Schema::create('airlines', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('iata_code');
+            $table->string('base');
+            $table->string('base_iata_code');
+            $table->json('settings')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('aircraft_types', function (Blueprint $table) {
             $table->id();
             $table->string('aircraft_type');
