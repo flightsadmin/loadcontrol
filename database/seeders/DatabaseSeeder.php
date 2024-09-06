@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class
         ]);
         Airline::factory(3)->create()->each(function ($airline) {
-            AircraftType::factory(3)->create([
+            AircraftType::factory(1)->create([
                 'airline_id' => $airline->id
             ])->each(function ($value) {
                 $faker = Faker::create();

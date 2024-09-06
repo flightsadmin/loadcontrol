@@ -38,8 +38,8 @@ return new class extends Migration {
             $table->integer('deck_crew')->nullable();
             $table->integer('cabin_crew')->nullable();
             $table->integer('max_fuel_weight')->nullable();
-            $table->decimal('fwd_cg_limit', 5, 2)->nullable();
-            $table->decimal('aft_cg_limit', 5, 2)->nullable();
+            $table->decimal('fwd_cg_limit', 8, 2)->nullable();
+            $table->decimal('aft_cg_limit', 8, 2)->nullable();
             $table->timestamps();
         });
 
@@ -47,7 +47,7 @@ return new class extends Migration {
             $table->id();
             $table->string('registration_number');
             $table->integer('basic_weight');
-            $table->decimal('basic_index', 5, 2);
+            $table->decimal('basic_index', 8, 2);
             $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
@@ -56,7 +56,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->string('weight')->nullable();
-            $table->decimal('index', 5, 2)->nullable();
+            $table->decimal('index', 8, 2)->nullable();
             $table->timestamps();
         });
 
@@ -124,8 +124,8 @@ return new class extends Migration {
             $table->float('fwd')->nullable();
             $table->float('aft')->nullable();
             $table->float('max')->nullable();
-            $table->decimal('arm', 5, 5)->nullable();
-            $table->decimal('index', 5, 5)->nullable();
+            $table->decimal('arm', 8, 5)->nullable();
+            $table->decimal('index', 8, 5)->nullable();
             $table->timestamps();
         });
 
@@ -134,8 +134,8 @@ return new class extends Migration {
             $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->string('zone_name')->nullable();
             $table->float('max_capacity')->nullable();
-            $table->decimal('index', 5, 5)->nullable();
-            $table->decimal('arm', 5, 5)->nullable();
+            $table->decimal('index', 8, 5)->nullable();
+            $table->decimal('arm', 8, 5)->nullable();
             $table->timestamps();
         });
 

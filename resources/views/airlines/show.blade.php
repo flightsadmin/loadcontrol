@@ -16,7 +16,7 @@
                         <div class="list-group-item"><strong>Airline:</strong> {{ $airline->name }}</div>
                         <div class="list-group-item"><strong>Iata Code:</strong> {{ $airline->iata_code }}</div>
                         <div class="list-group-item"><strong>Base:</strong> {{ $airline->base }}</div>
-                        <div class="list-group-item"><strong>Base IATA Code:</strong> {{ $airline->base_iata_code }} kg</div>
+                        <div class="list-group-item"><strong>Base IATA Code:</strong> {{ $airline->base_iata_code }}</div>
                     </div>
                 </div>
             </div>

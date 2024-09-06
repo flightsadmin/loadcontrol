@@ -10,6 +10,8 @@
                         class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Envelopes</a>
                     <a href="{{ route('aircraft_types.cabin_zones.index', $aircraftType->id) }}"
                         class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Cabin Zones</a>
+                    <a href="{{ route('airlines.index') }}"
+                        class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Airline</a>
                     <a href="{{ route('aircraft_types.holds.create', $aircraftType->id) }}"
                         class="btn btn-primary btn-sm mb-0 bi-plus-lg"> Add New Hold</a>
                     <a href="{{ route('aircraft_types.registrations.create', $aircraftType->id) }}"
@@ -75,7 +77,7 @@
                                     <span class="bi-back h5"></span>
                                 </div>
                                 <ul class="list-group">
-                                    @forelse ($holds as $hold)
+                                    @forelse ($aircraftType->holds as $hold)
                                         <li class="list-group-item">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div>

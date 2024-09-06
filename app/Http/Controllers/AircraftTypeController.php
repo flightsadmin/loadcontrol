@@ -3,19 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\AircraftType;
+use App\Models\Airline;
 use Illuminate\Http\Request;
 
 class AircraftTypeController extends Controller
 {
     public function index()
     {
-        $aircraftTypes = AircraftType::all();
+        $aircraftTypes = AircraftType::with('airline')->get();
         return view('aircraft_types.index', compact('aircraftTypes'));
     }
 
     public function create()
     {
-        return view('aircraft_types.create');
+        $airlines = Airline::all();
+        return view('aircraft_types.create', compact('airlines'));
     }
 
     public function store(Request $request)
@@ -31,6 +33,7 @@ class AircraftTypeController extends Controller
             'max_fuel_weight' => 'nullable|integer',
             'fwd_cg_limit' => 'nullable|numeric',
             'aft_cg_limit' => 'nullable|numeric',
+            'airline_id' => 'required|exists:airlines,id',
         ]);
 
         AircraftType::create($validated);
@@ -40,14 +43,22 @@ class AircraftTypeController extends Controller
 
     public function show(AircraftType $aircraftType)
     {
-        $aircraftType->load('registrations');
-        $holds = $aircraftType->holds;
-        return view('aircraft_types.show', compact('aircraftType', 'holds'));
+        $aircraftType->load('registrations', 'cabinZones', 'fuelIndexes', 'holds');
+        return view('aircraft_types.show', [
+            'aircraftType' => $aircraftType,
+            'registrations' => $aircraftType->registrations,
+            'cabinZones' => $aircraftType->cabinZones,
+            'fuelIndexes' => $aircraftType->fuelIndexes
+        ]);
     }
 
     public function edit(AircraftType $aircraftType)
     {
-        return view('aircraft_types.edit', compact('aircraftType'));
+        $airlines = Airline::all();
+        return view('aircraft_types.edit', [
+            'aircraftType' => $aircraftType,
+            'airlines' => $airlines
+        ]);
     }
 
     public function update(Request $request, AircraftType $aircraftType)
@@ -63,6 +74,7 @@ class AircraftTypeController extends Controller
             'max_fuel_weight' => 'nullable|integer',
             'fwd_cg_limit' => 'nullable|numeric',
             'aft_cg_limit' => 'nullable|numeric',
+            'airline_id' => 'required|exists:airlines,id',
         ]);
 
         $aircraftType->update($validated);

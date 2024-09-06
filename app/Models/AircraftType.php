@@ -10,6 +10,7 @@ class AircraftType extends Model
     use HasFactory;
 
     protected $fillable = [
+        'airline_id',
         'aircraft_type',
         'manufacturer',
         'max_zero_fuel_weight',

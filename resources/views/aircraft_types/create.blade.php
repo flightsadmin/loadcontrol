@@ -14,7 +14,6 @@
                 <form action="{{ route('aircraft_types.store') }}" method="POST">
                     @csrf
                     @include('aircraft_types.form')
-                    <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>
         </div>

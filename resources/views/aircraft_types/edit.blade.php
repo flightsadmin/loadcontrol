@@ -15,7 +15,6 @@
                     @csrf
                     @method('PUT')
                     @include('aircraft_types.form')
-                    <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>
         </div>
