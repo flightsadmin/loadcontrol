@@ -136,7 +136,6 @@
     <script>
         const zfwEnvelopeData = @json($zfwEnvelope);
         const towEnvelopeData = @json($towEnvelope);
-        const ldwEnvelopeData = @json($ldwEnvelope);
         const ctx = document.getElementById('trimSheetChart').getContext('2d');
         const trimSheetChart = new Chart(ctx, {
             type: 'scatter',
@@ -152,14 +151,6 @@
                     {
                         label: 'TOW Envelope',
                         data: towEnvelopeData,
-                        borderColor: 'green',
-                        showLine: true,
-                        pointRadius: 0,
-                        fill: false,
-                    },
-                    {
-                        label: 'LDW Envelope',
-                        data: ldwEnvelopeData,
                         borderColor: 'blue',
                         showLine: true,
                         pointRadius: 0,
@@ -179,15 +170,6 @@
                         data: [{
                             x: {{ $litow }},
                             y: {{ $flight->loadsheet->take_off_weight_actual / 1000 ?? 0 }}
-                        }],
-                        backgroundColor: 'green',
-                        pointRadius: 5
-                    },
-                    {
-                        label: 'LDW',
-                        data: [{
-                            x: {{ $lildw }},
-                            y: {{ $flight->loadsheet->landing_weight_actual / 1000 ?? 0 }}
                         }],
                         backgroundColor: 'blue',
                         pointRadius: 5

@@ -68,8 +68,16 @@ class FlightController extends Controller
             'departure' => 'required|date',
             'arrival' => 'required|date',
         ]);
+        $originalRegistrationId = $flight->registration_id;
 
         $flight->update($validated);
+
+        if ((int) $flight->registration_id !== (int) $originalRegistrationId) {
+            foreach ($flight->cargos as $cargo) {
+                $cargo->hold_id = null;
+                $cargo->save();
+            }
+        }
 
         return redirect()->route('flights.show', $flight->id)->with('success', 'Flight updated successfully!');
     }

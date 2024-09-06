@@ -103,7 +103,6 @@ class LoadsheetController extends Controller
 
         $zfwEnvelope = $envelopes->get('ZFW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
         $towEnvelope = $envelopes->get('TOW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
-        $ldwEnvelope = $envelopes->get('LDW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
 
         $basicIndex = $flight->registration->basic_index;
         $paxIndex = array_sum(array_column(json_decode($flight->loadsheet->passenger_distribution, true)['zones'], 'index'));
@@ -120,7 +119,7 @@ class LoadsheetController extends Controller
         $litow = $lizfw + $toFuelIndex;
         $lildw = $litow + $ldfuelIndex;
         
-        return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'ldwEnvelope', 'lizfw', 'litow', 'lildw'));
+        return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'lizfw', 'litow', 'lildw'));
     }
 
     private function calculatePassengerWeight($passengers)
