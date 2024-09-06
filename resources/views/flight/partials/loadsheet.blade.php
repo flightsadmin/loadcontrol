@@ -14,7 +14,7 @@
                                 </tr>
                                 <tr>
                                     <td>ALL WEIGHTS IN KILOS</td>
-                                    <td>{{ auth()->user()->name }}</td>
+                                    <td>{{ strtoupper(auth()->user()->name) }}</td>
                                     <td>NIL</td>
                                     <td>1</td>
                                 </tr>
@@ -55,13 +55,13 @@
 
                             <dd class="col-sm-5 text-uppercase">Passenger / Cabin Bag</dd>
                             <dd class="col-sm-7 text-uppercase">
-                                @forelse (json_decode($flight->loadsheet->passenger_distribution, true) as $type => $count)
+                                @forelse (json_decode($flight->loadsheet->passenger_distribution, true)['pax'] as $type => $count)
                                     {{ $count . '/' }}
                                 @empty
                                     NIL
                                 @endforelse
                                 @php
-                                    $passengerDistribution = array_sum(json_decode($flight->loadsheet->passenger_distribution, true));
+                                    $passengerDistribution = array_sum(json_decode($flight->loadsheet->passenger_distribution, true)['pax']);
                                 @endphp
 
                                 @if ($passengerDistribution > 0)
