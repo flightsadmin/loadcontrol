@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\AircraftType;
+use App\Models\Airline;
 use App\Models\CabinZone;
 use App\Models\Cargo;
 use App\Models\Flight;
 use App\Models\FuelFigure;
-use App\Models\FuelIndex;
 use App\Models\Hold;
 use App\Models\Passenger;
 use App\Models\Registration;
@@ -25,33 +25,37 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class
         ]);
-        AircraftType::factory(3)->create()->each(function ($value) {
-            $faker = Faker::create();
-            $previousFwd = 0;
-            for ($i = 1; $i <= 5; $i++) {
-                $currentAft = $previousFwd + 20;
-                Hold::create([
-                    'aircraft_type_id' => $value->id,
-                    'hold_no' => $i,
-                    'fwd' => $previousFwd,
-                    'aft' => $currentAft,
-                    'max' => $faker->numberBetween(1400, 2300),
-                    'arm' => $faker->randomFloat(5, -0.0000001, 0.001),
-                    'index' => $faker->randomFloat(5, -0.0000001, 0.001),
-                ]);
-                $previousFwd = $currentAft;
-            }
+        Airline::factory(3)->create()->each(function ($airline) {
+            AircraftType::factory(3)->create([
+                'airline_id' => $airline->id
+            ])->each(function ($value) {
+                $faker = Faker::create();
+                $previousFwd = 0;
+                for ($i = 1; $i <= 5; $i++) {
+                    $currentAft = $previousFwd + 20;
+                    Hold::create([
+                        'aircraft_type_id' => $value->id,
+                        'hold_no' => $i,
+                        'fwd' => $previousFwd,
+                        'aft' => $currentAft,
+                        'max' => $faker->numberBetween(1400, 2300),
+                        'arm' => $faker->randomFloat(5, -0.0000001, 0.001),
+                        'index' => $faker->randomFloat(5, -0.0000001, 0.001),
+                    ]);
+                    $previousFwd = $currentAft;
+                }
 
-            Registration::factory(5)->create([
-                'aircraft_type_id' => $value
-            ]);
-
-            foreach (['A', 'B', 'C'] as $zone) {
-                CabinZone::factory(1)->create([
-                    'aircraft_type_id' => $value,
-                    'zone_name' => $zone
+                Registration::factory(5)->create([
+                    'aircraft_type_id' => $value
                 ]);
-            }
+
+                foreach (['A', 'B', 'C'] as $zone) {
+                    CabinZone::factory(1)->create([
+                        'aircraft_type_id' => $value,
+                        'zone_name' => $zone
+                    ]);
+                }
+            });
         });
 
         $data = [

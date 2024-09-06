@@ -20,15 +20,16 @@ return new class extends Migration {
         Schema::create('airlines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('iata_code');
+            $table->string('iata_code', 3);
             $table->string('base');
-            $table->string('base_iata_code');
+            $table->string('base_iata_code', 3);
             $table->json('settings')->nullable();
             $table->timestamps();
         });
 
         Schema::create('aircraft_types', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('airline_id')->constrained()->onDelete('cascade');
             $table->string('aircraft_type');
             $table->string('manufacturer');
             $table->integer('max_zero_fuel_weight');

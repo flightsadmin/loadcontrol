@@ -20,4 +20,9 @@ class Airline extends Model
     protected $casts = [
         'settings' => 'array', // Casts the settings attribute to an array
     ];
+
+    public function aircraftTypes()
+    {
+        return $this->hasMany(AircraftType::class);
+    }
 }

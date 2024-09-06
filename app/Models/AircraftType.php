@@ -22,6 +22,11 @@ class AircraftType extends Model
         'aft_cg_limit'
     ];
 
+    public function airline()
+    {
+        return $this->belongsTo(Airline::class);
+    }
+
     public function registrations()
     {
         return $this->hasMany(Registration::class);

@@ -17,7 +17,22 @@ class AirlineFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->company(),
+            'iata_code' => strtoupper($this->faker->lexify('???')),
+            'base' => $this->faker->city(),
+            'base_iata_code' => strtoupper($this->faker->lexify('???')),
+            'settings' => [
+                'crew' => [
+                    'deck_crew_weight' => 85,
+                    'cabin_crew_weight' => 70,
+                ],
+                'passenger_weights' => [
+                    'male' => 88,
+                    'female' => 70,
+                    'child' => 35,
+                    'infant' => 0,
+                ],
+            ],
         ];
     }
 }

@@ -17,6 +17,7 @@ class AircraftTypeFactory extends Factory
     public function definition(): array
     {
         return [
+            'airline_id' => null,
             'aircraft_type' => $this->faker->randomElement(['B737', 'A320', 'A330']),
             'manufacturer' => $this->faker->companySuffix(),
             'max_zero_fuel_weight' => $this->faker->numberBetween(63000, 64300),
