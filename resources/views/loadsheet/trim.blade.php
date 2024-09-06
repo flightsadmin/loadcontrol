@@ -168,7 +168,7 @@
                     {
                         label: 'ZFW',
                         data: [{
-                            x: 52,
+                            x: {{ $lizfw }},
                             y: {{ $flight->loadsheet->zero_fuel_weight_actual / 1000 ?? 0 }}
                         }],
                         backgroundColor: 'red',
@@ -177,7 +177,7 @@
                     {
                         label: 'TOW',
                         data: [{
-                            x: 54,
+                            x: {{ $litow }},
                             y: {{ $flight->loadsheet->take_off_weight_actual / 1000 ?? 0 }}
                         }],
                         backgroundColor: 'green',
@@ -186,7 +186,7 @@
                     {
                         label: 'LDW',
                         data: [{
-                            x: 53,
+                            x: {{ $lildw }},
                             y: {{ $flight->loadsheet->landing_weight_actual / 1000 ?? 0 }}
                         }],
                         backgroundColor: 'blue',
@@ -227,7 +227,8 @@
                                 if (label) {
                                     label += ': ';
                                 }
-                                label += '(' + context.raw.x + '% MAC, ' + (context.raw.y * 1000).toLocaleString() + ' kg)';
+                                label += '( Index ' + (context.raw.x).toFixed(2) + ', Weight ' + (context.raw.y * 1000)
+                                    .toLocaleString() + ' kg)';
                                 return label;
                             }
                         }

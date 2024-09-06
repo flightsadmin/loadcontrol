@@ -20,8 +20,8 @@ class RegistrationFactory extends Factory
         return [
             'registration_number' => strtoupper($this->faker->unique()->bothify('A7-???')),
             'aircraft_type_id' => \App\Models\AircraftType::inRandomOrder()->first()->id,
-            'basic_weight' => $this->faker->numberBetween(43000, 45000),
-            'basic_index' => $this->faker->randomFloat(2, 40, 48),
+            'basic_weight' => $this->faker->numberBetween(42000, 44000),
+            'basic_index' => $this->faker->randomFloat(2, 50, 52),
         ];
     }
 }

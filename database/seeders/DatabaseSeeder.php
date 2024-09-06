@@ -2,16 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Models\AircraftType;
 use App\Models\CabinZone;
-use App\Models\Hold;
-use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Flight;
-use App\Models\Passenger;
 use App\Models\FuelFigure;
-use Faker\Factory as Faker;
-use App\Models\AircraftType;
+use App\Models\FuelIndex;
+use App\Models\Hold;
+use App\Models\Passenger;
 use App\Models\Registration;
+use App\Models\User;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -35,13 +36,19 @@ class DatabaseSeeder extends Seeder
                     'fwd' => $previousFwd,
                     'aft' => $currentAft,
                     'max' => $faker->numberBetween(1400, 2300),
+                    'index' => $faker->randomFloat(5, -0.0000001, 0.001),
                     'restrictions' => $faker->optional()->randomElement(['No Avi', 'No HUM']),
                 ]);
                 $previousFwd = $currentAft;
             }
+
             Registration::factory(5)->create([
                 'aircraft_type_id' => $value
             ]);
+
+            // FuelIndex::factory(30)->create([
+            //     'aircraft_type_id' => $value
+            // ]);
 
             foreach (['A', 'B', 'C'] as $zone) {
                 CabinZone::factory(1)->create([
@@ -95,6 +102,47 @@ class DatabaseSeeder extends Seeder
         foreach ($data as $point) {
             AircraftType::all()->each(function ($aircraft) use ($point) {
                 $aircraft->envelopes()->create($point);
+            });
+        }
+
+        $fuelData = [
+            ['weight' => 1, 'index' => +0],
+            ['weight' => 3500, 'index' => +0.99],
+            ['weight' => 4000, 'index' => +0.47],
+            ['weight' => 4500, 'index' => -0.01],
+            ['weight' => 5000, 'index' => -0.48],
+            ['weight' => 5500, 'index' => -0.91],
+            ['weight' => 6000, 'index' => -1.32],
+            ['weight' => 6500, 'index' => -1.7],
+            ['weight' => 7000, 'index' => -2.06],
+            ['weight' => 7500, 'index' => -2.39],
+            ['weight' => 8000, 'index' => -2.71],
+            ['weight' => 8500, 'index' => -2.99],
+            ['weight' => 9000, 'index' => -3.16],
+            ['weight' => 9500, 'index' => -3.19],
+            ['weight' => 10000, 'index' => -3.05],
+            ['weight' => 10500, 'index' => -2.8],
+            ['weight' => 11000, 'index' => -2.44],
+            ['weight' => 11500, 'index' => -1.96],
+            ['weight' => 12000, 'index' => -1.4],
+            ['weight' => 12500, 'index' => -1.6],
+            ['weight' => 13000, 'index' => -2.23],
+            ['weight' => 13500, 'index' => -2.94],
+            ['weight' => 14000, 'index' => -3.7],
+            ['weight' => 14500, 'index' => -4.48],
+            ['weight' => 15000, 'index' => -5.26],
+            ['weight' => 15500, 'index' => -6.04],
+            ['weight' => 16000, 'index' => -6.83],
+            ['weight' => 16500, 'index' => -7.61],
+            ['weight' => 17000, 'index' => -8.39],
+            ['weight' => 17500, 'index' => -9.17],
+            ['weight' => 18000, 'index' => -9.96],
+            ['weight' => 18500, 'index' => -10.83],
+            ['weight' => 18632, 'index' => -11.08]
+        ];
+        foreach ($fuelData as $fuel) {
+            AircraftType::all()->each(function ($aircraft) use ($fuel) {
+                $aircraft->fuelIndexes()->create($fuel);
             });
         }
 

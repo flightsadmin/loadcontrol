@@ -50,6 +50,14 @@ return new class extends Migration {
             $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
+        
+        Schema::create('fuel_index', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
+            $table->string('weight')->nullable();
+            $table->decimal('index', 5, 2)->nullable();
+            $table->timestamps();
+        });
 
         Schema::create('flights', function (Blueprint $table) {
             $table->id();

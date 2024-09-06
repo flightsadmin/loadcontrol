@@ -41,4 +41,9 @@ class AircraftType extends Model
     {
         return $this->hasMany(CabinZone::class);
     }
+
+    public function fuelIndexes()
+    {
+        return $this->hasMany(FuelIndex::class);
+    }
 }
