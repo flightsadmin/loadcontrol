@@ -40,8 +40,9 @@
                             value="{{ old('index', $hold->index) }}">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="restrictions" class="form-label">Restrictions</label>
-                        <textarea id="restrictions" name="restrictions" class="form-control">{{ old('restrictions', $hold->restrictions) }}</textarea>
+                        <label for="arm" class="form-label">Arm</label>
+                        <input type="number" id="arm" name="arm" class="form-control" step="any"
+                            value="{{ old('arm', $hold->arm) }}">
                     </div>
                     <div>
                         <button type="submit" class="btn btn-sm btn-primary bi-floppy float-end"> Update Hold</button>

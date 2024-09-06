@@ -25,7 +25,7 @@
                                 <th>Aft Distance</th>
                                 <th>Maximun</th>
                                 <th>Index Per Kg</th>
-                                <th>Restrictions</th>
+                                <th>Arm</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -37,7 +37,7 @@
                                     <td>{{ $hold->aft }}</td>
                                     <td>{{ $hold->max }}</td>
                                     <td>{{ $hold->index }}</td>
-                                    <td>{{ $hold->restrictions }}</td>
+                                    <td>{{ $hold->arm }}</td>
                                     <td>
                                         <a href="{{ route('holds.show', $hold->id) }}" class="btn btn-info btn-sm bi-eye"></a>
                                         <a href="{{ route('holds.edit', $hold->id) }}" class="btn btn-primary btn-sm bi-pencil-square"></a>

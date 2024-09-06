@@ -16,20 +16,6 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label class="col-md-4 col-form-label text-md-end">FWD:</label>
-                        <div class="col-md-6">
-                            <p>{{ $cabinZone->fwd }}</p>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label class="col-md-4 col-form-label text-md-end">AFT:</label>
-                        <div class="col-md-6">
-                            <p>{{ $cabinZone->aft }}</p>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
                         <label class="col-md-4 col-form-label text-md-end">Max Capacity:</label>
                         <div class="col-md-6">
                             <p>{{ $cabinZone->max_capacity }}</p>
@@ -37,9 +23,9 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label class="col-md-4 col-form-label text-md-end">Restrictions:</label>
+                        <label class="col-md-4 col-form-label text-md-end">Arm:</label>
                         <div class="col-md-6">
-                            <p>{{ $cabinZone->restrictions }}</p>
+                            <p>{{ $cabinZone->arm }}</p>
                         </div>
                     </div>
 

@@ -12,10 +12,9 @@ class CabinZone extends Model
     protected $fillable = [
         'aircraft_type_id',
         'zone_name',
-        'fwd',
-        'aft',
         'max_capacity',
         'index',
+        'arm',
     ];
 
     public function aircraftType()

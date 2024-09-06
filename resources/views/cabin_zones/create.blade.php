@@ -21,20 +21,6 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="fwd" class="col-md-4 col-form-label text-md-end">FWD</label>
-                        <div class="col-md-6">
-                            <input type="number" step="any" class="form-control" id="fwd" name="fwd">
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="aft" class="col-md-4 col-form-label text-md-end">AFT</label>
-                        <div class="col-md-6">
-                            <input type="number" step="any" class="form-control" id="aft" name="aft">
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
                         <label for="max_capacity" class="col-md-4 col-form-label text-md-end">Max Capacity</label>
                         <div class="col-md-6">
                             <input type="number" step="any" class="form-control" id="max_capacity" name="max_capacity">
@@ -47,7 +33,12 @@
                             <input type="number" step="any" class="form-control" id="index" name="index">
                         </div>
                     </div>
-
+                    <div class="row mb-3">
+                        <label for="arm" class="col-md-4 col-form-label text-md-end">Arm</label>
+                        <div class="col-md-6">
+                            <input type="number" step="any" class="form-control" id="arm" name="arm">
+                        </div>
+                    </div>
                     <div class="row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary">

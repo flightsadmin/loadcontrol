@@ -209,7 +209,7 @@
                                 if (label) {
                                     label += ': ';
                                 }
-                                label += '( Index ' + (context.raw.x).toFixed(2) + ', Weight ' + (context.raw.y * 1000)
+                                label += '(Index ' + (context.raw.x).toFixed(2) + ', Weight ' + (context.raw.y * 1000)
                                     .toLocaleString() + ' kg)';
                                 return label;
                             }

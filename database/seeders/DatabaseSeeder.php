@@ -36,8 +36,8 @@ class DatabaseSeeder extends Seeder
                     'fwd' => $previousFwd,
                     'aft' => $currentAft,
                     'max' => $faker->numberBetween(1400, 2300),
+                    'arm' => $faker->randomFloat(5, -0.0000001, 0.001),
                     'index' => $faker->randomFloat(5, -0.0000001, 0.001),
-                    'restrictions' => $faker->optional()->randomElement(['No Avi', 'No HUM']),
                 ]);
                 $previousFwd = $currentAft;
             }
@@ -45,10 +45,6 @@ class DatabaseSeeder extends Seeder
             Registration::factory(5)->create([
                 'aircraft_type_id' => $value
             ]);
-
-            // FuelIndex::factory(30)->create([
-            //     'aircraft_type_id' => $value
-            // ]);
 
             foreach (['A', 'B', 'C'] as $zone) {
                 CabinZone::factory(1)->create([

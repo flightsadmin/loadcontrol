@@ -21,10 +21,9 @@
                                 <div>
                                     <span class="text-muted">
                                         <div><strong>Zone: </strong>{{ $zone->zone_name }}</div>
-                                        <div><strong>Foward Arm: </strong>{{ $zone->fwd }}</div>
-                                        <div><strong>AFT Arm: </strong>{{ $zone->aft }}</div>
                                         <div><strong>Zone Capacity: </strong>{{ $zone->max_capacity }}</div>
                                         <div><strong>Index Per KG: </strong>{{ $zone->index }}</div>
+                                        <div><strong>Arm: </strong>{{ $zone->arm }}</div>
                                     </span>
                                 </div>
                                 <div class="col-md-2 text-end">

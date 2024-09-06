@@ -23,10 +23,9 @@ class CabinZoneController extends Controller
     {
         $validated = $request->validate([
             'zone_name' => 'required|string',
-            'fwd' => 'required|numeric',
-            'aft' => 'required|numeric',
             'max_capacity' => 'required|numeric',
-            'index' => 'nullable|string',
+            'index' => 'nullable|numeric',
+            'arm' => 'nullable|numeric',
         ]);
 
         $aircraftType->cabinZones()->create($validated);
@@ -44,10 +43,9 @@ class CabinZoneController extends Controller
     {
         $validated = $request->validate([
             'zone_name' => 'required|string',
-            'fwd' => 'required|numeric',
-            'aft' => 'required|numeric',
             'max_capacity' => 'required|numeric',
-            'index' => 'nullable|string',
+            'index' => 'nullable|numeric',
+            'arm' => 'nullable|numeric',
         ]);
 
         $cabinZone->update($validated);

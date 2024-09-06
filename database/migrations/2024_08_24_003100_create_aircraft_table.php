@@ -123,8 +123,8 @@ return new class extends Migration {
             $table->float('fwd')->nullable();
             $table->float('aft')->nullable();
             $table->float('max')->nullable();
+            $table->decimal('arm', 5, 5)->nullable();
             $table->decimal('index', 5, 5)->nullable();
-            $table->text('restrictions')->nullable();
             $table->timestamps();
         });
 
@@ -132,10 +132,9 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->string('zone_name')->nullable();
-            $table->float('fwd')->nullable();
-            $table->float('aft')->nullable();
             $table->float('max_capacity')->nullable();
             $table->decimal('index', 5, 5)->nullable();
+            $table->decimal('arm', 5, 5)->nullable();
             $table->timestamps();
         });
 

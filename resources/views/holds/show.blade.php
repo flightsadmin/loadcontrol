@@ -28,8 +28,8 @@
                         <p>{{ $hold->aft }}</p>
                     </div>
                     <div class="col-md-6">
-                        <h5>Restrictions</h5>
-                        <p>{{ $hold->restrictions }}</p>
+                        <h5>Arm</h5>
+                        <p>{{ $hold->arm }}</p>
                     </div>
                 </div>
 

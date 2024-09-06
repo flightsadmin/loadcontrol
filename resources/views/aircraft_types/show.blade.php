@@ -7,11 +7,11 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>{{ $aircraftType->manufacturer }} - {{ $aircraftType->aircraft_type }}</h4>
                     <a href="{{ route('aircraft_types.envelopes.index', $aircraftType->id) }}"
-                        class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Envelope</a>
+                        class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Envelopes</a>
+                    <a href="{{ route('aircraft_types.cabin_zones.index', $aircraftType->id) }}"
+                        class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Cabin Zones</a>
                     <a href="{{ route('aircraft_types.holds.create', $aircraftType->id) }}"
                         class="btn btn-primary btn-sm mb-0 bi-plus-lg"> Add New Hold</a>
-                    <a href="{{ route('aircraft_types.cabin_zones.create', $aircraftType->id) }}"
-                        class="btn btn-primary btn-sm bi-plus-lg mt-0"> Add Cabin Zone</a>
                     <a href="{{ route('aircraft_types.registrations.create', $aircraftType->id) }}"
                         class="btn btn-primary btn-sm mb-0 float-end bi-plus-lg"> Add New Registration</a>
                     <a href="{{ route('aircraft_types.index') }}"
@@ -81,7 +81,10 @@
                                                 <div>
                                                     <strong>{{ $hold->hold_no }}</strong>
                                                     <span class="text-muted">FWD: {{ $hold->fwd }}m, AFT: {{ $hold->aft }}m</span>
-                                                    <div>Restrictions: {{ $hold->restrictions ?? 'None' }}</div>
+                                                    <div>Capacity: {{ $hold->max }}
+                                                        <span class="text-muted">Index: {{ $hold->index ?? 'None' }} Arm:
+                                                            {{ $hold->arm ?? 'None' }}</span>
+                                                    </div>
                                                 </div>
                                                 <div>
                                                     <a href="{{ route('holds.edit', $hold->id) }}"

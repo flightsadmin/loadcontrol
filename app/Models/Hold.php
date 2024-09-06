@@ -15,8 +15,8 @@ class Hold extends Model
         'fwd',
         'aft',
         'max',
-        'index',
-        'restrictions'
+        'arm',
+        'index'
     ];
 
     public function aircraftType()

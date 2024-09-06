@@ -26,8 +26,8 @@ class HoldController extends Controller
             'fwd' => 'required|numeric',
             'aft' => 'nullable|numeric',
             'max' => 'nullable|numeric',
+            'arm' => 'nullable|numeric',
             'index' => 'nullable|numeric',
-            'restrictions' => 'nullable|string',
         ]);
 
         $aircraftType->holds()->create($validated);
@@ -54,8 +54,8 @@ class HoldController extends Controller
             'fwd' => 'required|numeric',
             'aft' => 'nullable|numeric',
             'max' => 'nullable|numeric',
+            'arm' => 'nullable|numeric',
             'index' => 'nullable|numeric',
-            'restrictions' => 'nullable|string',
         ]);
 
         $hold->update($validated);
