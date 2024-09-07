@@ -21,6 +21,7 @@ Route::get('/database', function () {
     Artisan::call('db:seed');
     return redirect()->back()->with('success', 'Database migrated and seeded successfully!');
 })->name('migrate.fresh.seed');
+
 Route::get('import', [ImportController::class, 'showForm'])->name('import.form');
 Route::post('import', [ImportController::class, 'import'])->name('import');
 
