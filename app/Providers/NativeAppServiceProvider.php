@@ -34,7 +34,7 @@ class NativeAppServiceProvider implements ProvidesPhpIni
             ->height(800)
             ->minWidth(1400)
             ->minHeight(800)
-            ->showDevTools(false)
+            // ->showDevTools(false)
             ->rememberState();
     }
 
