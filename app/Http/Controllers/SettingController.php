@@ -2,63 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
+use App\Models\AircraftType;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(AircraftType $aircraftType)
     {
-        //
+        $setting = $aircraftType->setting;
+        return view('settings.index', compact('setting', 'aircraftType'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(AircraftType $aircraftType)
     {
-        //
+        return view('settings.create', compact('aircraftType'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request, AircraftType $aircraftType)
     {
-        //
+        $validated = $request->validate([
+            'settings' => 'nullable|array',
+            'aircraft' => 'nullable|array',
+        ]);
+
+        $aircraftType->setting()->updateOrCreate(
+            ['aircraft_type_id' => $aircraftType->id],
+            ['settings' => $validated]
+        );
+
+        return redirect()->route('aircraft_types.settings.index', $aircraftType)
+            ->with('success', 'Settings created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(AircraftType $aircraftType, Setting $setting)
     {
-        //
+        return view('settings.edit', compact('setting', 'aircraftType'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, AircraftType $aircraftType, Setting $setting)
     {
-        //
+        $request->validate([
+            'settings' => 'required|array',
+        ]);
+
+        $setting->update([
+            'settings' => $request->settings
+        ]);
+
+        return redirect()->route('aircraft_types.settings.index', $aircraftType)
+            ->with('success', 'Settings updated successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(AircraftType $aircraftType, Setting $setting)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $setting->delete();
+        return redirect()->route('aircraft_types.settings.index', $aircraftType)
+            ->with('success', 'Settings deleted successfully');
     }
 }

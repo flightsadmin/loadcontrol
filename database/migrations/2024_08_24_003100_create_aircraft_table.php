@@ -10,13 +10,6 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
-            $table->id();
-            $table->string('key', 50)->unique();
-            $table->string('value', 100)->nullable();
-            $table->timestamps();
-        });
-        
         Schema::create('airlines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -26,7 +19,7 @@ return new class extends Migration {
             $table->json('settings')->nullable();
             $table->timestamps();
         });
-
+        
         Schema::create('aircraft_types', function (Blueprint $table) {
             $table->id();
             $table->foreignId('airline_id')->constrained()->onDelete('cascade');
@@ -40,6 +33,13 @@ return new class extends Migration {
             $table->integer('max_fuel_weight')->nullable();
             $table->decimal('fwd_cg_limit', 8, 2)->nullable();
             $table->decimal('aft_cg_limit', 8, 2)->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('settings', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
+            $table->json('settings');
             $table->timestamps();
         });
 

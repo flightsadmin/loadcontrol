@@ -164,13 +164,5 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-
-        // Default App Setting
-        foreach (config("admin.default") as $key => $value) {
-            \App\Models\Setting::updateOrCreate(
-                ['key' => $key],
-                ['value' => $value],
-            );
-        }
     }
 }

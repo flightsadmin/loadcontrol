@@ -52,4 +52,9 @@ class AircraftType extends Model
     {
         return $this->hasMany(FuelIndex::class);
     }
+
+    public function setting()
+    {
+        return $this->hasOne(Setting::class);
+    }
 }
