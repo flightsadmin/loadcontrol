@@ -92,10 +92,10 @@
         function initializeDragAndDrop() {
             const cargoItems = document.querySelectorAll('.cargo-item');
             const holds = document.querySelectorAll('.hold');
-            const container = document.querySelector('.list-group'); // The container for unplanned cargo
+            const container = document.querySelector('.list-group');
 
             cargoItems.forEach(item => {
-                item.setAttribute('draggable', true); // Ensure all items are draggable
+                item.setAttribute('draggable', true);
 
                 item.addEventListener('dragstart', function(e) {
                     e.dataTransfer.setData('text/plain', e.target.dataset.cargoId);
