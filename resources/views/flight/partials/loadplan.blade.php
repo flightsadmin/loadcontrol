@@ -20,7 +20,7 @@
                     style="top: 70%; left: -20px; transform: translateY(-50%) rotate(-90deg); transform-origin: left top;">
                     <span class="">Arrival</span>
                 </div>
-                @foreach($flight->registration->aircraftType->holds as $hold)
+                @foreach ($flight->registration->aircraftType->holds as $hold)
                     <div class="hold position-absolute"
                         style="top: 0; left: {{ $hold->fwd }}%; width: {{ $hold->aft - $hold->fwd }}%; height: 100%; background-color: grey; border: 10px solid #6c757d;">
                         <span class="text-white">{{ $hold->hold_no }} <small class="ms-3">Max {{ $hold->max }}</small></span>
@@ -33,18 +33,22 @@
                     style="top: 70%; left: -20px; transform: translateY(-50%) rotate(-90deg); transform-origin: left top;">
                     <span class="">Loading</span>
                 </div>
-                @foreach($flight->registration->aircraftType->holds as $hold)
+                @foreach ($flight->registration->aircraftType->holds as $hold)
                     <div class="hold position-absolute"
                         style="top: 0; left: {{ $hold->fwd }}%; width: {{ $hold->aft - $hold->fwd }}%; height: 100%; background-color: grey; border: 10px solid #6c757d;">
                         <span class="text-white">{{ $hold->hold_no }} <small class="ms-3">Max {{ $hold->max }}</small></span>
                         <ul class="mt-2">
-                            @foreach ($flight->cargos->where('hold_id', $hold->id) as $cargo)
+                            @forelse ($flight->cargos->where('hold_id', $hold->id) as $cargo)
                                 <li class="d-flex justify-content-between align-items-center">
                                     <span class="badge text-bg-primary rounded-pill mb-1">
                                         {{ ucfirst($cargo->type) }} - {{ $cargo->pieces }} / {{ $cargo->weight }}kg
                                     </span>
                                 </li>
-                            @endforeach
+                            @empty
+                                <li class="d-flex justify-content-between align-items-center">
+                                    NIL
+                                </li>
+                            @endforelse
                         </ul>
                     </div>
                 @endforeach
@@ -54,7 +58,7 @@
                     style="top: 70%; left: -20px; transform: translateY(-50%) rotate(-90deg); transform-origin: left top;">
                     <span class="">Departure</span>
                 </div>
-                @foreach($flight->registration->aircraftType->holds as $hold)
+                @foreach ($flight->registration->aircraftType->holds as $hold)
                     <div class="hold position-absolute"
                         style="top: 0; left: {{ $hold->fwd }}%; width: {{ $hold->aft - $hold->fwd }}%; height: 100%; background-color: grey; border: 10px solid #6c757d;">
                         <span class="text-white">{{ $hold->hold_no }} <small class="ms-3">Max {{ $hold->max }}</small></span>
@@ -75,16 +79,12 @@
                     <div class="col-sm-6 border p-2">
                         <strong>I Certify That:</strong>
                         <p class="small">
-                            THIS AIRCRAFT HAS BEEN LOADED IN ACCORDANCE WITH THE ABOVE LOADING INSTRUCTIONS, INCLUDING ANY DEVIATIONS
-                            SHOWN
-                            ON
-                            THE DEPARTURE REPORT.
+                            THIS AIRCRAFT HAS BEEN LOADED IN ACCORDANCE WITH THE ABOVE LOADING INSTRUCTIONS, 
+                            INCLUDING ANY DEVIATIONS SHOWN ON THE DEPARTURE REPORT.
                             ALL DEADLOAD LOADED OR DISTRIBUTED AT THIS PORT HAS BEEN SECURED BY THE AIRCRAFT NETTING AND/OR COMPANY
-                            APPROVED
-                            RESTRAINT EQUIPMENT.
+                            APPROVED RESTRAINT EQUIPMENT.
                             ALL NETTING AND/OR RESTRAINT EQUIPMENT HAS BEEN INSPECTED AND APPROPRIATE CORRECTIVE ACTION HAS BEEN TAKEN
-                            FOR
-                            DAMAGE NOTED PRIOR TO DEPARTURE.
+                            FOR DAMAGE NOTED PRIOR TO DEPARTURE.
                         </p>
                         <div class="d-flex justify-content-between">
                             <span>Signed: _____________________</span>
