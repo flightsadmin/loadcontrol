@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             ])->each(function ($value) {
                 $faker = Faker::create();
                 $previousFwd = 0;
-
+                // Holds
                 foreach ([ 
                     ['number' => 1, 'max' => 3402, 'index' => -0.00642],
                     ['number' => 3, 'max' => 2426, 'index' => +0.00401],
@@ -51,10 +51,7 @@ class DatabaseSeeder extends Seeder
                     $previousFwd = $currentAft;
                 }
 
-                Registration::factory(5)->create([
-                    'aircraft_type_id' => $value
-                ]);
-
+                // Cabin Zones
                 foreach ([ 
                     ['name' => 'A', 'arm' => -6.971, 'index' => -0.00697],
                     ['name' => 'B', 'arm' => +0.281, 'index' => +0.00028],
@@ -66,11 +63,16 @@ class DatabaseSeeder extends Seeder
                         'arm' => $zone['arm'],
                         'index' => $zone['index'],
                     ]);
-                }                
+                }
+                
+                // Registrations
+                Registration::factory(5)->create([
+                    'aircraft_type_id' => $value
+                ]);
             });
         });
 
-        $data = [
+        $envelope_data = [
             ['envelope_type' => 'TOW', 'x' => 39.02, 'y' => 40.600],
             ['envelope_type' => 'TOW', 'x' => 36.66, 'y' => 45.279],
             ['envelope_type' => 'TOW', 'x' => 33.43, 'y' => 53.000],
@@ -111,13 +113,13 @@ class DatabaseSeeder extends Seeder
             ['envelope_type' => 'ZFW', 'x' => 58.20, 'y' => 40.600],
         ];
 
-        foreach ($data as $point) {
+        foreach ($envelope_data as $point) {
             AircraftType::all()->each(function ($aircraft) use ($point) {
                 $aircraft->envelopes()->create($point);
             });
         }
 
-        $fuelData = [
+        $fuel_data = [
             ['weight' => 1, 'index' => +0],
             ['weight' => 3500, 'index' => +0.99],
             ['weight' => 4000, 'index' => +0.47],
@@ -152,7 +154,7 @@ class DatabaseSeeder extends Seeder
             ['weight' => 18500, 'index' => -10.83],
             ['weight' => 18632, 'index' => -11.08]
         ];
-        foreach ($fuelData as $fuel) {
+        foreach ($fuel_data as $fuel) {
             AircraftType::all()->each(function ($aircraft) use ($fuel) {
                 $aircraft->fuelIndexes()->create($fuel);
             });
@@ -172,9 +174,10 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        $user->syncRoles(['super-admin']);
     }
 }
