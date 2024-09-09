@@ -19,17 +19,6 @@ jobs:
     - name: Install Composer dependencies
       run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction
 
-    - name: Install NodeJS
-      uses: actions/setup-node@v3
-      with: 
-        node-version: '20'
-
-    - name: Install NMP
-      run: npm install
-
-    - name: Build Assets
-      run: npm run build
-
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
@@ -38,13 +27,7 @@ jobs:
         password: ${{ secrets.FTP_PASS }}
         local-dir: ./
         server-dir: /wab.flightadmin.info/
-        exclude: |
-                [
-                .git/,
-                .github/,
-                node_modules/,
-                vendor/,
-                ]
+        exclude:  vendor/
 
     - name: Run Migrations and Seed Database
       env:
