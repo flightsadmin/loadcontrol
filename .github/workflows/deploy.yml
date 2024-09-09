@@ -28,7 +28,7 @@ jobs:
         DB_USERNAME: ${{ secrets.DB_USERNAME }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       run: |
-        php artisan migrate:fresh --seed
+        php artisan migrate:fresh --seed --force
 
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
