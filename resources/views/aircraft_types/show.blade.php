@@ -84,8 +84,10 @@
                                                     <strong>{{ $hold->hold_no }}</strong>
                                                     <span class="text-muted">FWD: {{ $hold->fwd }}m, AFT: {{ $hold->aft }}m</span>
                                                     <div>Capacity: {{ $hold->max }}
-                                                        <span class="text-muted">Index: {{ $hold->index ?? 'None' }} Arm:
-                                                            {{ $hold->arm ?? 'None' }}</span>
+                                                        <span class="text-muted">
+                                                            Index: {{ $hold->index ?? 'None' }}
+                                                            Arm: {{ $hold->arm ?? 'None' }}
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div>

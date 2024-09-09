@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="d-flex">
                                     <a href="{{ route('aircraft_types.show', $aircraftType->id) }}"
-                                        class="btn btn-secondary btn-sm me-2 bi-eye"> Eye</a>
+                                        class="btn btn-warning btn-sm me-2 bi-eye"> View</a>
                                     <a href="{{ route('aircraft_types.edit', $aircraftType->id) }}"
                                         class="btn btn-primary btn-sm me-2 bi-pencil-square"> Edit</a>
                                     <form action="{{ route('aircraft_types.destroy', $aircraftType->id) }}" method="POST" class="d-inline">
