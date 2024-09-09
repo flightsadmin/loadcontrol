@@ -36,7 +36,7 @@ jobs:
         local-dir: ./
         server-dir: /wab.flightadmin.info/
         exclude: |
-          [.git/, node_modules/, vendor/]
+          [.git/**, node_modules/**, vendor/]
 
     - name: Run Migrations and Seed Database
       env:
