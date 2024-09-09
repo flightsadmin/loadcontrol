@@ -31,8 +31,6 @@ return new class extends Migration {
             $table->integer('deck_crew')->nullable();
             $table->integer('cabin_crew')->nullable();
             $table->integer('max_fuel_weight')->nullable();
-            $table->decimal('fwd_cg_limit', 8, 2)->nullable();
-            $table->decimal('aft_cg_limit', 8, 2)->nullable();
             $table->timestamps();
         });
 
