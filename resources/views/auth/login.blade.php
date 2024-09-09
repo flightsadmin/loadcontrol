@@ -61,7 +61,7 @@
                                     </button>
 
                                     @if (Route::has('register'))
-                                        <a class="btn btn-primary bi-key-fill" href="{{ route('register') }}">
+                                        <a class="btn btn-primary" href="{{ route('register') }}">
                                             {{ __('Register?') }}
                                         </a>
                                     @endif
