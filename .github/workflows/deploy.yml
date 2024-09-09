@@ -19,16 +19,6 @@ jobs:
     - name: Install Composer dependencies
       run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction
 
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
-      with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USER }}
-        password: ${{ secrets.FTP_PASS }}
-        local-dir: ./
-        server-dir: /wab.flightadmin.info/
-        exclude:  vendor/
-
     - name: Run Migrations and Seed Database
       env:
         DB_CONNECTION: mysql
@@ -39,3 +29,13 @@ jobs:
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       run: |
         php artisan migrate:fresh --seed
+
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PASS }}
+        local-dir: ./
+        server-dir: /wab.flightadmin.info/
+        exclude:  vendor/
