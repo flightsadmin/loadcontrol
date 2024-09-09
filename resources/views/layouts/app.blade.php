@@ -72,7 +72,9 @@
                                             </button>
                                         </form>
                                     </li>
-                                    <li><a class="dropdown-item" href="{{ route('import.form') }}">Import</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
                                     <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Edit Profile</a></li>
                                     <li>
                                         <hr class="dropdown-divider">

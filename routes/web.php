@@ -23,9 +23,6 @@ Route::get('/database', function () {
     return redirect()->back()->with('success', 'Database migrated and seeded successfully!');
 })->name('migrate.fresh.seed');
 
-Route::get('import', [ImportController::class, 'showForm'])->name('import.form');
-Route::post('import', [ImportController::class, 'import'])->name('import');
-
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/', FlightController::class);
     Route::resource('cargos', CargoController::class);
