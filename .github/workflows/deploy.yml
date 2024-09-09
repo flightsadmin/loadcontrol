@@ -26,4 +26,4 @@ jobs:
         username: ${{ secrets.FTP_USER }}
         password: ${{ secrets.FTP_PASS }}
         local-dir: ./
-        server-dir: /home/www/wab.flightadmin.info/
+        server-dir: /wab.flightadmin.info/
