@@ -26,11 +26,11 @@ class AircraftTypeFactory extends Factory
             'deck_crew' => $this->faker->numberBetween(2, 4),
             'cabin_crew' => $this->faker->numberBetween(4, 8),
             'max_fuel_weight' => $this->faker->numberBetween(16000, 18000),
-            'ref_sta' => $this->faker->randomFloat(2, 18, 19),
+            'ref_sta' => 18.850,
             'k_constant' => 50,
             'c_constant' => 1000,
-            'length_of_mac' => $this->faker->randomFloat(3, 4, 5),
-            'lemac' => $this->faker->randomFloat(4, 17, 19),
+            'length_of_mac' => 4.194,
+            'lemac' => 17.8015,
         ];
     }
 }

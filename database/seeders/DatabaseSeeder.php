@@ -31,16 +31,22 @@ class DatabaseSeeder extends Seeder
             ])->each(function ($value) {
                 $faker = Faker::create();
                 $previousFwd = 0;
-                for ($i = 1; $i <= 5; $i++) {
-                    $currentAft = $previousFwd + 20;
+
+                foreach ([ 
+                    ['number' => 1, 'max' => 3402, 'index' => -0.00642],
+                    ['number' => 3, 'max' => 2426, 'index' => +0.00401],
+                    ['number' => 4, 'max' => 2110, 'index' => +0.00741],
+                    ['number' => 5, 'max' => 1497, 'index' => +0.01048],
+                ] as $hold) {
+                    $currentAft = $previousFwd + 25;
                     Hold::create([
                         'aircraft_type_id' => $value->id,
-                        'hold_no' => $i,
+                        'hold_no' => $hold['number'],
                         'fwd' => $previousFwd,
                         'aft' => $currentAft,
-                        'max' => $faker->numberBetween(1400, 2300),
+                        'max' => $hold['max'],
                         'arm' => $faker->randomFloat(5, -0.0000001, 0.001),
-                        'index' => $faker->randomFloat(5, -0.0000001, 0.001),
+                        'index' => $hold['index'],
                     ]);
                     $previousFwd = $currentAft;
                 }
@@ -49,12 +55,18 @@ class DatabaseSeeder extends Seeder
                     'aircraft_type_id' => $value
                 ]);
 
-                foreach (['A', 'B', 'C'] as $zone) {
+                foreach ([ 
+                    ['name' => 'A', 'arm' => -6.971, 'index' => -0.00697],
+                    ['name' => 'B', 'arm' => +0.281, 'index' => +0.00028],
+                    ['name' => 'C', 'arm' => +8.271, 'index' => +0.00827],
+                ] as $zone) {
                     CabinZone::factory(1)->create([
                         'aircraft_type_id' => $value,
-                        'zone_name' => $zone
+                        'zone_name' => $zone['name'],
+                        'arm' => $zone['arm'],
+                        'index' => $zone['index'],
                     ]);
-                }
+                }                
             });
         });
 

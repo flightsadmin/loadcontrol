@@ -31,11 +31,11 @@ return new class extends Migration {
             $table->integer('deck_crew')->nullable();
             $table->integer('cabin_crew')->nullable();
             $table->integer('max_fuel_weight')->nullable();
-            $table->decimal('ref_sta', 8, 2)->nullable();
+            $table->float('ref_sta')->nullable();
             $table->float('k_constant')->nullable();
             $table->float('c_constant')->nullable();
-            $table->decimal('length_of_mac', 8, 3)->nullable();
-            $table->decimal('lemac', 8, 4)->nullable();
+            $table->float('length_of_mac')->nullable();
+            $table->float('lemac')->nullable();
             $table->timestamps();
         });
 

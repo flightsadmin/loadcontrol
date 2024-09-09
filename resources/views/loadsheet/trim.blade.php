@@ -125,6 +125,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <canvas id="trimSheetChart" height="220"></canvas>
+                                <div class="mx-4">
+                                <div class="d-flex justify-content-between align-items-center mx-4">
+                                        <div>MACZFW <span class="text-primary">{{ $macZFW }}%</span></div>
+                                        <div>MACTOW <span class="text-danger">{{ $macTOW }}%</span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

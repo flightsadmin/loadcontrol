@@ -29,7 +29,7 @@ class LoadsheetController extends Controller
         // Calculate weights
         $totalPassengerWeight = $this->calculatePassengerWeight($passengers);
         $totalDeadloadWeight = $deadloads->sum('weight');
-        $totalCrewWeight = $this->calculateCrewWeight($fuelFigure->crew);
+        $totalCrewWeight = $this->calculateCrewWeight($fuelFigure->crew, $flight);
         $pantryWeight = $this->calculatePantryWeight($fuelFigure->pantry);
 
         // Operating weights
@@ -115,11 +115,17 @@ class LoadsheetController extends Controller
             $flight->fuelFigure->block_fuel - $flight->fuelFigure->trip_fuel,
             $flight->registration->aircraftType->id
         )->index;
+        $type = $flight->registration->aircraftType;
         $lizfw = $basicIndex + $paxIndex + $cargoIndex;
         $litow = $lizfw + $toFuelIndex;
         $lildw = $litow + $ldfuelIndex;
-        
-        return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'lizfw', 'litow', 'lildw'));
+
+        $macZFW = round((($type->c_constant * ($lizfw - $type->k_constant) / $flight->loadsheet->zero_fuel_weight_actual)
+            + ($type->ref_sta - $type->lemac)) / ($type->length_of_mac / 100), 2);
+        $macTOW = round((($type->c_constant * ($litow - $type->k_constant) / $flight->loadsheet->take_off_weight_actual)
+            + ($type->ref_sta - $type->lemac)) / ($type->length_of_mac / 100), 2);
+            
+        return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'lizfw', 'litow', 'lildw', 'macZFW', 'macTOW'));
     }
 
     private function calculatePassengerWeight($passengers)
@@ -137,14 +143,17 @@ class LoadsheetController extends Controller
         });
     }
 
-    private function calculateCrewWeight($crewData)
+    private function calculateCrewWeight($crewData, $flight)
     {
-        $standardCrew = [85, 75];
-        return collect(explode('/', $crewData ?? ''))->map(function ($crew, $index) use ($standardCrew) {
-            $crewCount = (int) $crew;
-            return $crewCount * ($standardCrew[$index] ?? 0);
-        })->sum();
+        $standardCrew = [
+            "deck_crew_weight" => $flight->airline->settings['crew']['deck_crew_weight'] ?? 85,
+            "cabin_crew_weight" => $flight->airline->settings['crew']['cabin_crew_weight'] ?? 70
+        ];
+        list($deckCrewCount, $cabinCrewCount) = explode('/', $crewData ?? '0/0');
+        
+        return ((int)$deckCrewCount * $standardCrew["deck_crew_weight"]) + ((int)$cabinCrewCount * $standardCrew["cabin_crew_weight"]);
     }
+
 
     private function calculatePantryWeight($pantrySetting)
     {
