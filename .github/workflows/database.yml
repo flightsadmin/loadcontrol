@@ -1,0 +1,47 @@
+name: Migrate and Seed Database
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  migrate-seed:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP on Windows
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, pdo, pdo_mysql
+          tools: composer
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
+
+      - name: Copy .env example
+        run: Copy-Item .env.example -Destination .env
+
+      - name: Set production environment variables
+        run: |
+          Add-Content .env "APP_ENV=production"
+          Add-Content .env "DB_CONNECTION=${{ secrets.PROD_DB_CONNECTION }}"
+          Add-Content .env "DB_HOST=${{ secrets.DB_HOST }}"
+          Add-Content .env "DB_PORT=${{ secrets.DB_PORT }}"
+          Add-Content .env "DB_DATABASE=${{ secrets.DB_DATABASE }}"
+          Add-Content .env "DB_USERNAME=${{ secrets.DB_USERNAME }}"
+          Add-Content .env "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
+
+      - name: Generate application key
+        run: php artisan key:generate
+
+      - name: Run migrations in production
+        run: php artisan migrate --force
+
+      - name: Seed database in production
+        run: php artisan db:seed --force
