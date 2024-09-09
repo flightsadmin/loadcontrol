@@ -1,4 +1,4 @@
-name: Migrate and Seed Database
+name: Laravel Production Migrate and Seed on Ubuntu
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up PHP on Windows
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
@@ -24,18 +24,18 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
-      - name: Copy .env example
-        run: copy('.env.example', '.env')
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
 
       - name: Set production environment variables
         run: |
-          Add-Content .env "APP_ENV=production"
-          Add-Content .env "DB_CONNECTION=${{ secrets.PROD_DB_CONNECTION }}"
-          Add-Content .env "DB_HOST=${{ secrets.DB_HOST }}"
-          Add-Content .env "DB_PORT=${{ secrets.DB_PORT }}"
-          Add-Content .env "DB_DATABASE=${{ secrets.DB_DATABASE }}"
-          Add-Content .env "DB_USERNAME=${{ secrets.DB_USERNAME }}"
-          Add-Content .env "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
+          echo "APP_ENV=production" >> .env
+          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
 
       - name: Generate application key
         run: php artisan key:generate
