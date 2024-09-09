@@ -31,6 +31,11 @@ return new class extends Migration {
             $table->integer('deck_crew')->nullable();
             $table->integer('cabin_crew')->nullable();
             $table->integer('max_fuel_weight')->nullable();
+            $table->decimal('ref_sta', 8, 2)->nullable();
+            $table->float('k_constant')->nullable();
+            $table->float('c_constant')->nullable();
+            $table->decimal('length_of_mac', 8, 3)->nullable();
+            $table->decimal('lemac', 8, 4)->nullable();
             $table->timestamps();
         });
 
@@ -64,7 +69,7 @@ return new class extends Migration {
             $table->string('flight_number');
             $table->string('origin');
             $table->string('destination');
-            $table->string('airline');
+            $table->foreignId('airline_id')->constrained()->onDelete('cascade');
             $table->enum('flight_type', ['Domestic', 'International']);
             $table->timestamp('departure');
             $table->timestamp('arrival');
@@ -94,6 +99,7 @@ return new class extends Migration {
         Schema::create('loadsheets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('flight_id')->constrained()->onDelete('cascade');
+            $table->boolean('final')->default(false);
             $table->integer('total_traffic_load')->default(0);
             $table->integer('dry_operating_weight')->default(0);
             $table->integer('zero_fuel_weight_actual')->default(0);

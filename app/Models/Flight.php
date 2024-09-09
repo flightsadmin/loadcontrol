@@ -9,7 +9,7 @@ class Flight extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['registration_id', 'flight_number', 'origin', 'destination', 'airline', 'flight_type', 'departure', 'arrival'];
+    protected $fillable = ['registration_id', 'flight_number', 'origin', 'destination', 'airline_id', 'flight_type', 'departure', 'arrival'];
     protected function casts(): array
     {
         return [
@@ -21,6 +21,11 @@ class Flight extends Model
     public function registration()
     {
         return $this->belongsTo(Registration::class);
+    }
+
+    public function airline()
+    {
+        return $this->belongsTo(Airline::class);
     }
 
     public function cargos()

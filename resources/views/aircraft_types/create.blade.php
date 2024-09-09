@@ -13,6 +13,7 @@
             <div class="card-body">
                 <form action="{{ route('aircraft_types.store') }}" method="POST">
                     @csrf
+                    <h6 class="fw-bold text-decoration-underline">AIRCRAFT DATA</h6>
                     @include('aircraft_types.form')
                 </form>
             </div>

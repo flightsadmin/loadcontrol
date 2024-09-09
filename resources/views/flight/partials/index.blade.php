@@ -14,7 +14,7 @@
                         <p class="card-text"><strong>Arrival:</strong> {{ $flight->arrival }}</p>
                         <p class="card-text"><strong>Origin:</strong> {{ $flight->origin }}</p>
                         <p class="card-text"><strong>Destination:</strong> {{ $flight->destination }}</p>
-                        <p class="card-text"><strong>Airline:</strong> {{ $flight->airline }}</p>
+                        <p class="card-text"><strong>Airline:</strong> {{ $flight->airline->name }}</p>
                         <p class="card-text"><strong>Flight Type:</strong> {{ $flight->flight_type }}</p>
                         <p class="card-text"><strong>Registration:</strong> {{ $flight->registration->registration_number }}
                             <a href="{{ route('registrations.edit', $flight->registration->id) }}"

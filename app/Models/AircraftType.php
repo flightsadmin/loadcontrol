@@ -19,8 +19,11 @@ class AircraftType extends Model
         'cabin_crew',
         'deck_crew',
         'max_fuel_weight',
-        'fwd_cg_limit',
-        'aft_cg_limit'
+        'ref_sta',
+        'k_constant',
+        'c_constant',
+        'length_of_mac',
+        'lemac'
     ];
 
     public function airline()

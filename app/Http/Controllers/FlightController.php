@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Airline;
 use App\Models\Flight;
 use App\Models\Registration;
 use Illuminate\Http\Request;
@@ -23,7 +24,8 @@ class FlightController extends Controller
     public function create()
     {
         $registrations = Registration::all();
-        return view('flight.create', compact('registrations'));
+        $airlines = Airline::all();
+        return view('flight.create', compact('registrations', 'airlines'));
     }
 
     public function store(Request $request)
@@ -33,7 +35,7 @@ class FlightController extends Controller
             'flight_number' => 'required|string',
             'origin' => 'required|string',
             'destination' => 'required|string',
-            'airline' => 'required|string',
+            'airline_id' => 'required|exists:airlines,id',
             'flight_type' => 'required|in:Domestic,International',
             'departure' => 'required|date',
             'arrival' => 'required|date',
@@ -53,7 +55,8 @@ class FlightController extends Controller
     public function edit(Flight $flight)
     {
         $registrations = Registration::all();
-        return view('flight.edit', compact('flight', 'registrations'));
+        $airlines = Airline::all();
+        return view('flight.edit', compact('flight', 'registrations', 'airlines'));
     }
 
     public function update(Request $request, Flight $flight)
@@ -63,7 +66,7 @@ class FlightController extends Controller
             'flight_number' => 'required|string',
             'origin' => 'required|string',
             'destination' => 'required|string',
-            'airline' => 'required|string',
+            'airline_id' => 'required|exists:airlines,id',
             'flight_type' => 'required|in:Domestic,International',
             'departure' => 'required|date',
             'arrival' => 'required|date',

@@ -31,8 +31,11 @@ class AircraftTypeController extends Controller
             'deck_crew' => 'nullable|integer',
             'cabin_crew' => 'nullable|integer',
             'max_fuel_weight' => 'nullable|integer',
-            'fwd_cg_limit' => 'nullable|numeric',
-            'aft_cg_limit' => 'nullable|numeric',
+            'ref_sta' => 'nullable|numeric',
+            'k_constant' => 'nullable|numeric',
+            'c_constant' => 'nullable|numeric',
+            'length_of_mac' => 'nullable|numeric',
+            'lemac' => 'nullable|numeric',
             'airline_id' => 'required|exists:airlines,id',
         ]);
 
@@ -72,8 +75,11 @@ class AircraftTypeController extends Controller
             'deck_crew' => 'nullable|integer',
             'cabin_crew' => 'nullable|integer',
             'max_fuel_weight' => 'nullable|integer',
-            'fwd_cg_limit' => 'nullable|numeric',
-            'aft_cg_limit' => 'nullable|numeric',
+            'ref_sta' => 'nullable|numeric',
+            'k_constant' => 'nullable|numeric',
+            'c_constant' => 'nullable|numeric',
+            'length_of_mac' => 'nullable|numeric',
+            'lemac' => 'nullable|numeric',
             'airline_id' => 'required|exists:airlines,id',
         ]);
 

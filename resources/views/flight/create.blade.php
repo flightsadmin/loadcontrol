@@ -92,15 +92,17 @@
 
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="airline" class="form-label">Airline</label>
-                                <select id="airline" name="airline" class="form-select @error('airline') is-invalid @enderror">
+                                <label for="airline_id" class="form-label">Airline</label>
+                                <span><a class="btn btn-link bi-pencil-square p-0" href="{{ route('airlines.index') }}"></a></span>
+                                <select id="airline_id" name="airline_id" class="form-select @error('airline_id') is-invalid @enderror">
                                     <option value="" selected disabled> Select Airline</option>
-                                    <option value="Qatar Airways" {{ old('airline') == 'Qatar Airways' ? 'selected' : '' }}>
-                                        Qatar Airways </option>
-                                    <option value="Kenya Airways" {{ old('airline') == 'Kenya Airways' ? 'selected' : '' }}>
-                                        Kenya Airways </option>
+                                    @foreach ($airlines as $airline)
+                                        <option value="{{ $airline->id }}" {{ old('airline_id') == $airline->id ? 'selected' : '' }}>
+                                            {{ $airline->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
-                                @error('airline')
+                                @error('airline_id')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -109,9 +111,10 @@
                             <div class="col-md-6">
                                 <label for="flight_type" class="form-label">Flight Type</label>
                                 <select id="flight_type" name="flight_type" class="form-select @error('flight_type') is-invalid @enderror">
-                                    <option value="Domestic" {{ old('flight_type') == 'Domestic' ? 'selected' : '' }}>Domestic</option>
+                                    <option value="" selected disabled>Select Flight Type</option>
                                     <option value="International" {{ old('flight_type') == 'International' ? 'selected' : '' }}>International
                                     </option>
+                                    <option value="Domestic" {{ old('flight_type') == 'Domestic' ? 'selected' : '' }}>Domestic</option>
                                 </select>
                                 @error('flight_type')
                                     <div class="invalid-feedback">

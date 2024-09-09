@@ -7,7 +7,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>Aircraft Types</h4>
                     <a href="{{ route('aircraft_types.create') }}"
-                        class="btn btn-info btn-sm bi-plus-lg float-end mt-0"> Add New Aircraft Type</a>
+                        class="btn btn-primary btn-sm bi-plus-lg float-end mt-0"> Add New Aircraft Type</a>
                 </div>
             </div>
             <div class="card-body">

@@ -92,6 +92,50 @@
         @enderror
     </div>
 </div>
+<h6 class="fw-bold text-decoration-underline">BASIC INDEX AND MAC/RC FORMULA</h6>
+
+<div class="row mb-3">
+    <div class="col-md-2">
+        <label for="ref_sta" class="form-label">Ref. Station. at</label>
+        <input type="number" step="any" name="ref_sta" id="ref_sta" class="form-control @error('ref_sta') is-invalid @enderror"
+            value="{{ old('ref_sta', $aircraftType->ref_sta ?? '') }}">
+        @error('ref_sta')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="col-md-2">
+        <label for="k_constant" class="form-label">K (constant)</label>
+        <input type="number" step="any" name="k_constant" id="k_constant" class="form-control @error('k_constant') is-invalid @enderror"
+            value="{{ old('k_constant', $aircraftType->k_constant ?? '') }}">
+        @error('k_constant')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="col-md-2">
+        <label for="c_constant" class="form-label">C (constant)</label>
+        <input type="number" step="any" name="c_constant" id="c_constant" class="form-control @error('c_constant') is-invalid @enderror"
+            value="{{ old('c_constant', $aircraftType->c_constant ?? '') }}">
+        @error('c_constant')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="col-md-2">
+        <label for="length_of_mac" class="form-label">Length of MAC/RC</label>
+        <input type="number" step="any" name="length_of_mac" id="length_of_mac" class="form-control @error('length_of_mac') is-invalid @enderror"
+            value="{{ old('length_of_mac', $aircraftType->length_of_mac ?? '') }}">
+        @error('length_of_mac')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="col-md-2">
+        <label for="lemac" class="form-label">LEMAC at</label>
+        <input type="number" step="any" name="lemac" id="lemac" class="form-control @error('lemac') is-invalid @enderror"
+            value="{{ old('lemac', $aircraftType->lemac ?? '') }}">
+        @error('lemac')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
 
 <div class="row mb-3">
     <div class="col-md-12">
