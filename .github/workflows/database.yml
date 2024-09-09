@@ -1,7 +1,6 @@
-name: Laravel Production Migrate and Seed on Ubuntu
+name: Migrate and Seed Database
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -18,8 +17,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          # extensions: mbstring, pdo, pdo_mysql
-          # tools: composer
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
@@ -41,7 +38,4 @@ jobs:
         run: php artisan key:generate
 
       - name: Run migrations in production
-        run: php artisan migrate --force
-
-      - name: Seed database in production
-        run: php artisan db:seed --force
+        run: php artisan migrate:fresh --seed --force
