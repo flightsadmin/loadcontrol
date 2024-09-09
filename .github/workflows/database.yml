@@ -18,8 +18,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: mbstring, pdo, pdo_mysql
-          tools: composer
+          # extensions: mbstring, pdo, pdo_mysql
+          # tools: composer
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
