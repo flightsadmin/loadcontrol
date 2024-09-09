@@ -2,7 +2,7 @@ name: 🚀 Deploy Website
 on:
     push:
       branches:
-        - main
+        - mains
 jobs:
   web-deploy:
     name: 🎉 Deploy
