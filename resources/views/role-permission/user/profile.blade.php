@@ -30,7 +30,7 @@
             <div class="row mb-3">
                 <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
                 <div class="col-md-6">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                    <input id="email" type="email" readonly class="form-control @error('email') is-invalid @enderror" name="email"
                         value="{{ old('email', $user->email) }}" required>
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -61,7 +61,7 @@
 
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-sm btn-primary float-end"> Update Profile </button>
+                    <button type="submit" class="btn btn-sm btn-primary float-end bi-floppy"> Update Profile </button>
                 </div>
             </div>
         </form>

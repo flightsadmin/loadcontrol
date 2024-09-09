@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Flight;
 use App\Models\Message;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Chat extends Component
@@ -35,6 +36,14 @@ class Chat extends Component
         $this->loadMessages();
     }
 
+    public function delete($messageId)
+    {
+        $message = Message::findOrFail($messageId);
+        $message->delete();
+        $this->dispatch('refresh');
+    }
+
+    #[On('refresh')]
     public function render()
     {
         return view('livewire.chat');
