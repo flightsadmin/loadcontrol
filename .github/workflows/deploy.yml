@@ -25,6 +25,6 @@ jobs:
         local-dir: ./
         server-dir: /wab.flightadmin.info/
         exclude: |
-                .git*
-                node_modules
-                .github
+                .git/
+                node_modules/
+                .github/
