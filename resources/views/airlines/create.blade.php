@@ -64,38 +64,46 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3">
-                        <div class="col-md-3">
+                    <div class="row mb-3 d-flex justify-content-between align-items-center">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="passenger_weight_male">Male Passenger Weight</label>
                                 <input type="number" name="settings[passenger_weights][male]" id="passenger_weight_male" class="form-control"
                                     value="{{ old('settings[passenger_weights][male]', 88) }}" required>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="passenger_weight_female">Female Passenger Weight</label>
                                 <input type="number" name="settings[passenger_weights][female]" id="passenger_weight_female"
                                     class="form-control" value="{{ old('settings[passenger_weights][female]', 70) }}" required>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="passenger_weight_child">Child Passenger Weight</label>
                                 <input type="number" name="settings[passenger_weights][child]" id="passenger_weight_child" class="form-control"
                                     value="{{ old('settings[passenger_weights][child]', 35) }}" required>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="passenger_weight_infant">Infant Passenger Weight</label>
                                 <input type="number" name="settings[passenger_weights][infant]" id="passenger_weight_infant"
                                     class="form-control" value="{{ old('settings[passenger_weights][infant]', 0) }}" required>
                             </div>
                         </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="passenger_weight_default">Default Passenger Weight</label>
+                                <input type="number" name="settings[passenger_weights][default]" id="passenger_weight_default"
+                                    class="form-control" value="{{ old('settings[passenger_weights][default]', 84) }}" required>
+                            </div>
+                        </div>
                     </div>
-
-                    <button type="submit" class="btn btn-sm btn-primary float-end">Create Airline</button>
+                    <div>
+                        <button type="submit" class="btn btn-sm btn-primary float-end">Create Airline</button>
+                    </div>
                 </form>
             </div>
         </div>

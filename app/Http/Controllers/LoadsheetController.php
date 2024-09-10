@@ -27,7 +27,7 @@ class LoadsheetController extends Controller
         }
 
         // Calculate weights
-        $totalPassengerWeight = $this->calculatePassengerWeight($passengers);
+        $totalPassengerWeight = $this->calculatePassengerWeight($passengers, $flight);
         $totalDeadloadWeight = $deadloads->sum('weight');
         $totalCrewWeight = $this->calculateCrewWeight($fuelFigure->crew, $flight);
         $pantryWeight = $this->calculatePantryWeight($fuelFigure->pantry);
@@ -47,9 +47,9 @@ class LoadsheetController extends Controller
         $compartmentLoads = $this->calculateCompartmentLoads($deadloads);
 
         // Calculate passenger index by cabin zone
-        $passengerIndexByZone = $cabinZones->map(function ($zone) use ($passengers) {
+        $passengerIndexByZone = $cabinZones->map(function ($zone) use ($passengers, $flight) {
             $zonePassengers = $passengers->filter(fn($passenger) => $passenger->zone === $zone->zone_name);
-            $totalWeight = $this->calculatePassengerWeight($zonePassengers);
+            $totalWeight = $this->calculatePassengerWeight($zonePassengers, $flight);
             $indexPerKg = $zone->index ?? 0;
 
             return [
@@ -128,17 +128,16 @@ class LoadsheetController extends Controller
         return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'lizfw', 'litow', 'lildw', 'macZFW', 'macTOW'));
     }
 
-    private function calculatePassengerWeight($passengers)
+    private function calculatePassengerWeight($passengers, $flight)
     {
-        return $passengers->sum(function ($passenger) {
+        return $passengers->sum(function ($passenger) use($flight) {
             $weightPerPassenger = match ($passenger->type) {
-                'male' => 88,
-                'female' => 70,
-                'child' => 35,
-                'infant' => 10,
-                default => 84,
+                'male' => (int)$flight->airline->settings['passenger_weights']['male'] ?? 88,
+                'female' => (int)$flight->airline->settings['passenger_weights']['female'] ?? 70,
+                'child' => (int)$flight->airline->settings['passenger_weights']['child'] ?? 35,
+                'infant' => (int)$flight->airline->settings['passenger_weights']['infant'] ?? 10,
+                default => (int)$flight->airline->settings['passenger_weights']['default'] ?? 84,
             };
-
             return $passenger->count * $weightPerPassenger;
         });
     }
@@ -146,8 +145,8 @@ class LoadsheetController extends Controller
     private function calculateCrewWeight($crewData, $flight)
     {
         $standardCrew = [
-            "deck_crew_weight" => $flight->airline->settings['crew']['deck_crew_weight'] ?? 85,
-            "cabin_crew_weight" => $flight->airline->settings['crew']['cabin_crew_weight'] ?? 70
+            "deck_crew_weight" => (int)$flight->airline->settings['crew']['deck_crew_weight'] ?? 85,
+            "cabin_crew_weight" => (int)$flight->airline->settings['crew']['cabin_crew_weight'] ?? 70
         ];
         list($deckCrewCount, $cabinCrewCount) = explode('/', $crewData ?? '0/0');
         

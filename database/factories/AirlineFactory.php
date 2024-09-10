@@ -17,8 +17,8 @@ class AirlineFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company(),
-            'iata_code' => strtoupper($this->faker->lexify('???')),
+            'name' => $this->faker->randomElement(['Salamair', 'Qatar Airways', 'Kenya Airways']),
+            'iata_code' => strtoupper($this->faker->lexify('??')),
             'base' => $this->faker->city(),
             'base_iata_code' => strtoupper($this->faker->lexify('???')),
             'settings' => [
@@ -30,7 +30,8 @@ class AirlineFactory extends Factory
                     'male' => 88,
                     'female' => 70,
                     'child' => 35,
-                    'infant' => 0,
+                    'infant' => 10,
+                    'default' => 84,
                 ],
             ],
         ];

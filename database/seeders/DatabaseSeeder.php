@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class
         ]);
-        Airline::factory(3)->create()->each(function ($airline) {
+        Airline::factory(1)->create()->each(function ($airline) {
             AircraftType::factory(1)->create([
                 'airline_id' => $airline->id
             ])->each(function ($value) {
