@@ -24,7 +24,4 @@ jobs:
         password: ${{ secrets.FTP_PASS }}
         local-dir: ./
         server-dir: /wab.flightadmin.info/
-        exclude: |
-                .git/
-                node_modules/
-                .github/
+        exclude: .github/
