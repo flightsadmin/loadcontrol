@@ -17,10 +17,14 @@ jobs:
         php-version: '8.3'
 
     - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
         server: ${{ secrets.FTP_HOST }}
         username: ${{ secrets.FTP_USER }}
         password: ${{ secrets.FTP_PASS }}
         local-dir: ./
         server-dir: /wab.flightadmin.info/
+        exclude: |
+                  .git*
+                  node_modules
+                  .github

@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-6 mb-3">
                         <label for="basic_index" class="form-label">Basic Index</label>
-                        <input type="number" name="basic_index" id="basic_index"
+                        <input type="number" name="basic_index" id="basic_index" step="any"
                             class="form-control @error('basic_index') is-invalid @enderror"
                             value="{{ $registration->basic_index }}">
                         @error('basic_index')
