@@ -45,9 +45,7 @@
                                     </span>
                                 </li>
                             @empty
-                                <li class="d-flex justify-content-between align-items-center">
-                                    NIL
-                                </li>
+                                <span>NIL</span>
                             @endforelse
                         </ul>
                     </div>
@@ -79,7 +77,7 @@
                     <div class="col-sm-6 border p-2">
                         <strong>I Certify That:</strong>
                         <p class="small">
-                            THIS AIRCRAFT HAS BEEN LOADED IN ACCORDANCE WITH THE ABOVE LOADING INSTRUCTIONS, 
+                            THIS AIRCRAFT HAS BEEN LOADED IN ACCORDANCE WITH THE ABOVE LOADING INSTRUCTIONS,
                             INCLUDING ANY DEVIATIONS SHOWN ON THE DEPARTURE REPORT.
                             ALL DEADLOAD LOADED OR DISTRIBUTED AT THIS PORT HAS BEEN SECURED BY THE AIRCRAFT NETTING AND/OR COMPANY
                             APPROVED RESTRAINT EQUIPMENT.

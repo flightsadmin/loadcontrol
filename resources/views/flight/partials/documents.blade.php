@@ -36,23 +36,19 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Load the saved document choice from local storage
         const savedDocument = localStorage.getItem('selectedDocument');
 
-        // Show the saved document content if available
         if (savedDocument) {
             document.getElementById('document-dropdown').value = savedDocument;
             displayDocument(savedDocument);
         }
 
-        // Handle dropdown change
         document.getElementById('document-dropdown').addEventListener('change', function() {
             const selectedDocument = this.value;
             localStorage.setItem('selectedDocument', selectedDocument);
             displayDocument(selectedDocument);
         });
 
-        // Function to display the selected document
         function displayDocument(documentType) {
             const loadsheetContent = document.getElementById('loadsheet-content');
             const loadplanContent = document.getElementById('loadplan-content');

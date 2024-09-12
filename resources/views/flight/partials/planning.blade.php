@@ -38,18 +38,20 @@
                 </div>
                 <div class="col-md-9">
                     <div class="hold-figure">
-                        @foreach($flight->registration->aircraftType->holds as $hold)
+                        @foreach ($flight->registration->aircraftType->holds as $hold)
                             <div class="hold" data-hold-id="{{ $hold->id }}"
                                 style="top: 0; left: {{ $hold->fwd }}%; width: {{ $hold->aft - $hold->fwd }}%; height: 100%; background-color: grey; border: 10px solid #6c757d; position: absolute;">
                                 <span class="text-white">{{ $hold->hold_no }}</span>
                                 <ul class="list-group list-group-sm list-group-item-dark">
-                                    @foreach ($flight->cargos->where('hold_id', $hold->id) as $cargo)
+                                    @forelse ($flight->cargos->where('hold_id', $hold->id) as $cargo)
                                         <li class="list-group-item cargo-item d-flex justify-content-between align-items-start"
                                             draggable="true" data-cargo-id="{{ $cargo->id }}">
                                             <span>{{ $cargo->weight }}kg</span>
                                             <span class="badge text-bg-primary rounded-pill">{{ $cargo->type }}</span>
                                         </li>
-                                    @endforeach
+                                    @empty
+                                        <span>NIL</span>
+                                    @endforelse
                                 </ul>
                             </div>
                         @endforeach

@@ -65,7 +65,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                                     <li>
-                                        <form action="{{ route('migrate.fresh.seed') }}" method="GET" style="margin: 0;">
+                                        <form action="{{ route('migrate') }}" method="GET" style="margin: 0;">
                                             @csrf
                                             <button type="submit" class="dropdown-item text-danger">
                                                 Seed Database

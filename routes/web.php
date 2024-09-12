@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HoldController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\FlightController;
-use App\Http\Controllers\ImportController;
 use App\Http\Controllers\AirlineController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -21,7 +20,7 @@ Route::get('/database', function () {
     Artisan::call('migrate:fresh');
     Artisan::call('db:seed');
     return redirect()->back()->with('success', 'Database migrated and seeded successfully!');
-})->name('migrate.fresh.seed');
+})->name('migrate');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/', FlightController::class);
@@ -45,7 +44,6 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['auth', 'role:super-admin|admin']], function () {
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::resource('permissions', App\Http\Controllers\PermissionController::class);
-
     Route::resource('roles', App\Http\Controllers\RoleController::class);
     Route::get('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
     Route::put('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'givePermissionToRole']);
