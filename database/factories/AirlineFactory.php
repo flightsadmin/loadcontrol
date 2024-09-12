@@ -24,13 +24,13 @@ class AirlineFactory extends Factory
             'settings' => [
                 'crew' => [
                     'deck_crew_weight' => 85,
-                    'cabin_crew_weight' => 70,
+                    'cabin_crew_weight' => 75,
                 ],
                 'passenger_weights' => [
                     'male' => 88,
                     'female' => 70,
                     'child' => 35,
-                    'infant' => 10,
+                    'infant' => 00,
                     'default' => 84,
                 ],
             ],

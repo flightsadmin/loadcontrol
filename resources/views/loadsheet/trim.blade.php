@@ -169,7 +169,7 @@
                             y: {{ $flight->loadsheet->zero_fuel_weight_actual / 1000 ?? 0 }}
                         }],
                         backgroundColor: 'red',
-                        pointRadius: 5
+                        pointRadius: 4
                     },
                     {
                         label: 'TOW',
@@ -178,7 +178,7 @@
                             y: {{ $flight->loadsheet->take_off_weight_actual / 1000 ?? 0 }}
                         }],
                         backgroundColor: 'blue',
-                        pointRadius: 5
+                        pointRadius: 4
                     }
                 ]
             },

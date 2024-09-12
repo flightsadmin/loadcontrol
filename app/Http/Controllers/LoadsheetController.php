@@ -146,7 +146,7 @@ class LoadsheetController extends Controller
     {
         $standardCrew = [
             "deck_crew_weight" => (int)$flight->airline->settings['crew']['deck_crew_weight'] ?? 85,
-            "cabin_crew_weight" => (int)$flight->airline->settings['crew']['cabin_crew_weight'] ?? 70
+            "cabin_crew_weight" => (int)$flight->airline->settings['crew']['cabin_crew_weight'] ?? 75
         ];
         list($deckCrewCount, $cabinCrewCount) = explode('/', $crewData ?? '0/0');
         

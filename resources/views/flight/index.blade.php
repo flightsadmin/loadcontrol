@@ -90,8 +90,7 @@
                 });
             });
         });
-    </script>
-    <script>
+        
         document.addEventListener('DOMContentLoaded', function() {
             const savedDate = localStorage.getItem('selectedDate');
             if (savedDate) {
