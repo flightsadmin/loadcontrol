@@ -1,9 +1,9 @@
-# Admin Manager for multiple Modules
+# Full Aircarft Weight and Balance Application.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/flightsadmin/loadcontrol.svg?style=flat-square)](https://packagist.org/packages/flightsadmin/loadcontrol)
 [![Total Downloads](https://img.shields.io/packagist/dt/flightsadmin/loadcontrol.svg?style=flat-square)](https://packagist.org/packages/flightsadmin/loadcontrol)
 
-Full Aircarft Weight and Balance Application.
+Application Module development status.
 
 | Status | Module |
 |:------ |:------|
@@ -28,12 +28,10 @@ npm run dev
 Default Login
 
    > Username: `test@example.com`
-   
+
    > Password: `password`
 
-
 Enjoy
-
 
 ### Security
 
