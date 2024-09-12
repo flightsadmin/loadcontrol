@@ -105,7 +105,8 @@
     </div>
     <div class="col-md-2">
         <label for="k_constant" class="form-label">K (constant)</label>
-        <input type="number" step="any" name="k_constant" id="k_constant" class="form-control @error('k_constant') is-invalid @enderror"
+        <input type="number" step="any" name="k_constant" id="k_constant"
+            class="form-control @error('k_constant') is-invalid @enderror"
             value="{{ old('k_constant', $aircraftType->k_constant ?? '') }}">
         @error('k_constant')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -113,7 +114,8 @@
     </div>
     <div class="col-md-2">
         <label for="c_constant" class="form-label">C (constant)</label>
-        <input type="number" step="any" name="c_constant" id="c_constant" class="form-control @error('c_constant') is-invalid @enderror"
+        <input type="number" step="any" name="c_constant" id="c_constant"
+            class="form-control @error('c_constant') is-invalid @enderror"
             value="{{ old('c_constant', $aircraftType->c_constant ?? '') }}">
         @error('c_constant')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -121,7 +123,8 @@
     </div>
     <div class="col-md-2">
         <label for="length_of_mac" class="form-label">Length of MAC/RC</label>
-        <input type="number" step="any" name="length_of_mac" id="length_of_mac" class="form-control @error('length_of_mac') is-invalid @enderror"
+        <input type="number" step="any" name="length_of_mac" id="length_of_mac"
+            class="form-control @error('length_of_mac') is-invalid @enderror"
             value="{{ old('length_of_mac', $aircraftType->length_of_mac ?? '') }}">
         @error('length_of_mac')
             <div class="invalid-feedback">{{ $message }}</div>

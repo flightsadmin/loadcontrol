@@ -23,9 +23,13 @@ class AircraftType extends Model
         'k_constant',
         'c_constant',
         'length_of_mac',
-        'lemac'
+        'lemac',
+        'settings'
     ];
-
+    
+    protected $casts = [
+        'settings' => 'array',
+    ];
     public function airline()
     {
         return $this->belongsTo(Airline::class);

@@ -75,7 +75,7 @@
                                     <h5>Holds</h5>
                                     <span class="bi-back h5"></span>
                                 </div>
-                                <ul class="list-group">
+                                <ul class="list-group mb-4">
                                     @forelse ($aircraftType->holds as $hold)
                                         <li class="list-group-item">
                                             <div class="d-flex justify-content-between align-items-center">
@@ -104,6 +104,13 @@
                                         <p>No holds available for this registration.</p>
                                     @endforelse
                                 </ul>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5>Pantry Codes</h5>
+                                    <span class="bi-moisture h5"></span>
+                                </div>
+                                <div>
+                                    <livewire:pantry :aircraftTypeId="$aircraftType->id" />
+                                </div>
                             </div>
                         </div>
                     </div>

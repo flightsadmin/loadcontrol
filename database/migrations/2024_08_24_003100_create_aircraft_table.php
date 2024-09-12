@@ -36,6 +36,7 @@ return new class extends Migration {
             $table->float('c_constant')->nullable();
             $table->float('length_of_mac')->nullable();
             $table->float('lemac')->nullable();
+            $table->json('settings')->nullable();
             $table->timestamps();
         });
 

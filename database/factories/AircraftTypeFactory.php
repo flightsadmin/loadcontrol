@@ -31,6 +31,15 @@ class AircraftTypeFactory extends Factory
             'c_constant' => 1000,
             'length_of_mac' => 4.194,
             'lemac' => 17.8015,
+            'settings' => [
+                'pantries' => [
+                    [
+                        "name" => "A",
+                        "index" => "0.5",
+                        "weight" => "475"
+                    ]
+                ],
+            ],
         ];
     }
 }

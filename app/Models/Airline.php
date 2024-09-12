@@ -18,7 +18,7 @@ class Airline extends Model
     ];
 
     protected $casts = [
-        'settings' => 'array', // Casts the settings attribute to an array
+        'settings' => 'array',
     ];
 
     public function aircraftTypes()

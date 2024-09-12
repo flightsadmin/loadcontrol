@@ -31,7 +31,11 @@ class Chat extends Component
             'flight_id' => $this->flight->id,
             'content' => $this->message,
         ]);
-
+        $this->dispatch(
+            'notify',
+            icon: 'success',
+            message: 'Message sent successfully.',
+        );
         $this->message = '';
         $this->loadMessages();
     }
