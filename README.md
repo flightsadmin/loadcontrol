@@ -15,10 +15,14 @@ Full Aircarft Weight and Balance Application.
 
 Details documentation coming soon 🔜.
 
-clone package
-run ` composer install`
-run ` php artisan key:generate`
-run ` php artisan migrate:fresh --seed`
+** For now follow below steps:
+
+    * clone package `git clone https://github.com/flightsadmin/loadcontrol.git'
+    * run ` composer install`
+    * run ` php artisan key:generate`
+    * run ` php artisan migrate:fresh --seed`
+    * run ` npm install`
+    * run ` npm run dev`
 
 Login: Username: `test@example.com`, Password: `password`
 
