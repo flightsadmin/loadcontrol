@@ -46,6 +46,7 @@ class AircraftTypeFactory extends Factory
                 ],
                 'deck_crew' => [
                     [
+                        "location" => "Cockpit",
                         "max_number" => 4,
                         "arm" => -13.410,
                         "index" => -0.01341,

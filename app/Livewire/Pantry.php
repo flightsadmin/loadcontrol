@@ -9,12 +9,18 @@ class Pantry extends Component
 {
     public $pantries = [];
     public $aircraftTypeId;
+    public $isEditable = false;
 
     public function mount($aircraftTypeId)
     {
         $this->aircraftTypeId = $aircraftTypeId;
         $aircraftType = AircraftType::findOrFail($this->aircraftTypeId);
         $this->pantries = $aircraftType->settings['pantries'] ?? [['name' => '', 'weight' => '', 'index' => '']];
+    }
+
+    public function toggleEdit()
+    {
+        $this->isEditable = !$this->isEditable;
     }
 
     public function addPantry()
@@ -41,6 +47,7 @@ class Pantry extends Component
             'pantries' => $this->pantries
         ]);
         $aircraftType->save();
+        $this->toggleEdit();
         $this->dispatch(
             'closeModal',
             icon: 'success',

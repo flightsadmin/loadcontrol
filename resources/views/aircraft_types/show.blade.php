@@ -25,8 +25,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h4>Associated Registrations</h4>
-                                    <span class="bi-card-list h5"></span>
+                                    <h4 class="fw-bold text-decoration-underline">Associated Registrations</h4>
+                                    <span class="mb-0 bi-card-list h5"></span>
                                 </div>
                                 @if ($aircraftType->registrations->isEmpty())
                                     <p>No registrations found.</p>
@@ -65,6 +65,9 @@
                                         </tbody>
                                     </table>
                                 @endif
+                                <div>
+                                    <livewire:crew :aircraftTypeId="$aircraftType->id" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,8 +75,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5>Holds</h5>
-                                    <span class="bi-back h5"></span>
+                                    <h5 class="fw-bold text-decoration-underline">Holds</h5>
+                                    <span class="mb-0 bi-back h5"></span>
                                 </div>
                                 <ul class="list-group mb-4">
                                     @forelse ($aircraftType->holds as $hold)
@@ -104,10 +107,6 @@
                                         <p>No holds available for this registration.</p>
                                     @endforelse
                                 </ul>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5>Pantry Codes</h5>
-                                    <span class="bi-moisture h5"></span>
-                                </div>
                                 <div>
                                     <livewire:pantry :aircraftTypeId="$aircraftType->id" />
                                 </div>
