@@ -163,7 +163,7 @@ class DatabaseSeeder extends Seeder
             FuelFigure::factory(1)->create([
                 'flight_id' => $id_no
             ]);
-            Message::factory(5)->create([
+            Message::factory(2)->create([
                 'user_id' => User::inRandomOrder()->first()->id,
                 'flight_id' => $id_no->id,
                 'content' => $faker->sentence(),
