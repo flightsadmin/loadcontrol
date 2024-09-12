@@ -25,6 +25,7 @@ class AirlineController extends Controller
             'settings.passenger_weights.female' => 'required|numeric|min:0',
             'settings.passenger_weights.child' => 'required|numeric|min:0',
             'settings.passenger_weights.infant' => 'required|numeric|min:0',
+            'settings.passenger_weights.default' => 'required|numeric|min:0',
         ]);
         Airline::updateOrCreate(
             ['iata_code' => $request->input('iata_code')],
@@ -53,6 +54,7 @@ class AirlineController extends Controller
             'settings.passenger_weights.female' => 'required|numeric|min:0',
             'settings.passenger_weights.child' => 'required|numeric|min:0',
             'settings.passenger_weights.infant' => 'required|numeric|min:0',
+            'settings.passenger_weights.default' => 'required|numeric|min:0',
         ]);
 
         $airline->update($validated);
