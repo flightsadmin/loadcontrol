@@ -26,6 +26,7 @@ npm run dev
 ```
 
 Default Login
+
     Username: `test@example.com`
     Password: `password`
 
