@@ -22,7 +22,7 @@ class FuelFigureFactory extends Factory
             'taxi_fuel' => 200,
             'trip_fuel' => $this->faker->numberBetween(7000, 12000),
             'crew' => $this->faker->randomElement(['2/4', '2/5', '3/4']),
-            'pantry' => $this->faker->randomElement(['A', 'B', 'C']),
+            'pantry' => $this->faker->randomElement(['A', 'E']),
         ];
     }
 }

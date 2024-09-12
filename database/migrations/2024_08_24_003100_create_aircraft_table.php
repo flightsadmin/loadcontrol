@@ -40,13 +40,6 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('settings', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
-            $table->json('settings');
-            $table->timestamps();
-        });
-
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
             $table->string('registration_number');

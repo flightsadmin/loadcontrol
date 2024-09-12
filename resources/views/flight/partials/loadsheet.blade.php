@@ -36,7 +36,7 @@
                                     <td>{{ $flight->flight_number }}</td>
                                     <td>{{ strtoupper($flight->registration->registration_number) }}</td>
                                     <td></td>
-                                    <td>{{ $flight->fuelFigure->crew }}</td>
+                                    <td>{{ $flight->fuelFigure->crew ?? "0/0"}}</td>
                                     <td>{{ strtoupper($flight->departure->format('dMY')) }}</td>
                                     <td>{{ now()->format('hi') }}</td>
                                 </tr>

@@ -15,25 +15,36 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="block_fuel" class="form-label">Block Fuel</label>
-                            <input type="number" class="form-control" id="block_fuel" name="block_fuel"
+                            <input type="number" class="form-control @error('block_fuel') is-invalid @enderror" id="block_fuel"
+                                name="block_fuel"
                                 value="{{ old('block_fuel', $fuelFigure->block_fuel ?? '') }}">
+                            @error('block_fuel')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="taxi_fuel" class="form-label">Taxi Fuel</label>
-                            <input type="number" class="form-control" id="taxi_fuel" name="taxi_fuel"
+                            <input type="number" class="form-control @error('taxi_fuel') is-invalid @enderror" id="taxi_fuel" name="taxi_fuel"
                                 value="{{ old('taxi_fuel', $fuelFigure->taxi_fuel ?? '') }}">
+                            @error('taxi_fuel')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="trip_fuel" class="form-label">Trip Fuel</label>
-                            <input type="number" class="form-control" id="trip_fuel" name="trip_fuel"
+                            <input type="number" class="form-control @error('trip_fuel') is-invalid @enderror" id="trip_fuel" name="trip_fuel"
                                 value="{{ old('trip_fuel', $fuelFigure->trip_fuel ?? '') }}">
+                            @error('trip_fuel')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="crew" class="form-label">Crew</label>
-                            <select id="crew" name="crew" class="form-select">
+                            <select id="crew" name="crew" class="form-select @error('crew') is-invalid @enderror">
+                                <option value="" selected disabled>Select Crew</option>
                                 <option value="2/4" {{ old('crew', $fuelFigure->crew ?? '') == '2/4' ? 'selected' : '' }}>2/4</option>
                                 <option value="2/5" {{ old('crew', $fuelFigure->crew ?? '') == '2/5' ? 'selected' : '' }}>2/5</option>
                                 <option value="2/6" {{ old('crew', $fuelFigure->crew ?? '') == '2/6' ? 'selected' : '' }}>2/6</option>
@@ -44,24 +55,31 @@
                                 <option value="4/4" {{ old('crew', $fuelFigure->crew ?? '') == '4/4' ? 'selected' : '' }}>4/4</option>
                                 <option value="4/5" {{ old('crew', $fuelFigure->crew ?? '') == '4/5' ? 'selected' : '' }}>4/5</option>
                             </select>
+                            @error('crew')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
-
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="pantry" class="form-label">Crew</label>
-                            <select id="pantry" name="pantry" class="form-select">
-                                <option value="" selected>Select Pantry</option>
-                                <option value="A" {{ old('pantry', $fuelFigure->pantry ?? '') == 'A' ? 'selected' : '' }}>Pantry A
-                                </option>
-                                <option value="B" {{ old('pantry', $fuelFigure->pantry ?? '') == 'B' ? 'selected' : '' }}>Pantry B
-                                </option>
-                                <option value="C" {{ old('pantry', $fuelFigure->pantry ?? '') == 'C' ? 'selected' : '' }}>Pantry C
-                                </option>
+                            <label for="pantry" class="form-label">Pantry</label>
+                            <select id="pantry" name="pantry" class="form-select @error('pantry') is-invalid @enderror">
+                                <option value="" selected disabled>Select Pantry</option>
+                                @foreach ($flight->registration->aircraftType->settings['pantries'] ?? [] as $pantry)
+                                    @dump($pantry)
+                                    <option value="{{ $pantry['name'] }}"
+                                        {{ $flight->fuelFigure->pantry ?? '' == $pantry['name'] ? 'selected' : '' }}>
+                                        {{ $pantry['name'] }}
+                                    </option>
+                                @endforeach
                             </select>
+                            @error('pantry')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary bi-floppy-fill float-end"> {{ isset($fuelFigure) ? 'Update' : 'Save' }}</button>
+                    <button type="submit" class="btn btn-sm btn-primary bi-floppy-fill float-end">
+                        {{ isset($fuelFigure) ? 'Update' : 'Save' }}</button>
                 </form>
             </div>
         </div>

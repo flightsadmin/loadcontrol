@@ -35,8 +35,13 @@ class AircraftTypeFactory extends Factory
                 'pantries' => [
                     [
                         "name" => "A",
-                        "index" => "0.5",
-                        "weight" => "475"
+                        "index" => "1.59",
+                        "weight" => "497"
+                    ],
+                    [
+                        "name" => "E",
+                        "index" => "0.18",
+                        "weight" => "45"
                     ]
                 ],
             ],
