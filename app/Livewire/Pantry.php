@@ -42,7 +42,7 @@ class Pantry extends Component
         ]);
         $aircraftType->save();
         $this->dispatch(
-            'notify',
+            'closeModal',
             icon: 'success',
             message: 'Pantries saved successfully.',
         );

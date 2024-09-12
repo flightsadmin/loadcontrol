@@ -32,7 +32,7 @@ class Chat extends Component
             'content' => $this->message,
         ]);
         $this->dispatch(
-            'notify',
+            'closeModal',
             icon: 'success',
             message: 'Message sent successfully.',
         );

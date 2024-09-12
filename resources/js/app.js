@@ -7,7 +7,7 @@ import "../sass/app.scss";
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
-window.addEventListener("notify", function (event) {
+window.addEventListener("closeModal", function (event) {
     Swal.fire({
         text: event.detail.message,
         icon: event.detail.icon,
