@@ -6,12 +6,13 @@ use App\Models\Flight;
 use App\Models\Message;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Illuminate\Support\Collection;
 
 class Chat extends Component
 {
-    public $flight;
-    public $message = '';
-    public $messages;
+    public Flight $flight;
+    public string $message = '';
+    public Collection $messages;
 
     public function mount(Flight $flight)
     {
@@ -19,6 +20,7 @@ class Chat extends Component
         $this->loadMessages();
     }
 
+    #[On('refresh')]
     public function loadMessages()
     {
         $this->messages = $this->flight->messages()->latest()->get();
@@ -31,6 +33,7 @@ class Chat extends Component
             'flight_id' => $this->flight->id,
             'content' => $this->message,
         ]);
+        $this->dispatch('refresh');
         $this->dispatch(
             'closeModal',
             icon: 'success',
@@ -44,10 +47,12 @@ class Chat extends Component
     {
         $message = Message::findOrFail($messageId);
         $message->delete();
-        $this->dispatch('refresh');
+
+        $this->dispatch('messageDeleted');
+        $this->loadMessages();
     }
 
-    #[On('refresh')]
+    #[On('closeModal', 'messageDeleted')]
     public function render()
     {
         return view('livewire.chat');

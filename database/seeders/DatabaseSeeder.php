@@ -9,6 +9,7 @@ use App\Models\Cargo;
 use App\Models\Flight;
 use App\Models\FuelFigure;
 use App\Models\Hold;
+use App\Models\Message;
 use App\Models\Passenger;
 use App\Models\Registration;
 use App\Models\User;
@@ -25,6 +26,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class
         ]);
+        $user = User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+        $user->syncRoles(['super-admin']);
+        
         Airline::factory(1)->create()->each(function ($airline) {
             AircraftType::factory(1)->create([
                 'airline_id' => $airline->id
@@ -32,12 +39,7 @@ class DatabaseSeeder extends Seeder
                 $faker = Faker::create();
                 $previousFwd = 0;
                 // Holds
-                foreach ([ 
-                    ['number' => 1, 'max' => 3402, 'index' => -0.00642],
-                    ['number' => 3, 'max' => 2426, 'index' => +0.00401],
-                    ['number' => 4, 'max' => 2110, 'index' => +0.00741],
-                    ['number' => 5, 'max' => 1497, 'index' => +0.01048],
-                ] as $hold) {
+                foreach ([['number' => 1, 'max' => 3402, 'index' => -0.00642], ['number' => 3, 'max' => 2426, 'index' => +0.00401], ['number' => 4, 'max' => 2110, 'index' => +0.00741], ['number' => 5, 'max' => 1497, 'index' => +0.01048],] as $hold) {
                     $currentAft = $previousFwd + 25;
                     Hold::create([
                         'aircraft_type_id' => $value->id,
@@ -52,11 +54,7 @@ class DatabaseSeeder extends Seeder
                 }
 
                 // Cabin Zones
-                foreach ([ 
-                    ['name' => 'A', 'arm' => -6.971, 'index' => -0.00697],
-                    ['name' => 'B', 'arm' => +0.281, 'index' => +0.00028],
-                    ['name' => 'C', 'arm' => +8.271, 'index' => +0.00827],
-                ] as $zone) {
+                foreach ([['name' => 'A', 'arm' => -6.971, 'index' => -0.00697], ['name' => 'B', 'arm' => +0.281, 'index' => +0.00028], ['name' => 'C', 'arm' => +8.271, 'index' => +0.00827],] as $zone) {
                     CabinZone::factory(1)->create([
                         'aircraft_type_id' => $value,
                         'zone_name' => $zone['name'],
@@ -64,7 +62,7 @@ class DatabaseSeeder extends Seeder
                         'index' => $zone['index'],
                     ]);
                 }
-                
+
                 // Registrations
                 Registration::factory(5)->create([
                     'aircraft_type_id' => $value
@@ -161,8 +159,14 @@ class DatabaseSeeder extends Seeder
         }
 
         Flight::factory(50)->create()->each(function ($id_no) {
+            $faker = Faker::create();
             FuelFigure::factory(1)->create([
                 'flight_id' => $id_no
+            ]);
+            Message::factory(5)->create([
+                'user_id' => User::inRandomOrder()->first()->id,
+                'flight_id' => $id_no->id,
+                'content' => $faker->sentence(),
             ]);
             Passenger::factory(1)->create([
                 'flight_id' => $id_no,
@@ -173,11 +177,5 @@ class DatabaseSeeder extends Seeder
                 'hold_id' => null
             ]);
         });
-
-        $user = User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-        $user->syncRoles(['super-admin']);
     }
 }

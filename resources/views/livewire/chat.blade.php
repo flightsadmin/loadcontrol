@@ -10,19 +10,21 @@
                         <div
                             class="small d-flex {{ auth()->id() === $message->user_id ? 'justify-content-end' : 'justify-content-start' }} mb-2">
                             <div
-                                class="d-flex flex-column {{ auth()->id() === $message->user_id ? 'align-items-end' : 'align-items-start' }}">
+                                class="d-flex flex-column {{ auth()->id() === $message->user_id ? 'align-items-end' : 'align-items-start' }}"
+                                style="position: relative;">
+
                                 <div
-                                    class="rounded p-2 {{ auth()->id() === $message->user_id ? 'bg-secondary-subtle' : 'bg-primary-subtle' }}">
+                                    class="rounded p-2 {{ auth()->id() === $message->user_id ? 'bg-primary-subtle' : 'bg-secondary-subtle' }} position-relative">
                                     <strong>{{ $message->user->name }}</strong>
-                                    <span class="text-muted"><small>{{ $message->created_at->format('H:i') }}</small></span>
-                                    <p class="mb-0">{{ $message->content }}
-                                        @role('super-admin')
-                                            <span>
-                                                <a href="#" wire:click.prevent="delete({{ $message->id }})"
-                                                    class="btn btn-link bi-trash-fill float-end m-0 text-danger"></a>
-                                            </span>
-                                        @endrole
-                                    </p>
+                                    <span class="text-muted me-3"><small>{{ $message->created_at->format('H:i') }}</small></span>
+                                    <p class="mb-0">{{ $message->content }}</p>
+
+                                    @if (auth()->id() === $message->user_id || auth()->user()->hasRole('super-admin'))
+                                        <a href="#" wire:click.prevent="delete({{ $message->id }})"
+                                            class="btn btn-link bi-trash text-danger"
+                                            style="position: absolute; top: 0; right: 0; padding: 5px;">
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

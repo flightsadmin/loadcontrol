@@ -44,7 +44,22 @@ class AircraftTypeFactory extends Factory
                         "weight" => "45"
                     ]
                 ],
-            ],
+                'deck_crew' => [
+                    [
+                        "max_number" => 4,
+                        "arm" => -13.410,
+                        "index" => -0.01341,
+                    ],
+                ],
+                'cabin_crew' => [
+                    [
+                        "location" => "Forward",
+                        "max_number" => 2,
+                        "arm" => -11.520,
+                        "index" => -0.01152,
+                    ],
+                ],
+            ]
         ];
     }
 }
