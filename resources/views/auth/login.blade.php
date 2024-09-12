@@ -60,7 +60,7 @@
                                         {{ __('Login') }}
                                     </button>
 
-                                    @if (Route::has('register'))
+                                    @if (\App\Models\User::count() == 0 && Route::has('register'))
                                         <a class="btn btn-primary" href="{{ route('register') }}">
                                             {{ __('Register?') }}
                                         </a>

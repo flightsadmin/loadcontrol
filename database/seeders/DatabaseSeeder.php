@@ -159,14 +159,12 @@ class DatabaseSeeder extends Seeder
         }
 
         Flight::factory(50)->create()->each(function ($id_no) {
-            $faker = Faker::create();
             FuelFigure::factory(1)->create([
                 'flight_id' => $id_no
             ]);
             Message::factory(2)->create([
                 'user_id' => User::inRandomOrder()->first()->id,
                 'flight_id' => $id_no->id,
-                'content' => $faker->sentence(),
             ]);
             Passenger::factory(1)->create([
                 'flight_id' => $id_no,
