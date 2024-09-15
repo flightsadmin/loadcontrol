@@ -13,17 +13,7 @@ Application Module development status.
 
 ## Documentation
 
-Details documentation coming soon 🔜.
-
-** For now follow below steps:
-``` bash
-git clone https://github.com/flightsadmin/loadcontrol.git
-composer update
-php artisan key:generate
-php artisan migrate:fresh --seed
-npm install
-npm run dev
-```
+Detailed documentation can be found [Here](https://docs.flightadmin.info/).
 
 Default Login
 
