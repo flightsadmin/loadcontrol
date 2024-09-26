@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('aircraft_types.envelopes', EnvelopeController::class)->shallow();
     Route::resource('aircraft_types.registrations', RegistrationController::class)->shallow();
     Route::post('/cargos/{cargo}/update-hold', [CargoController::class, 'updateHold'])->name('cargos.update-hold');
-    Route::get('/home', [App\Http\Controllers\FlightController::class, 'index'])->name('home');
+    Route::get('/home', [FlightController::class, 'index'])->name('home');
 });
 
 Route::group(['middleware' => ['auth', 'role:super-admin|admin']], function () {
