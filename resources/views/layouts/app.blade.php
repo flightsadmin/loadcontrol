@@ -32,7 +32,7 @@
                                             value="{{ old('date', session('selectedDate')) }}">
                                         <button type="submit" class="btn btn-link p-0 bi-funnel-fill ms-3 text-reset"></button>
                                     </form>
-                                    <a href="{{ route('flights.create') }}" class="btn-link text-secondary bi-plus-circle-fill"></a>
+                                    <a wire:navigate href="{{ route('flights.create') }}" class="btn-link text-secondary bi-plus-circle-fill"></a>
                                 </div>
                             </div>
 
@@ -42,7 +42,8 @@
                                         @forelse ($flights as $f)
                                             <li class="nav-item text-body-dark">
                                                 <a class="nav-link {{ isset($flight) && $flight->id == $f->id ? 'active bg-secondary text-white' : '' }} text-reset"
-                                                    href="{{ route('flights.show', ['flight' => $f->id, 'page' => request()->query('page')]) }}">
+                                                    wire:navigate
+                                                    href="{{ route('flights.show', ['flight' => $f->id, 'page' => request()->query('page'), 'date' => session('selectedDate')]) }}">
                                                     {{ $f->flight_number }} - {{ $f->departure->format('dS, M Y') }}
                                                 </a>
                                             </li>

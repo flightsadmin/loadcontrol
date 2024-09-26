@@ -15,6 +15,7 @@ class FlightController extends Controller
         if ($request->has('date') && $request->date) {
             $date = \Carbon\Carbon::parse($request->date)->format('Y-m-d');
             $query->whereDate('departure', $date);
+            session(['selectedDate' => $date]);
         }
         $flights = $query->with('registration')->orderBy('departure')->simplePaginate();
 
@@ -46,11 +47,15 @@ class FlightController extends Controller
         return redirect()->route('flights.show', $flight->id)->with('success', 'Flight created successfully!');
     }
 
-    public function show(Flight $flight)
+    public function show(Flight $flight, Request $request)
     {
         $flight->load('registration.aircraftType.holds', 'cargos');
-        return view('flight.index', compact('flight'));
-    }
+        if ($request->has('tab')) {
+            session(['activeTab' => $request->input('tab')]);
+        }
+        $activeTab = session('activeTab', 'flight');
+        return view('flight.index', compact('flight', 'activeTab'));
+    }    
 
     public function edit(Flight $flight)
     {
