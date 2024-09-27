@@ -19,10 +19,10 @@
 </head>
 
 <body>
-    <div id="app">
-        <div class="container-fluid">
-            <div class="row">
-                @auth
+    <div id="app" class="{{ request()->is('login') ? 'full-width' : '' }}">
+        @auth
+            <div class="container-fluid">
+                <div class="row">
                     <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark-subtle sidebar shadow-sm vh-100">
                         <div class="d-flex flex-column h-100">
                             <div class="position-sticky top-0 border-bottom bg-dark-subtle">
@@ -94,14 +94,19 @@
                             </div>
                         </div>
                     </nav>
-                @endauth
 
-                <main class="col-md-9 ms-sm-auto col-lg-10 px-4 vh-100 overflow-auto">
-                    @yield('content')
-                </main>
+                    <main class="col-md-9 ms-sm-auto col-lg-10 px-4 vh-100 overflow-auto">
+                        @yield('content')
+                    </main>
+                </div>
             </div>
-        </div>
+        @else
+            <main class="container d-flex align-items-center justify-content-center min-vh-100">
+                @yield('content')
+            </main>
+        @endauth
     </div>
+    
     @yield('scripts')
 </body>
 
