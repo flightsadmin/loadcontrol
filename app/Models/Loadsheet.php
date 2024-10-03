@@ -17,6 +17,7 @@ class Loadsheet extends Model
         'landing_weight_actual',
         'compartment_loads',
         'passenger_distribution',
+        'index'
     ];
 
     public function flight()

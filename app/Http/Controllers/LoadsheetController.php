@@ -165,7 +165,6 @@ class LoadsheetController extends Controller
         return ((int) $deckCrewCount * $standardCrew["deck_crew_weight"]) + ((int) $cabinCrewCount * $standardCrew["cabin_crew_weight"]);
     }
 
-
     private function calculatePantryWeightAndIndex($pantrySetting, $flight)
     {
         $pantries = $flight->registration->aircraftType->settings['pantries'] ?? [];
@@ -179,7 +178,6 @@ class LoadsheetController extends Controller
             'index' => $index
         ];
     }
-
 
     private function calculateCompartmentLoads($deadloads)
     {

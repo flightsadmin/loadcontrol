@@ -15,13 +15,13 @@ class FlightTabs extends Component
     public function mount(Flight $flight, $tab = null)
     {
         $this->flight = $flight;
-        $this->activeTab = session('active_tab', $tab ?? 'flight');
+        $this->activeTab = session('activeTab', $tab ?? 'flight');
     }
 
     public function setActiveTab($tab)
     {
         $this->activeTab = $tab;
-        session(['active_tab' => $this->activeTab]);
+        session(['activeTab' => $this->activeTab]);
     }
 
     public function render()

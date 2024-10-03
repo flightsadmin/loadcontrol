@@ -103,6 +103,7 @@ return new class extends Migration {
             $table->integer('landing_weight_actual')->default(0);
             $table->json('compartment_loads')->nullable();
             $table->json('passenger_distribution')->nullable();
+            $table->json('index')->nullable();
             $table->timestamps();
         });
 
