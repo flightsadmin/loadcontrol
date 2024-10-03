@@ -29,7 +29,8 @@
                 $flight->airline->settings['passenger_weights']['infant'] }}
             &nbsp;&nbsp;&nbsp; BAG WGT: ACTUAL
         </div>
-        <div>{{ $flight->destination }} C {{ $totalDeadload ?? 0 }} M 0 B 0/ 0 O 0 T {{ $totalDeadload ?? 0 }}
+        <div>{{ $flight->destination }} C {{ $totalDeadload ?? 0 }} M 0 B 0/ 0 O 0 T
+            {{ $totalDeadload ?? 0 }}
         </div>
         <div>PANTRY CODE {{ $flight->fuelFigure->pantry }}</div>
         <div>ACTUAL LOADING OF AIRCRAFT</div>
@@ -44,11 +45,11 @@
         <div>AIRCRAFT TYPE: {{ $flight->registration->aircraftType->aircraft_type }}</div>
         <div>NOTOC: NO</div>
         <br>
-        <div>{{ $flight->destination }} &nbsp;&nbsp; FRE 0 &nbsp;&nbsp; POS 0 &nbsp;&nbsp; BAG 0/0 &nbsp;&nbsp; TRA
+        <div>{{ $flight->destination }} &nbsp;&nbsp; FRE 0 &nbsp;&nbsp; POS 0 &nbsp;&nbsp; BAG 0/0 &nbsp;&nbsp;
+            TRA
             0</div>
-    </div>
-@else
-    <div class="container mb-3">
-        <p>Loadsheet not Finalised</p>
-    </div>
+    @else
+        <div class="container mb-3">
+            <p>Loadsheet not Finalised</p>
+        </div>
 @endif

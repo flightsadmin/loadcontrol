@@ -24,7 +24,7 @@
                                             </tr>
                                             <tr>
                                                 <td>ALL WEIGHTS IN KILOS</td>
-                                                <td>{{ strtoupper(auth()->user()->name) }}</td>
+                                                <td class="text-uppercase">{{ $flight->loadsheet->user->name ?? '' }}</td>
                                                 <td></td>
                                                 <td>{{ $flight->loadsheet->edition }}</td>
                                             </tr>
@@ -47,7 +47,7 @@
                                             <td>{{ $flight->registration->aircraftType->aircraft_type }}</td>
                                             <td>{{ $flight->fuelFigure->crew }}</td>
                                             <td>{{ strtoupper($flight->departure->format('dMY')) }}</td>
-                                            <td>{{ $flight->departure->format('Hs') }}</td>
+                                            <td>{{ $flight->departure->format('Hi') }}</td>
                                         </tr>
                                     </table>
                                     <table class="table table-sm table-borderless mb-0">
@@ -103,7 +103,8 @@
                                         </tr>
                                         <tr>
                                             <td>ZERO FUEL WEIGHT ACTUAL</td>
-                                            <td>{{ $flight->loadsheet->zero_fuel_weight_actual }} &nbsp; MAX 64300 &nbsp; ADJ</td>
+                                            <td>{{ $flight->loadsheet->zero_fuel_weight_actual }} &nbsp; MAX
+                                                {{ $flight->registration->aircraftType->max_zero_fuel_weight }} &nbsp; ADJ</td>
                                         </tr>
                                         <tr>
                                             <td>TAKE OFF FUEL</td>
@@ -111,7 +112,8 @@
                                         </tr>
                                         <tr>
                                             <td>TAKE OFF WEIGHT ACTUAL</td>
-                                            <td>{{ $flight->loadsheet->take_off_weight_actual }} &nbsp; MAX 79000 &nbsp; ADJ</td>
+                                            <td>{{ $flight->loadsheet->take_off_weight_actual }} &nbsp; MAX
+                                                {{ $flight->registration->aircraftType->max_takeoff_weight }} &nbsp; ADJ</td>
                                         </tr>
                                         <tr>
                                             <td>TRIP FUEL</td>
@@ -119,7 +121,8 @@
                                         </tr>
                                         <tr>
                                             <td>LANDING WEIGHT ACTUAL</td>
-                                            <td>{{ $flight->loadsheet->landing_weight_actual }} &nbsp; MAX 67400 &nbsp; ADJ</td>
+                                            <td>{{ $flight->loadsheet->landing_weight_actual }} &nbsp; MAX
+                                                {{ $flight->registration->aircraftType->max_landing_weight }} &nbsp; ADJ</td>
                                         </tr>
                                     </table>
 
