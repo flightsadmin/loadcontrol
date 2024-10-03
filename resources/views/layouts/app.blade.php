@@ -16,6 +16,21 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <style>
+        /* Style the Trix editor */
+        trix-editor {
+            min-height: 200px;
+            max-height: 300px;
+            border: 1px solid #ced4da;
+            padding: 12px;
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            border-radius: 0px;
+            /* color: #495057; */
+        }
+    </style>
 </head>
 
 <body>
@@ -32,7 +47,8 @@
                                             value="{{ old('date', session('selectedDate')) }}">
                                         <button type="submit" class="btn btn-link p-0 bi-funnel-fill ms-3 text-reset"></button>
                                     </form>
-                                    <a wire:navigate href="{{ route('flights.create') }}" class="btn-link text-secondary bi-plus-circle-fill"></a>
+                                    <a wire:navigate href="{{ route('flights.create') }}"
+                                        class="btn-link text-secondary bi-plus-circle-fill"></a>
                                 </div>
                             </div>
 
@@ -106,7 +122,7 @@
             </main>
         @endauth
     </div>
-    
+
     @yield('scripts')
 </body>
 

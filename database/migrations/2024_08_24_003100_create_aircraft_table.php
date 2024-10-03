@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->json('settings')->nullable();
             $table->timestamps();
         });
-        
+
         Schema::create('aircraft_types', function (Blueprint $table) {
             $table->id();
             $table->foreignId('airline_id')->constrained()->onDelete('cascade');
@@ -48,7 +48,7 @@ return new class extends Migration {
             $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
-        
+
         Schema::create('fuel_index', function (Blueprint $table) {
             $table->id();
             $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
@@ -154,6 +154,14 @@ return new class extends Migration {
             $table->text('content');
             $table->timestamps();
         });
+
+        Schema::create('email_templates', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('subject');
+            $table->longText('body');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -161,6 +169,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('registrations');
+        Schema::dropAllTables();
     }
 };

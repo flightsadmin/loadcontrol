@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="container-fluid mt-4">
+        <a href="{{ url('users') }}" class="btn btn-sm btn-warning mx-1 bi-people-fill"> Users</a>
         <a href="{{ url('roles') }}" class="btn btn-sm btn-primary mx-1 bi-shield-lock-fill"> Roles</a>
         <a href="{{ url('permissions') }}" class="btn btn-sm btn-info mx-1 bi-database-fill-lock"> Permissions</a>
-        <a href="{{ url('users') }}" class="btn btn-sm btn-warning mx-1 bi-people-fill"> Users</a>
+        <a href="{{ url('email_templates') }}" class="btn btn-sm btn-secondary mx-1 bi-envelope-plus-fill"> Email Templates</a>
     </div>
 
     <div class="container-fluid mt-2">
@@ -19,7 +20,7 @@
                     <div class="card-header">
                         <h4>Users
                             @can('create user')
-                                <a href="{{ url('users/create') }}" class="btn btn-sm btn-primary float-end">Add User</a>
+                                <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary float-end">Add User</a>
                             @endcan
                         </h4>
                     </div>

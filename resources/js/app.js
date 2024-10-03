@@ -7,6 +7,11 @@ import "../sass/app.scss";
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
+// Import Trix
+import trix from "trix";
+window.trix = trix;
+
+// Sweet Alert Pop-up
 window.addEventListener("closeModal", function (event) {
     Swal.fire({
         text: event.detail.message,

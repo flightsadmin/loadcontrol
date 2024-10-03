@@ -76,12 +76,7 @@
                                                 json_decode($flight->loadsheet->passenger_distribution, true)['pax'],
                                             );
                                         @endphp
-
-                                        @if ($passengerDistribution > 0)
-                                            <span class="ms-3">TTL {{ $passengerDistribution }}</span>
-                                        @else
-                                            0
-                                        @endif
+                                        <span class="ms-3">TTL {{ $passengerDistribution ?? 0 }}</span>
                                     </dd>
 
                                     <dd class="col-sm-5 text-uppercase">Total Traffic Load</dd>
@@ -93,8 +88,7 @@
                                     <dd class="col-sm-5 text-uppercase">Zero Fuel Weight Actual</dd>
                                     <dd class="col-sm-7 text-uppercase d-flex align-items-center">
                                         {{ $flight->loadsheet->zero_fuel_weight_actual }}
-                                        <span class="ms-3">MAX
-                                            {{ $flight->registration->aircraftType->max_zero_fuel_weight }}</span>
+                                        <span class="ms-3">MAX {{ $flight->registration->aircraftType->max_zero_fuel_weight }}</span>
                                         <span class="ms-4">ADJ</span>
                                     </dd>
 
@@ -126,7 +120,7 @@
                             <div class="card-body">
                                 <canvas id="trimSheetChart" height="220"></canvas>
                                 <div class="mx-4">
-                                <div class="d-flex justify-content-between align-items-center mx-4">
+                                    <div class="d-flex justify-content-between align-items-center mx-4">
                                         <div>MACZFW <span class="text-danger">{{ $macZFW }}%</span></div>
                                         <div>MACTOW <span class="text-primary">{{ $macTOW }}%</span></div>
                                     </div>

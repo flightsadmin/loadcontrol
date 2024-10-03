@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\FuelIndex;
 use App\Models\Flight;
 use App\Models\Loadsheet;
+use \App\Models\FuelIndex;
+use App\Models\EmailTemplate;
+use App\Notifications\DynamicNotification;
 
 class LoadsheetController extends Controller
 {
@@ -120,11 +122,20 @@ class LoadsheetController extends Controller
         $lizfw = $basicIndex + $pantryIndex + $paxIndex + $cargoIndex;
         $litow = $lizfw + $toFuelIndex;
         $lildw = $litow + $ldfuelIndex;
-        
+
         $macZFW = round((($type->c_constant * ($lizfw - $type->k_constant) / $flight->loadsheet->zero_fuel_weight_actual)
             + ($type->ref_sta - $type->lemac)) / ($type->length_of_mac / 100), 2);
         $macTOW = round((($type->c_constant * ($litow - $type->k_constant) / $flight->loadsheet->take_off_weight_actual)
             + ($type->ref_sta - $type->lemac)) / ($type->length_of_mac / 100), 2);
+        $user = auth()->user();
+        $template = EmailTemplate::where('name', 'loadsheet_released')->firstOrFail();
+        $data = [
+            'flight_no' => $flight->flight_number,
+            'user_name' => $user->name,
+            'user_email' => $user->email,
+        ];
+
+        auth()->user()->notify(new DynamicNotification($data, $template));
 
         return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'lizfw', 'litow', 'lildw', 'macZFW', 'macTOW'));
     }
@@ -159,16 +170,16 @@ class LoadsheetController extends Controller
     {
         $pantries = $flight->registration->aircraftType->settings['pantries'] ?? [];
         $actualPantry = collect($pantries)->firstWhere('name', $pantrySetting);
-        
+
         $weight = (int) ($actualPantry['weight'] ?? 0);
         $index = round($actualPantry['index'], 4) ?? 0.00;
-        
+
         return [
             'weight' => $weight,
             'index' => $index
         ];
     }
-    
+
 
     private function calculateCompartmentLoads($deadloads)
     {

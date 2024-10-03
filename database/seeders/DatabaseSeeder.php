@@ -2,18 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\AircraftType;
-use App\Models\Airline;
-use App\Models\CabinZone;
+use App\Models\Hold;
+use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Flight;
-use App\Models\FuelFigure;
-use App\Models\Hold;
+use App\Models\Airline;
 use App\Models\Message;
+use App\Models\CabinZone;
 use App\Models\Passenger;
-use App\Models\Registration;
-use App\Models\User;
+use App\Models\FuelFigure;
 use Faker\Factory as Faker;
+use App\Models\AircraftType;
+use App\Models\Registration;
+use App\Models\EmailTemplate;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
         $user->syncRoles(['super-admin']);
-        
+
         Airline::factory(1)->create()->each(function ($airline) {
             AircraftType::factory(1)->create([
                 'airline_id' => $airline->id
@@ -175,5 +176,10 @@ class DatabaseSeeder extends Seeder
                 'hold_id' => null
             ]);
         });
+        EmailTemplate::create([
+            'name' => 'loadsheet_released',
+            'subject' => 'Loadsheet for {{flight_no}} Released',
+            'body' => 'Loadsheet for {{flight_no}} Released by {{user_name}}. Incase of any clarification please contact Admin',
+        ]);
     }
 }

@@ -14,6 +14,7 @@ use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\FuelFigureController;
 use App\Http\Controllers\AircraftTypeController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\EmailTemplateController;
 
 Route::get('/database', function () {
     Artisan::call('migrate:fresh');
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('flights', FlightController::class);
     Route::resource('airlines', AirlineController::class);
     Route::resource('aircraft_types', AircraftTypeController::class);
+    Route::resource('email_templates', EmailTemplateController::class);
     Route::resource('flights.loadsheets', LoadsheetController::class);
     Route::resource('flights.cargos', CargoController::class)->shallow();
     Route::resource('flights.passengers', PassengerController::class)->shallow();
