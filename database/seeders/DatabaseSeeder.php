@@ -27,11 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class
         ]);
-        $user = User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-        $user->syncRoles(['super-admin']);
 
         Airline::factory(1)->create()->each(function ($airline) {
             AircraftType::factory(1)->create([
@@ -39,6 +34,7 @@ class DatabaseSeeder extends Seeder
             ])->each(function ($value) {
                 $faker = Faker::create();
                 $previousFwd = 0;
+
                 // Holds
                 foreach ([['number' => 1, 'max' => 3402, 'index' => -0.00642], ['number' => 3, 'max' => 2426, 'index' => +0.00401], ['number' => 4, 'max' => 2110, 'index' => +0.00741], ['number' => 5, 'max' => 1497, 'index' => +0.01048],] as $hold) {
                     $currentAft = $previousFwd + 25;

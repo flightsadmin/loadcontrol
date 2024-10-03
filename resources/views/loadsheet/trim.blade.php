@@ -105,7 +105,7 @@
                                         </tr>
                                         <tr>
                                             <td>ZERO FUEL WEIGHT ACTUAL</td>
-                                            <td>{{ $flight->loadsheet->zero_fuel_weight_actual }} &nbsp; MAX 64300 &nbsp;&nbsp; ADJ</td>
+                                            <td>{{ $flight->loadsheet->zero_fuel_weight_actual }} &nbsp; MAX 64300 &nbsp; ADJ</td>
                                         </tr>
                                         <tr>
                                             <td>TAKE OFF FUEL</td>
@@ -113,7 +113,7 @@
                                         </tr>
                                         <tr>
                                             <td>TAKE OFF WEIGHT ACTUAL</td>
-                                            <td>{{ $flight->loadsheet->take_off_weight_actual }} &nbsp; MAX 79000 &nbsp;&nbsp; ADJ</td>
+                                            <td>{{ $flight->loadsheet->take_off_weight_actual }} &nbsp; MAX 79000 &nbsp; ADJ</td>
                                         </tr>
                                         <tr>
                                             <td>TRIP FUEL</td>
@@ -121,7 +121,7 @@
                                         </tr>
                                         <tr>
                                             <td>LANDING WEIGHT ACTUAL</td>
-                                            <td>{{ $flight->loadsheet->landing_weight_actual }} &nbsp; MAX 67400 &nbsp;&nbsp; ADJ</td>
+                                            <td>{{ $flight->loadsheet->landing_weight_actual }} &nbsp; MAX 67400 &nbsp; ADJ</td>
                                         </tr>
                                     </table>
 
