@@ -135,7 +135,7 @@ class LoadsheetController extends Controller
             'user_email' => $user->email,
         ];
 
-        auth()->user()->notify(new DynamicNotification($data, $template));
+        $user->notify(new DynamicNotification($data, $template));
 
         return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'lizfw', 'litow', 'lildw', 'macZFW', 'macTOW'));
     }

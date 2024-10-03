@@ -42,10 +42,9 @@ class DynamicNotification extends Notification
             $subject = str_replace('{{' . $key . '}}', $value, $subject);
             $body = str_replace('{{' . $key . '}}', $value, $body);
         }
-
         return (new MailMessage())
             ->subject($subject)
-            ->markdown('emails.dynamic', ['body' => $body, 'notifiable' => $notifiable]);
+            ->view('emails.dynamic', ['body' => $body, 'notifiable' => $notifiable]);
     }
 
     /**
