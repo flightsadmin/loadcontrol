@@ -55,7 +55,7 @@ class FlightController extends Controller
         }
         $activeTab = session('activeTab', 'flight');
         return view('flight.index', compact('flight', 'activeTab'));
-    }    
+    }
 
     public function edit(Flight $flight)
     {

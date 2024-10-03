@@ -8,7 +8,7 @@
 <body>
     Dear {{ $notifiable->name ?? 'User' }},<br>
     <br>
-    {!! $body !!} <br>
+    {!! $body !!} <br><br>
     Regards, <br>
     {{ config('app.name') }}
 </body>

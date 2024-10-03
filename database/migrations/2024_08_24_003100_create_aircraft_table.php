@@ -93,7 +93,9 @@ return new class extends Migration {
         Schema::create('loadsheets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('flight_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->boolean('final')->default(false);
+            $table->integer('edition')->default(0);
             $table->integer('total_traffic_load')->default(0);
             $table->integer('dry_operating_weight')->default(0);
             $table->integer('zero_fuel_weight_actual')->default(0);
@@ -103,7 +105,6 @@ return new class extends Migration {
             $table->integer('landing_weight_actual')->default(0);
             $table->json('compartment_loads')->nullable();
             $table->json('passenger_distribution')->nullable();
-            $table->json('index')->nullable();
             $table->timestamps();
         });
 

@@ -172,10 +172,17 @@ class DatabaseSeeder extends Seeder
                 'hold_id' => null
             ]);
         });
-        EmailTemplate::create([
-            'name' => 'loadsheet_released',
-            'subject' => 'Loadsheet for {{flight_no}} Released',
-            'body' => 'Loadsheet for {{flight_no}} Released by {{user_name}}. Incase of any clarification please contact Admin',
+        EmailTemplate::insertOrIgnore([
+            [
+                'name' => 'loadsheet_released',
+                'subject' => 'Loadsheet for {{flight_no}} Released',
+                'body' => 'Loadsheet for {{flight_no}} Released by {{user_name}}.<br>Incase of any clarification please contact Admin',
+            ],
+            [
+                'name' => 'user_confirmation',
+                'subject' => 'Welcome onboard {{app_name}}',
+                'body' => 'Welcome onboard {{app_name}}.<br>Click on {{url}} for more info or contact Admin',
+            ]
         ]);
     }
 }

@@ -5,7 +5,7 @@
                 <h5>Cargo for Flight: {{ $flight->flight_number }}</h5>
                 <form action="{{ route('flights.loadsheets.store', $flight->id) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-sm btn-primary bi-file-earmark-pdf-fill"> Generate Loadsheet</button>
+                    <button type="submit" class="btn btn-sm btn-primary bi-file-earmark-pdf-fill"> Preview Loadsheet</button>
                 </form>
                 <a href="{{ route('flights.cargos.create', $flight->id) }}"
                     class="btn btn-primary btn-sm bi-plus-circle-dotted float-end mt-0"> Add Deadload</a>

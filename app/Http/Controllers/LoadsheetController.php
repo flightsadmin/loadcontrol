@@ -80,6 +80,7 @@ class LoadsheetController extends Controller
         Loadsheet::updateOrCreate(
             ['flight_id' => $flight->id],
             [
+                // 'user_id' => auth()->user()->id,
                 'total_traffic_load' => $totalPassengerWeight + $totalDeadloadWeight,
                 'dry_operating_weight' => $dryOperatingWeight,
                 'zero_fuel_weight_actual' => $zeroFuelWeightActual,
@@ -127,15 +128,6 @@ class LoadsheetController extends Controller
             + ($type->ref_sta - $type->lemac)) / ($type->length_of_mac / 100), 2);
         $macTOW = round((($type->c_constant * ($litow - $type->k_constant) / $flight->loadsheet->take_off_weight_actual)
             + ($type->ref_sta - $type->lemac)) / ($type->length_of_mac / 100), 2);
-        $user = auth()->user();
-        $template = EmailTemplate::where('name', 'loadsheet_released')->firstOrFail();
-        $data = [
-            'flight_no' => $flight->flight_number,
-            'user_name' => $user->name,
-            'user_email' => $user->email,
-        ];
-
-        $user->notify(new DynamicNotification($data, $template));
 
         return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'lizfw', 'litow', 'lildw', 'macZFW', 'macTOW'));
     }
@@ -195,5 +187,28 @@ class LoadsheetController extends Controller
                 'index' => $index
             ];
         })->sortBy('hold_no')->values()->toJson();
+    }
+
+    public function finalizeLoadsheet(Flight $flight)
+    {
+        $flight->loadsheet->increment('edition');
+        $flight->loadsheet->final = true;
+        $flight->loadsheet->user_id = auth()->user()->id;
+        $flight->loadsheet->save();
+
+        $user = $flight->loadsheet->user;
+        $template = EmailTemplate::where('name', 'loadsheet_released')->firstOrFail();
+        $data = [
+            'flight_no' => $flight->flight_number,
+            'user_name' => $user->name,
+            'user_email' => $user->email,
+        ];
+
+        $user->notify(new DynamicNotification($data, $template));
+
+        return redirect()->route('flights.loadsheets.show', [
+            'flight' => $flight->id,
+            'loadsheet' => $flight->loadsheet->id,
+        ])->with('success', 'Loadsheet Generated successfully.');
     }
 }

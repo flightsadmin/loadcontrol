@@ -6,6 +6,10 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>Load and Trim Sheet</h4>
+                    <form action="{{ route('loadsheets.finalize', ['flight' => $flight->id]) }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-warning bi-envelope-paper"> Finalize Loadsheet</button>
+                    </form>
                     <a href="{{ route('flights.show', ['flight' => $flight->id, 'tab' => 'cargo']) }}"
                         class="btn btn-secondary btn-sm bi-backspace float-end mt-0"> Back</a>
                 </div>
@@ -26,9 +30,9 @@
                                             </tr>
                                             <tr>
                                                 <td>ALL WEIGHTS IN KILOS</td>
-                                                <td>{{ strtoupper(auth()->user()->name) }}</td>
+                                                <td class="text-uppercase">{{ $flight->loadsheet->user->name ?? '' }}</td>
                                                 <td></td>
-                                                <td>1</td>
+                                                <td>{{ $flight->loadsheet->edition }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -49,7 +53,7 @@
                                             <td>{{ $flight->registration->aircraftType->aircraft_type }}</td>
                                             <td>{{ $flight->fuelFigure->crew }}</td>
                                             <td>{{ strtoupper($flight->departure->format('dMY')) }}</td>
-                                            <td>{{ $flight->departure->format('Hs') }}</td>
+                                            <td>{{ $flight->departure->format('Hi') }}</td>
                                         </tr>
                                     </table>
                                     <table class="table table-sm table-borderless mb-0">
@@ -85,7 +89,7 @@
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td>JY 0/1 &nbsp;&nbsp; SOC 0/0</td>
+                                            <td>Y {{ $passengerDistribution ?? 0 }} &nbsp;&nbsp; SOC 0/0</td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -232,9 +236,12 @@
                                             NIL
                                         @endforelse
                                     </div>
+                                    <br>
                                     <div>AIRCRAFT TYPE: {{ $flight->registration->aircraftType->aircraft_type }}</div>
                                     <div>NOTOC: NO</div>
-                                    <div>MCT &nbsp;&nbsp; FRE 0 &nbsp;&nbsp; POS 0 &nbsp;&nbsp; BAG 0/0 &nbsp;&nbsp; TRA 0</div>
+                                    <br>
+                                    <div>{{ $flight->destination }} &nbsp;&nbsp; FRE 0 &nbsp;&nbsp; POS 0 &nbsp;&nbsp; BAG 0/0 &nbsp;&nbsp; TRA
+                                        0</div>
 
                                     <div>END LOADSHEET EDNO 1 - {{ $flight->flight_number }}/{{ $flight->departure->format('d') }}
                                         &nbsp;&nbsp;&nbsp;&nbsp; {{ $flight->departure }}

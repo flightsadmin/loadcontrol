@@ -8,6 +8,9 @@ class Loadsheet extends Model
 {
     protected $fillable = [
         'flight_id',
+        'user_id',
+        'final',
+        'edition',
         'total_traffic_load',
         'dry_operating_weight',
         'zero_fuel_weight_actual',
@@ -17,11 +20,15 @@ class Loadsheet extends Model
         'landing_weight_actual',
         'compartment_loads',
         'passenger_distribution',
-        'index'
     ];
 
     public function flight()
     {
         return $this->belongsTo(Flight::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

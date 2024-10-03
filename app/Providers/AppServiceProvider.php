@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer('*', function ($view) {
+        view()->composer('layouts.app', function ($view) {
             if ($date = request()->input('date')) {
                 session(['selectedDate' => $date]);
             }
