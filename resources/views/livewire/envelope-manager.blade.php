@@ -6,7 +6,7 @@
                 <div class="d-flex d-flex justify-content-between align-items-center">
                     <input type="text" wire:model.defer="newEnvelopeType" placeholder="New Envelope Type"
                         class="form-control form-control-sm me-4" />
-                    <a href="" wire:click.prevent="createType" class="me-2 h5 bi-database-fill-add"></a>
+                    <a href="" wire:click.prevent="createType" class="m-0 h5 bi-database-fill-add text-success"></a>
                 </div>
             @endif
         </div>
