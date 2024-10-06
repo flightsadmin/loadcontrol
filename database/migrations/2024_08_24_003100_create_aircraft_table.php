@@ -28,9 +28,9 @@ return new class extends Migration {
             $table->integer('max_zero_fuel_weight');
             $table->integer('max_takeoff_weight');
             $table->integer('max_landing_weight');
+            $table->string('config')->nullable();
             $table->integer('deck_crew')->nullable();
             $table->integer('cabin_crew')->nullable();
-            $table->integer('max_fuel_weight')->nullable();
             $table->float('ref_sta')->nullable();
             $table->float('k_constant')->nullable();
             $table->float('c_constant')->nullable();

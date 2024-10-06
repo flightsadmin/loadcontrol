@@ -1,6 +1,7 @@
 @if ($flight->loadsheet)
     <div class="container-fluid">
-        <div>LDM
+        <div>LDM</div>
+        <div>
             {{ $flight->flight_number }}/{{ $flight->departure->format('d') }}.{{ $flight->registration->registration_number }}.J04Y174.{{ $flight->fuelFigure->crew }}
         </div>
         <div>

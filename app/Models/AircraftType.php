@@ -16,9 +16,9 @@ class AircraftType extends Model
         'max_zero_fuel_weight',
         'max_takeoff_weight',
         'max_landing_weight',
-        'cabin_crew',
+        'config',
         'deck_crew',
-        'max_fuel_weight',
+        'cabin_crew',
         'ref_sta',
         'k_constant',
         'c_constant',
@@ -26,7 +26,7 @@ class AircraftType extends Model
         'lemac',
         'settings'
     ];
-    
+
     protected $casts = [
         'settings' => 'array',
     ];

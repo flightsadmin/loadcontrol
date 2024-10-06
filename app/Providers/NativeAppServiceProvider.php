@@ -22,7 +22,7 @@ class NativeAppServiceProvider implements ProvidesPhpIni
             ->submenu(
                 'Help',
                 Menu::new()
-                    ->link('https://github.com/georgechitechi/loadcontrol', 'Documentation')
+                    ->link('https://docs.flightadmin.info', 'Documentation')
                     ->separator()
                     ->label('Sign Out')
             )

@@ -33,10 +33,6 @@
                                 <input type="text" name="subject" class="form-control" required>
                             </div>
 
-                            {{-- <div class="mb-3">
-                                <label for="body">Email Body</label>
-                                <textarea name="body" class="form-control" rows="10" required></textarea>
-                            </div> --}}
                             <div class="mb-3">
                                 <label for="body">Email Body</label>
                                 <input id="body" type="hidden" name="body" required>

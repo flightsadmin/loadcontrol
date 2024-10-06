@@ -25,7 +25,7 @@ class AircraftTypeFactory extends Factory
             'max_landing_weight' => $this->faker->numberBetween(66000, 67400),
             'deck_crew' => $this->faker->numberBetween(2, 4),
             'cabin_crew' => $this->faker->numberBetween(4, 8),
-            'max_fuel_weight' => $this->faker->numberBetween(16000, 18000),
+            'config' => $this->faker->randomElement(['J04Y174', 'J04Y180', 'Y180']),
             'ref_sta' => 18.850,
             'k_constant' => 50,
             'c_constant' => 1000,

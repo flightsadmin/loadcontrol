@@ -20,7 +20,7 @@
     <div class="col-md-4">
         <label for="aircraft_type" class="form-label">Aircraft Type</label>
         <input type="text" name="aircraft_type" id="aircraft_type" class="form-control @error('aircraft_type') is-invalid @enderror"
-            value="{{ old('aircraft_type', $aircraftType->aircraft_type ?? '') }}">
+            placeholder="B777" value="{{ old('aircraft_type', $aircraftType->aircraft_type ?? '') }}">
         @error('aircraft_type')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -28,7 +28,7 @@
     <div class="col-md-4">
         <label for="manufacturer" class="form-label">Manufacturer</label>
         <input type="text" name="manufacturer" id="manufacturer" class="form-control @error('manufacturer') is-invalid @enderror"
-            value="{{ old('manufacturer', $aircraftType->manufacturer ?? '') }}">
+            placeholder="Airbus" value="{{ old('manufacturer', $aircraftType->manufacturer ?? '') }}">
         @error('manufacturer')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -67,18 +67,18 @@
 
 <div class="row mb-4">
     <div class="col-md-4">
-        <label for="max_fuel_weight" class="form-label">Max Fuel Weight</label>
-        <input type="number" name="max_fuel_weight" id="max_fuel_weight"
-            class="form-control @error('max_fuel_weight') is-invalid @enderror"
-            value="{{ old('max_fuel_weight', $aircraftType->max_fuel_weight ?? '') }}">
-        @error('max_fuel_weight')
+        <label for="config" class="form-label">Aircraft Config</label>
+        <input type="text" name="config" id="config"
+            class="form-control @error('config') is-invalid @enderror" placeholder="J00 Y000"
+            value="{{ old('config', $aircraftType->config ?? '') }}">
+        @error('config')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
     <div class="col-md-4">
         <label for="deck_crew" class="form-label">Deck Crew</label>
         <input type="number" name="deck_crew" id="deck_crew" class="form-control @error('deck_crew') is-invalid @enderror"
-            value="{{ old('deck_crew', $aircraftType->deck_crew ?? '') }}">
+            placeholder="2" value="{{ old('deck_crew', $aircraftType->deck_crew ?? '') }}">
         @error('deck_crew')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -86,7 +86,7 @@
     <div class="col-md-4">
         <label for="cabin_crew" class="form-label">Cabin Crew</label>
         <input type="number" name="cabin_crew" id="cabin_crew" class="form-control @error('cabin_crew') is-invalid @enderror"
-            value="{{ old('cabin_crew', $aircraftType->cabin_crew ?? '') }}">
+            placeholder="6" value="{{ old('cabin_crew', $aircraftType->cabin_crew ?? '') }}">
         @error('cabin_crew')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
