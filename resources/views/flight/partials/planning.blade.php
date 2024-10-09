@@ -41,13 +41,15 @@
                         @foreach ($flight->registration->aircraftType->holds as $hold)
                             @php
                                 $totalWeightInHold = $flight->cargos->where('hold_id', $hold->id)->sum('weight');
+                                $weightDifference = max(0, $totalWeightInHold - $hold->max);
                             @endphp
                             <div class="hold" data-hold-id="{{ $hold->id }}"
                                 style="top: 0; left: {{ $hold->fwd }}%; width: {{ $hold->aft - $hold->fwd }}%; height: 100%; background-color: grey; border: 10px solid #6c757d; position: absolute;">
                                 <span class="text-white">{{ $hold->hold_no }}
                                     <small>(Max {{ $hold->max }})</small>
                                     @if ($totalWeightInHold > $hold->max)
-                                        <small class="bi-exclamation-circle-fill text-danger"></small>
+                                        <small class="bi-exclamation-circle-fill text-danger"
+                                            data-bs-toggle="tooltip" title="Hold Max Exceeded by {{ $weightDifference }} kg"></small>
                                     @endif
                                 </span>
                                 <ul class="list-group list-group-sm list-group-item-dark">
@@ -98,6 +100,12 @@
 </style>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach(function(tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
     document.addEventListener('DOMContentLoaded', function() {
         function initializeDragAndDrop() {
             const cargoItems = document.querySelectorAll('.cargo-item');
