@@ -80,7 +80,6 @@ class LoadsheetController extends Controller
         Loadsheet::updateOrCreate(
             ['flight_id' => $flight->id],
             [
-                // 'user_id' => auth()->user()->id,
                 'total_traffic_load' => $totalPassengerWeight + $totalDeadloadWeight,
                 'dry_operating_weight' => $dryOperatingWeight,
                 'zero_fuel_weight_actual' => $zeroFuelWeightActual,

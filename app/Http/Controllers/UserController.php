@@ -51,8 +51,9 @@ class UserController extends Controller
         $data = [
             'user_name' => $user->name,
             'user_email' => $user->email,
+            'user_password' => $request->password,
             'app_name' => config('app.name'),
-            'url' => url('/'),
+            'app_url' => url('/'),
         ];
 
         $user->notify((new DynamicNotification($data, $template))->delay(now()->addSeconds(30)));
