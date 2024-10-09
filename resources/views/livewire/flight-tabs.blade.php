@@ -1,14 +1,4 @@
 <div class="mt-2 position-relative">
-    @role('super-admin')
-        <div class="position-absolute top-0 end-0">
-            <a href="{{ route('aircraft_types.index') }}" class="btn btn-sm btn-primary bi-gear-wide-connected">
-                Settings
-            </a>
-            <a href="{{ route('users.index') }}" class="btn btn-sm btn-primary bi-person-gear">
-                Admin
-            </a>
-        </div>
-    @endrole
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <a class="nav-link bi-airplane-engines-fill {{ $activeTab == 'flight' ? 'active' : '' }}"

@@ -89,6 +89,17 @@
                                             </button>
                                         </form>
                                     </li>
+                                    @role('super-admin')
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item bi-gear-wide-connected" href="{{ route('aircraft_types.index') }}">
+                                                Settings</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item bi-person-gear" href="{{ route('users.index') }}"> Admin</a></li>
+                                    @endrole
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -96,6 +107,7 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
+
                                     <li><a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();">
@@ -123,7 +135,6 @@
         @endauth
     </div>
 
-    @yield('scripts')
     @stack('scripts')
 </body>
 
