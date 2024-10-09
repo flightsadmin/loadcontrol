@@ -16,21 +16,32 @@
                 </thead>
                 <tbody>
                     @foreach ($flight->registration->aircraftType->cabinZones as $zone)
+                        @php
+                            $totalNonInfant = $flight->passengers
+                                ->where('zone', $zone->zone_name)
+                                ->whereNotIn('type', ['infant'])
+                                ->sum('count');
+                            $exceededBy = max(0, $totalNonInfant - $zone->max_capacity);
+                        @endphp
                         <tr>
-                            <td>Zone O{{ $zone->zone_name }}</td>
+                            <td>Zone {{ $zone->zone_name }}</td>
                             @foreach (['male', 'female', 'child', 'infant'] as $type)
                                 <td>
                                     @php
-                                        $count = $flight->passengers->where('zone', $zone->zone_name)->where('type', $type)->sum('count');
+                                        $count = $flight->passengers
+                                            ->where('zone', $zone->zone_name)
+                                            ->where('type', $type)
+                                            ->sum('count');
                                     @endphp
                                     {{ $count }}
                                 </td>
                             @endforeach
                             <td class="fw-bold">
-                                @php
-                                    $total = $flight->passengers->where('zone', $zone->zone_name)->sum('count');
-                                @endphp
-                                {{ $total }}
+                                {{ $totalNonInfant }}
+                                @if ($exceededBy > 0)
+                                    <small class="bi-exclamation-circle-fill text-danger"
+                                        data-bs-toggle="tooltip" title="Exceeded by {{ $exceededBy }} pax"></small>
+                                @endif
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addPassengerModal"
@@ -95,18 +106,25 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var passengerModal = document.getElementById('addPassengerModal');
-        passengerModal.addEventListener('show.bs.modal', function(event) {
-            var button = event.relatedTarget;
-            var zone = button.getAttribute('data-zone');
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var passengerModal = document.getElementById('addPassengerModal');
+            passengerModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var zone = button.getAttribute('data-zone');
 
-            var modalTitle = passengerModal.querySelector('.modal-title');
-            var zoneInput = passengerModal.querySelector('#zoneInput');
+                var modalTitle = passengerModal.querySelector('.modal-title');
+                var zoneInput = passengerModal.querySelector('#zoneInput');
 
-            modalTitle.textContent = 'Add/Update Passengers for Zone ' + zone;
-            zoneInput.value = zone;
+                modalTitle.textContent = 'Add/Update Passengers for Zone ' + zone;
+                zoneInput.value = zone;
+            });
+
+            var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            tooltipTriggerList.forEach(function(tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
         });
-    });
-</script>
+    </script>
+@endpush

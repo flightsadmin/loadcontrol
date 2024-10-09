@@ -194,11 +194,12 @@
 </div>
 @push('scripts')
     <script type="module">
-        const genModal = new bootstrap.Modal('#dataModal');
-        const routeModal = new bootstrap.Modal('#routeModal');
         window.addEventListener('closeModal', () => {
-            genModal.hide();
-            routeModal.hide();
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach((modalElement) => {
+                const bootstrapModalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                bootstrapModalInstance.hide();
+            });
         });
     </script>
 @endpush
