@@ -24,7 +24,7 @@
                             $exceededBy = max(0, $totalNonInfant - $zone->max_capacity);
                         @endphp
                         <tr>
-                            <td>Zone {{ $zone->zone_name }}</td>
+                            <td>Zone {{ $zone->zone_name }} <small>(Max {{ $zone->max_capacity }}) Pax</small></td>
                             @foreach (['male', 'female', 'child', 'infant'] as $type)
                                 <td>
                                     @php
