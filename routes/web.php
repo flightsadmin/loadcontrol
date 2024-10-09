@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HoldController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\FlightController;
-use App\Http\Controllers\AirlineController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EnvelopeController;
 use App\Http\Controllers\CabinZoneController;
@@ -23,10 +22,10 @@ Route::get('/database', function () {
 })->name('migrate');
 
 Route::group(['middleware' => ['auth']], function () {
+
     Route::resource('/', FlightController::class);
     Route::resource('cargos', CargoController::class);
     Route::resource('flights', FlightController::class);
-    Route::resource('airlines', AirlineController::class);
     Route::resource('aircraft_types', AircraftTypeController::class);
     Route::resource('email_templates', EmailTemplateController::class);
     Route::resource('flights.loadsheets', LoadsheetController::class);
@@ -40,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/cargos/{cargo}/update-hold', [CargoController::class, 'updateHold'])->name('cargos.update-hold');
     Route::post('/flights/{flight}/finalize', [LoadsheetController::class, 'finalizeLoadsheet'])->name('loadsheets.finalize');
     Route::get('/home', [FlightController::class, 'index'])->name('home');
+    Route::get('/airlines', App\Livewire\Airlines::class)->name('airlines');
 });
 
 Route::group(['middleware' => ['auth', 'role:super-admin|admin']], function () {

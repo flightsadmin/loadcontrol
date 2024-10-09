@@ -152,7 +152,7 @@ return new class extends Migration {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('flight_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('content');
             $table->timestamps();
         });
@@ -162,6 +162,23 @@ return new class extends Migration {
             $table->string('name')->unique();
             $table->string('subject');
             $table->longText('body');
+            $table->timestamps();
+        });
+
+        Schema::create('routes', function (Blueprint $table) {
+            $table->id();
+            $table->string('origin');
+            $table->string('destination');
+            $table->time('flight_time')->nullable();
+            $table->foreignId('airline_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+        });
+
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->id();
+            $table->string('email');
+            $table->foreignId('airline_id')->constrained()->onDelete('cascade');
+            $table->foreignId('route_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

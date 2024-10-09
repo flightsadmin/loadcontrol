@@ -6,12 +6,12 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <a href="{{ route('aircraft_types.index') }}"
-                    class="h5 m-0">{{ $aircraftType->manufacturer }} - {{ $aircraftType->aircraft_type }}</a>
+                        class="h5 m-0">{{ $aircraftType->manufacturer }} - {{ $aircraftType->aircraft_type }}</a>
                     <a href="{{ route('aircraft_types.envelopes.index', $aircraftType->id) }}"
                         class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Envelopes</a>
                     <a href="{{ route('aircraft_types.cabin_zones.index', $aircraftType->id) }}"
                         class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Cabin Zones</a>
-                    <a href="{{ route('airlines.index') }}"
+                    <a href="{{ route('airlines') }}"
                         class="btn btn-primary btn-sm mt-0 bi-database-fill-gear"> Manage Airline</a>
                     <a href="{{ route('aircraft_types.holds.create', $aircraftType->id) }}"
                         class="btn btn-primary btn-sm mb-0 bi-plus-lg"> Add New Hold</a>
