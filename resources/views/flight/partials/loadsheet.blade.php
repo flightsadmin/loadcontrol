@@ -41,7 +41,7 @@
                                             <td>TIME</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ $flight->origin }}/{{ $flight->destination }}</td>
+                                            <td>{{ $flight->route->origin }}/{{ $flight->route->destination }}</td>
                                             <td>{{ $flight->flight_number }}</td>
                                             <td>{{ $flight->registration->registration_number }}</td>
                                             <td>{{ $flight->registration->aircraftType->aircraft_type }}</td>
@@ -90,7 +90,7 @@
                                             <td>BLKD 0</td>
                                         </tr>
                                     </table>
-                                    <div style="width: 100%">****************************************************************</div>
+                                    <div style="width: 100%">************************************************************</div>
 
                                     <table class="table table-sm table-borderless mb-0">
                                         <tr>
@@ -126,7 +126,7 @@
                                         </tr>
                                     </table>
 
-                                    <div>****************************************************************</div>
+                                    <div>************************************************************</div>
                                     <table class="table table-sm table-borderless mb-0">
                                         <tr>
                                             <td>BALANCE / SEATING CONDITIONS</td>
@@ -162,7 +162,7 @@
                                         <div>UNDERLOAD BEFORE LMC &nbsp;&nbsp;&nbsp;&nbsp; 19716</div>
                                         <div>LMC TOTAL</div>
                                     </div>
-                                    <div>****************************************************************</div>
+                                    <div>************************************************************</div>
                                     <div>LOADMESSAGE AND CAPTAIN'S INFORMATION BEFORE LMC</div>
                                     <div>TAXI FUEL: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200</div>
 
@@ -194,11 +194,13 @@
                                     </table>
 
                                     <br>
-                                    <div>LDM
-                                        {{ $flight->flight_number }}/{{ $flight->departure->format('d') }}.{{ $flight->registration->registration_number }}.J04Y174.{{ $flight->fuelFigure->crew }}
+                                    {{-- LDM --}}
+                                    <div>LDM </div>
+                                    <div>
+                                        {{ $flight->flight_number }}/{{ $flight->departure->format('d') }}.{{ $flight->registration->registration_number }}.{{ $flight->registration->aircraftType->config }}.{{ $flight->fuelFigure->crew }}
                                     </div>
                                     <div>
-                                        -{{ $flight->destination }}.
+                                        -{{ $flight->route->destination }}.
                                         @forelse (json_decode($flight->loadsheet->passenger_distribution, true)['pax'] as $type => $count)
                                             {{ $count . '/' }}
                                         @empty
@@ -222,7 +224,7 @@
                                             $flight->airline->settings['passenger_weights']['infant'] }}
                                         &nbsp;&nbsp;&nbsp; BAG WGT: ACTUAL
                                     </div>
-                                    <div>{{ $flight->destination }} C {{ $totalDeadload ?? 0 }} M 0 B 0/ 0 O 0 T
+                                    <div>{{ $flight->route->destination }} C {{ $totalDeadload ?? 0 }} M 0 B 0/ 0 O 0 T
                                         {{ $totalDeadload ?? 0 }}
                                     </div>
                                     <div>PANTRY CODE {{ $flight->fuelFigure->pantry }}</div>
@@ -238,11 +240,12 @@
                                     <div>AIRCRAFT TYPE: {{ $flight->registration->aircraftType->aircraft_type }}</div>
                                     <div>NOTOC: NO</div>
                                     <br>
-                                    <div>{{ $flight->destination }} &nbsp;&nbsp; FRE 0 &nbsp;&nbsp; POS 0 &nbsp;&nbsp; BAG 0/0 &nbsp;&nbsp;
-                                        TRA
+                                    <div>{{ $flight->route->destination }} &nbsp;&nbsp; FRE 0 &nbsp;&nbsp; POS 0 &nbsp;&nbsp; BAG 0/0
+                                        &nbsp;&nbsp; TRA
                                         0</div>
 
-                                    <div>END LOADSHEET EDNO 1 - {{ $flight->flight_number }}/{{ $flight->departure->format('d') }}
+                                    <div>END LOADSHEET EDNO {{ $flight->loadsheet->edition }} -
+                                        {{ $flight->flight_number }}/{{ $flight->departure->format('d') }}
                                         &nbsp;&nbsp;&nbsp;&nbsp; {{ $flight->departure }}
                                     </div>
                                 </div>

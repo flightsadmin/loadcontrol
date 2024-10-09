@@ -9,7 +9,7 @@ class Flight extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['registration_id', 'flight_number', 'origin', 'destination', 'airline_id', 'flight_type', 'departure', 'arrival'];
+    protected $fillable = ['registration_id', 'flight_number', 'airline_id', 'route_id', 'departure', 'arrival'];
     protected function casts(): array
     {
         return [
@@ -51,5 +51,10 @@ class Flight extends Model
     public function loadsheet()
     {
         return $this->hasOne(Loadsheet::class);
+    }
+
+    public function route()
+    {
+        return $this->belongsTo(Route::class);
     }
 }

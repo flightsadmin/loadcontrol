@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Hold;
+use App\Models\Route;
 use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Flight;
@@ -63,6 +64,14 @@ class DatabaseSeeder extends Seeder
                 // Registrations
                 Registration::factory(5)->create([
                     'aircraft_type_id' => $value
+                ]);
+            });
+            Route::factory(5)->create([
+                'airline_id' => $airline->id
+            ])->each(function ($route) use ($airline) {
+                $route->emails()->updateOrCreate([
+                    'email' => strtolower('wab@flightadmin.info'),
+                    'airline_id' => $airline->id,
                 ]);
             });
         });

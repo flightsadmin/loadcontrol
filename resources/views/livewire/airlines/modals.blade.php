@@ -195,8 +195,10 @@
 @push('scripts')
     <script type="module">
         const genModal = new bootstrap.Modal('#dataModal');
+        const routeModal = new bootstrap.Modal('#routeModal');
         window.addEventListener('closeModal', () => {
             genModal.hide();
+            routeModal.hide();
         });
     </script>
 @endpush

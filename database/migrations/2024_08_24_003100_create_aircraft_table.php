@@ -57,14 +57,21 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('flights', function (Blueprint $table) {
+        Schema::create('routes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('registration_id')->constrained()->onDelete('cascade');
-            $table->string('flight_number');
             $table->string('origin');
             $table->string('destination');
+            $table->time('flight_time')->nullable();
             $table->foreignId('airline_id')->constrained()->onDelete('cascade');
-            $table->enum('flight_type', ['Domestic', 'International']);
+            $table->timestamps();
+        });
+
+        Schema::create('flights', function (Blueprint $table) {
+            $table->id();
+            $table->string('flight_number');
+            $table->foreignId('registration_id')->constrained()->onDelete('cascade');
+            $table->foreignId('airline_id')->constrained()->onDelete('cascade');
+            $table->foreignId('route_id')->constrained()->onDelete('cascade');
             $table->timestamp('departure');
             $table->timestamp('arrival');
             $table->timestamps();
@@ -162,15 +169,6 @@ return new class extends Migration {
             $table->string('name')->unique();
             $table->string('subject');
             $table->longText('body');
-            $table->timestamps();
-        });
-
-        Schema::create('routes', function (Blueprint $table) {
-            $table->id();
-            $table->string('origin');
-            $table->string('destination');
-            $table->time('flight_time')->nullable();
-            $table->foreignId('airline_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
 

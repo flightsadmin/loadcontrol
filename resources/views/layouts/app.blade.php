@@ -123,6 +123,7 @@
         @endauth
     </div>
 
+    @yield('scripts')
     @stack('scripts')
 </body>
 

@@ -47,7 +47,7 @@
                                             <td>TIME</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ $flight->origin }}/{{ $flight->destination }}</td>
+                                            <td>{{ $flight->route->origin }}/{{ $flight->route->destination }}</td>
                                             <td>{{ $flight->flight_number }}</td>
                                             <td>{{ $flight->registration->registration_number }}</td>
                                             <td>{{ $flight->registration->aircraftType->aircraft_type }}</td>
@@ -205,7 +205,7 @@
                                         {{ $flight->flight_number }}/{{ $flight->departure->format('d') }}.{{ $flight->registration->registration_number }}.{{ $flight->registration->aircraftType->config }}.{{ $flight->fuelFigure->crew }}
                                     </div>
                                     <div>
-                                        -{{ $flight->destination }}.
+                                        -{{ $flight->route->destination }}.
                                         @forelse (json_decode($flight->loadsheet->passenger_distribution, true)['pax'] as $type => $count)
                                             {{ $count . '/' }}
                                         @empty
@@ -229,7 +229,8 @@
                                             $flight->airline->settings['passenger_weights']['infant'] }}
                                         &nbsp;&nbsp;&nbsp; BAG WGT: ACTUAL
                                     </div>
-                                    <div>{{ $flight->destination }} C {{ $totalDeadload ?? 0 }} M 0 B 0/ 0 O 0 T {{ $totalDeadload ?? 0 }}
+                                    <div>{{ $flight->route->destination }} C {{ $totalDeadload ?? 0 }} M 0 B 0/ 0 O 0 T
+                                        {{ $totalDeadload ?? 0 }}
                                     </div>
                                     <div>PANTRY CODE {{ $flight->fuelFigure->pantry }}</div>
                                     <div>ACTUAL LOADING OF AIRCRAFT</div>
@@ -244,7 +245,8 @@
                                     <div>AIRCRAFT TYPE: {{ $flight->registration->aircraftType->aircraft_type }}</div>
                                     <div>NOTOC: NO</div>
                                     <br>
-                                    <div>{{ $flight->destination }} &nbsp;&nbsp; FRE 0 &nbsp;&nbsp; POS 0 &nbsp;&nbsp; BAG 0/0 &nbsp;&nbsp; TRA
+                                    <div>{{ $flight->route->destination }} &nbsp;&nbsp; FRE 0 &nbsp;&nbsp; POS 0 &nbsp;&nbsp; BAG 0/0
+                                        &nbsp;&nbsp; TRA
                                         0</div>
 
                                     <div>END LOADSHEET EDNO {{ $flight->loadsheet->edition }} -

@@ -56,7 +56,7 @@ class UserController extends Controller
             'app_url' => url('/'),
         ];
 
-        $user->notify((new DynamicNotification($data, $template))->delay(now()->addSeconds(30)));
+        $user->notify((new DynamicNotification($data, $template)));
 
         return redirect('/users')->with('status', 'User created successfully with roles');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Airline;
 use App\Models\Flight;
 use App\Models\Registration;
+use App\Models\Route;
 use Illuminate\Http\Request;
 
 class FlightController extends Controller
@@ -26,18 +27,17 @@ class FlightController extends Controller
     {
         $registrations = Registration::all();
         $airlines = Airline::all();
-        return view('flight.create', compact('registrations', 'airlines'));
+        $routes = Route::all();
+        return view('flight.create', compact('registrations', 'airlines', 'routes'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'registration_id' => 'required|exists:registrations,id',
             'flight_number' => 'required|string',
-            'origin' => 'required|string',
-            'destination' => 'required|string',
+            'registration_id' => 'required|exists:registrations,id',
             'airline_id' => 'required|exists:airlines,id',
-            'flight_type' => 'required|in:Domestic,International',
+            'route_id' => 'required|exists:routes,id',
             'departure' => 'required|date',
             'arrival' => 'required|date',
         ]);
@@ -61,18 +61,17 @@ class FlightController extends Controller
     {
         $registrations = Registration::all();
         $airlines = Airline::all();
-        return view('flight.edit', compact('flight', 'registrations', 'airlines'));
+        $routes = Route::all();
+        return view('flight.edit', compact('flight', 'registrations', 'airlines', 'routes'));
     }
 
     public function update(Request $request, Flight $flight)
     {
         $validated = $request->validate([
-            'registration_id' => 'required|exists:registrations,id',
             'flight_number' => 'required|string',
-            'origin' => 'required|string',
-            'destination' => 'required|string',
+            'registration_id' => 'required|exists:registrations,id',
             'airline_id' => 'required|exists:airlines,id',
-            'flight_type' => 'required|in:Domestic,International',
+            'route_id' => 'required|exists:routes,id',
             'departure' => 'required|date',
             'arrival' => 'required|date',
         ]);

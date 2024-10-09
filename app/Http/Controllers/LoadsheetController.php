@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Flight;
+use App\Models\Address;
 use App\Models\Loadsheet;
 use \App\Models\FuelIndex;
 use App\Models\EmailTemplate;
@@ -202,18 +203,13 @@ class LoadsheetController extends Controller
             'user_name' => $user->name,
             'user_email' => $user->email,
         ];
-        // dd($flight->airline->routes->first()->destination);
-        $recipients = \App\Models\Address::where('airline_id', $flight->airline_id)
-            // ->where('route_id', $flight->route_id)
-            ->pluck('email');
 
-        dd($recipients);
+        $recipients = Address::where('route_id', $flight->route->id)
+            ->where('airline_id', $flight->airline_id)->get();
+
         foreach ($recipients as $email) {
-            \Notification::route('mail', $email)
-                ->notify(new DynamicNotification($data, $template));
+            $email->notify((new DynamicNotification($data, $template)));
         }
-
-        $user->notify(new DynamicNotification($data, $template));
 
         return redirect()->route('flights.loadsheets.show', [
             'flight' => $flight->id,
