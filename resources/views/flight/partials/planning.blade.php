@@ -41,7 +41,9 @@
                         @foreach ($flight->registration->aircraftType->holds as $hold)
                             <div class="hold" data-hold-id="{{ $hold->id }}"
                                 style="top: 0; left: {{ $hold->fwd }}%; width: {{ $hold->aft - $hold->fwd }}%; height: 100%; background-color: grey; border: 10px solid #6c757d; position: absolute;">
-                                <span class="text-white">{{ $hold->hold_no }}</span>
+                                <span class="text-white">{{ $hold->hold_no }}
+                                    <small>(Max {{ $hold->max }})</small>
+                                </span>
                                 <ul class="list-group list-group-sm list-group-item-dark">
                                     @forelse ($flight->cargos->where('hold_id', $hold->id) as $cargo)
                                         <li class="list-group-item cargo-item d-flex justify-content-between align-items-start"
