@@ -13,7 +13,7 @@
             <div class="card-body">
                 <form class="row" action="{{ route('aircraft_types.registrations.store', $aircraftType->id) }}" method="POST">
                     @csrf
-                    <div class="col-6 mb-3">
+                    <div class="col-4 mb-3">
                         <label for="registration_number" class="form-label">Registration Number</label>
                         <input type="text" name="registration_number" id="registration_number"
                             class="form-control @error('registration_number') is-invalid @enderror"
@@ -22,7 +22,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-6 mb-3">
+                    <div class="col-4 mb-3">
                         <label for="basic_weight" class="form-label">Basic Weight</label>
                         <input type="number" name="basic_weight" id="basic_weight"
                             class="form-control @error('basic_weight') is-invalid @enderror"
@@ -31,7 +31,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-6 mb-3">
+                    <div class="col-4 mb-3">
                         <label for="basic_index" class="form-label">Basic Index</label>
                         <input type="number" name="basic_index" id="basic_index" step="any"
                             class="form-control @error('basic_index') is-invalid @enderror"

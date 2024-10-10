@@ -39,8 +39,8 @@
                             <td class="fw-bold">
                                 {{ $totalNonInfant }}
                                 @if ($exceededBy > 0)
-                                    <small class="bi-exclamation-circle-fill text-danger"
-                                        data-bs-toggle="tooltip" title="Exceeded by {{ $exceededBy }} pax"></small>
+                                    <small class="bi-exclamation-circle-fill text-danger" data-bs-toggle="tooltip"
+                                        title="Exceeded by {{ $exceededBy }} pax"></small>
                                 @endif
                             </td>
                             <td>
@@ -96,7 +96,7 @@
                                     <label for="count" class="form-label">Count</label>
                                     <input type="number" class="form-control" name="count" id="count" required>
                                 </div>
-                                <button type="submit" class="btn btn-sm btn-primary bi-floppy-fill float-end"> Save</button>
+                                <button type="submit" class="btn btn-sm btn-primary bi-floppy-fill float-end">
                             </form>
                         </div>
                     </div>

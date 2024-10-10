@@ -190,7 +190,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'user_confirmation',
                 'subject' => 'Welcome onboard {{app_name}}',
-                'body' => 'Welcome onboard {{app_name}}.<br>Click on {{url}} for more info or contact Admin',
+                'body' => 'Welcome onboard {{app_name}}.<br>Click on {{app_url}} for more info or contact Admin',
             ]
         ]);
     }
