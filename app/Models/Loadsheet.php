@@ -11,15 +11,7 @@ class Loadsheet extends Model
         'user_id',
         'final',
         'edition',
-        'total_traffic_load',
-        'dry_operating_weight',
-        'zero_fuel_weight_actual',
-        'take_off_fuel',
-        'take_off_weight_actual',
-        'trip_fuel',
-        'landing_weight_actual',
-        'compartment_loads',
-        'passenger_distribution',
+        'payload_distribution',
     ];
 
     public function flight()

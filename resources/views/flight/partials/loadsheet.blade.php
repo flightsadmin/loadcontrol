@@ -4,258 +4,54 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>Load and Trim Sheet</h4>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="generatePDF()">Print Loadsheet</button>
                     <a href="{{ route('flights.show', ['flight' => $flight->id, 'tab' => 'cargo']) }}"
                         class="btn btn-secondary btn-sm bi-backspace float-end mt-0"> Back</a>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div style="font-family: monospace;">
-                                    <table class="table table-sm table-borderless mb-0">
-                                        <tbody>
-                                            <tr>
-                                                <td>LOADSHEET</td>
-                                                <td>CHECKED</td>
-                                                <td>APPROVED</td>
-                                                <td>EDNO</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ALL WEIGHTS IN KILOS</td>
-                                                <td class="text-uppercase">{{ $flight->loadsheet->user->name ?? '' }}</td>
-                                                <td></td>
-                                                <td>{{ $flight->loadsheet->edition }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-sm table-borderless m-0 p-0">
-                                        <tr>
-                                            <td>FROM/TO</td>
-                                            <td>FLIGHT</td>
-                                            <td>A/C REG</td>
-                                            <td>VERSION</td>
-                                            <td>CREW</td>
-                                            <td>DATE</td>
-                                            <td>TIME</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ $flight->route->origin }}/{{ $flight->route->destination }}</td>
-                                            <td>{{ $flight->flight_number }}</td>
-                                            <td>{{ $flight->registration->registration_number }}</td>
-                                            <td>{{ $flight->registration->aircraftType->aircraft_type }}</td>
-                                            <td>{{ $flight->fuelFigure->crew }}</td>
-                                            <td>{{ strtoupper($flight->departure->format('dMY')) }}</td>
-                                            <td>{{ $flight->departure->format('Hi') }}</td>
-                                        </tr>
-                                    </table>
-                                    <table class="table table-sm table-borderless mb-0">
-                                        <tr>
-                                            <td style="width: 50%;">WEIGHT</td>
-                                            <td style="width: 50%;">DISTRIBUTION</td>
-                                        </tr>
-                                        <tr>
-                                            <td>LOAD IN COMPARTMENTS</td>
-                                            <td>
-                                                @forelse (json_decode($flight->loadsheet->compartment_loads, true) as $compartment)
-                                                    {{ ucfirst($compartment['hold_no']) }}/{{ $compartment['weight'] }}
-                                                @empty
-                                                    NIL
-                                                @endforelse
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>PASSENGER/CABIN BAG</td>
-                                            <td>
-                                                @forelse (json_decode($flight->loadsheet->passenger_distribution, true)['pax'] as $type => $count)
-                                                    {{ $count . '/' }}
-                                                @empty
-                                                    NIL
-                                                @endforelse
-                                                @php
-                                                    $passengerDistribution = array_sum(
-                                                        json_decode($flight->loadsheet->passenger_distribution, true)['pax'],
-                                                    );
-                                                @endphp
-                                                <span class="ms-3">TTL {{ $passengerDistribution ?? 0 }}</span> CAB 0
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>Y {{ $passengerDistribution ?? 0 }} &nbsp;&nbsp; SOC 0/0</td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>BLKD 0</td>
-                                        </tr>
-                                    </table>
-                                    <div style="width: 100%">************************************************************</div>
-
-                                    <table class="table table-sm table-borderless mb-0">
-                                        <tr>
-                                            <td>TOTAL TRAFFIC LOAD</td>
-                                            <td>{{ $flight->loadsheet->total_traffic_load }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>DRY OPERATING WEIGHT</td>
-                                            <td>{{ $flight->loadsheet->dry_operating_weight }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ZERO FUEL WEIGHT ACTUAL</td>
-                                            <td>{{ $flight->loadsheet->zero_fuel_weight_actual }} &nbsp; MAX
-                                                {{ $flight->registration->aircraftType->max_zero_fuel_weight }} &nbsp; ADJ</td>
-                                        </tr>
-                                        <tr>
-                                            <td>TAKE OFF FUEL</td>
-                                            <td>{{ $flight->loadsheet->take_off_fuel }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>TAKE OFF WEIGHT ACTUAL</td>
-                                            <td>{{ $flight->loadsheet->take_off_weight_actual }} &nbsp; MAX
-                                                {{ $flight->registration->aircraftType->max_takeoff_weight }} &nbsp; ADJ</td>
-                                        </tr>
-                                        <tr>
-                                            <td>TRIP FUEL</td>
-                                            <td>{{ $flight->loadsheet->trip_fuel }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>LANDING WEIGHT ACTUAL</td>
-                                            <td>{{ $flight->loadsheet->landing_weight_actual }} &nbsp; MAX
-                                                {{ $flight->registration->aircraftType->max_landing_weight }} &nbsp; ADJ</td>
-                                        </tr>
-                                    </table>
-
-                                    <div>************************************************************</div>
-                                    <table class="table table-sm table-borderless mb-0">
-                                        <tr>
-                                            <td>BALANCE / SEATING CONDITIONS</td>
-                                            <td></td>
-                                            <td>LAST MINUTE CHANGES</td>
-                                        </tr>
-                                    </table>
-                                    <table class="table table-sm table-borderless mb-0" style="width: 50%">
-                                        <tr>
-                                            <td>DOI</td>
-                                            <td>51.2</td>
-                                            <td>DLI</td>
-                                            <td>51.2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>LIZFW</td>
-                                            <td>50.6</td>
-                                            <td>LITOW</td>
-                                            <td>47.7</td>
-                                        </tr>
-                                        <tr>
-                                            <td>MACZFW</td>
-                                            <td>-</td>
-                                            <td>MACTOW</td>
-                                            <td>-</td>
-                                        </tr>
-                                    </table>
-                                    <div>STAB TRIM SETTING </div>
-                                    <div> STAB TO 1.9 NOSE UP</div>
-                                    <div>TRIM BY SEAT ROW</div>
-                                    <div>0A1.0B0.0C0.</div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>UNDERLOAD BEFORE LMC &nbsp;&nbsp;&nbsp;&nbsp; 19716</div>
-                                        <div>LMC TOTAL</div>
-                                    </div>
-                                    <div>************************************************************</div>
-                                    <div>LOADMESSAGE AND CAPTAIN'S INFORMATION BEFORE LMC</div>
-                                    <div>TAXI FUEL: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200</div>
-
-                                    <table class="table table-sm table-borderless mb-0" style="width: 60%">
-                                        <tr>
-                                            <td>CG LIMITS</td>
-                                            <td>LITOW</td>
-                                            <td>FWD 33.43</td>
-                                            <td>AFT 72.18</td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>MACTOW</td>
-                                            <td>FWD 17.55</td>
-                                            <td>AFT 34.98</td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>LIZFW</td>
-                                            <td>FWD 38.75</td>
-                                            <td>AFT 60.72</td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>MACZFW</td>
-                                            <td>FWD 18.98</td>
-                                            <td>AFT 30.73</td>
-                                        </tr>
-                                    </table>
-
-                                    <br>
-                                    {{-- LDM --}}
-                                    <div>LDM </div>
-                                    <div>
-                                        {{ $flight->flight_number }}/{{ $flight->departure->format('d') }}.{{ $flight->registration->registration_number }}.{{ $flight->registration->aircraftType->config }}.{{ $flight->fuelFigure->crew }}
-                                    </div>
-                                    <div>
-                                        -{{ $flight->route->destination }}.
-                                        @forelse (json_decode($flight->loadsheet->passenger_distribution, true)['pax'] as $type => $count)
-                                            {{ $count . '/' }}
-                                        @empty
-                                            NIL
-                                        @endforelse.
-                                        @php
-                                            $totalDeadload = array_sum(
-                                                array_column(json_decode($flight->loadsheet->compartment_loads, true), 'weight'),
-                                            );
-                                        @endphp
-                                        T{{ $totalDeadload ?? 0 }}.PAX/{{ $passengerDistribution ?? 0 }}.PAD/0
-                                    </div>
-                                    <div>SI PAX WEIGHTS USED
-                                        {{ 'M' .
-                                            $flight->airline->settings['passenger_weights']['male'] .
-                                            ' F' .
-                                            $flight->airline->settings['passenger_weights']['female'] .
-                                            ' C' .
-                                            $flight->airline->settings['passenger_weights']['child'] .
-                                            ' I' .
-                                            $flight->airline->settings['passenger_weights']['infant'] }}
-                                        &nbsp;&nbsp;&nbsp; BAG WGT: ACTUAL
-                                    </div>
-                                    <div>{{ $flight->route->destination }} C {{ $totalDeadload ?? 0 }} M 0 B 0/ 0 O 0 T
-                                        {{ $totalDeadload ?? 0 }}
-                                    </div>
-                                    <div>PANTRY CODE {{ $flight->fuelFigure->pantry }}</div>
-                                    <div>ACTUAL LOADING OF AIRCRAFT</div>
-                                    <div>
-                                        @forelse (json_decode($flight->loadsheet->compartment_loads, true) as $compartment)
-                                            <div>CPT{{ ucfirst($compartment['hold_no']) }}/{{ $compartment['weight'] }}</div>
-                                        @empty
-                                            NIL
-                                        @endforelse
-                                    </div>
-                                    <br>
-                                    <div>AIRCRAFT TYPE: {{ $flight->registration->aircraftType->aircraft_type }}</div>
-                                    <div>NOTOC: NO</div>
-                                    <br>
-                                    <div>{{ $flight->route->destination }} &nbsp;&nbsp; FRE 0 &nbsp;&nbsp; POS 0 &nbsp;&nbsp; BAG 0/0
-                                        &nbsp;&nbsp; TRA
-                                        0</div>
-
-                                    <div>END LOADSHEET EDNO {{ $flight->loadsheet->edition }} -
-                                        {{ $flight->flight_number }}/{{ $flight->departure->format('d') }}
-                                        &nbsp;&nbsp;&nbsp;&nbsp; {{ $flight->departure }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-12" id="printable-content">
+                        @include('loadsheet.loadsheet-data')
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        async function generatePDF() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+            const element = document.getElementById("printable-content");
+
+            const canvas = await html2canvas(element, {
+                scale: 2
+            });
+            const imgData = canvas.toDataURL("image/png");
+
+            const imgWidth = 190;
+            const pageHeight = 297;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+
+            let position = 10;
+            doc.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                doc.addPage();
+                doc.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            doc.save("{{ $flight->flight_number }} - loadsheet.pdf");
+        }
+    </script>
 @else
     <div class="container mb-3">
         <p>Loadsheet not Finalised</p>

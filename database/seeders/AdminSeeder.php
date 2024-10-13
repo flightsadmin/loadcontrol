@@ -15,21 +15,21 @@ class AdminSeeder extends Seeder
     public function run()
     {
         // Reset cached roles and permissions
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         $actions = ["create", "edit", "view", "update", "delete"];
         $models = ["user", "role", "permission"];
 
         foreach ($models as $model) {
             foreach ($actions as $action) {
-                $methodName = $action ." ". $model;
+                $methodName = $action . " " . $model;
                 Permission::create(['name' => $methodName]);
             }
         }
 
         $roles = [
             [
-                'name' => 'user',
+                'name' => 'wab',
                 'permissions' => ['view user'],
             ],
             [

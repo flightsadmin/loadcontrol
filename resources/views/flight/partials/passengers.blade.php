@@ -96,7 +96,7 @@
                                     <label for="count" class="form-label">Count</label>
                                     <input type="number" class="form-control" name="count" id="count" required>
                                 </div>
-                                <button type="submit" class="btn btn-sm btn-primary bi-floppy-fill float-end">
+                                <button type="submit" class="btn btn-sm btn-primary bi-floppy-fill float-end"> Save</button>
                             </form>
                         </div>
                     </div>

@@ -103,15 +103,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->boolean('final')->default(false);
             $table->integer('edition')->default(0);
-            $table->integer('total_traffic_load')->default(0);
-            $table->integer('dry_operating_weight')->default(0);
-            $table->integer('zero_fuel_weight_actual')->default(0);
-            $table->integer('take_off_fuel')->default(0);
-            $table->integer('take_off_weight_actual')->default(0);
-            $table->integer('trip_fuel')->default(0);
-            $table->integer('landing_weight_actual')->default(0);
-            $table->json('compartment_loads')->nullable();
-            $table->json('passenger_distribution')->nullable();
+            $table->json('payload_distribution')->nullable();
             $table->timestamps();
         });
 

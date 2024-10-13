@@ -124,7 +124,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $fuel_data = [
-            ['weight' => 1, 'index' => +0],
+            ['weight' => 0001, 'index' => +0.00],
             ['weight' => 3500, 'index' => +0.99],
             ['weight' => 4000, 'index' => +0.47],
             ['weight' => 4500, 'index' => -0.01],
@@ -185,12 +185,12 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'loadsheet_released',
                 'subject' => 'Loadsheet for {{flight_no}} Released',
-                'body' => 'Loadsheet for {{flight_no}} Released by {{user_name}}.<br>Incase of any clarification please contact Admin',
+                'body' => 'Loadsheet for {{flight_no}} Released by {{user_name}}.<br>Incase of any clarification please contact Admin<br>',
             ],
             [
                 'name' => 'user_confirmation',
                 'subject' => 'Welcome onboard {{app_name}}',
-                'body' => 'Welcome onboard {{app_name}}.<br>Click on {{app_url}} for more info or contact Admin',
+                'body' => 'Welcome onboard {{app_name}}.<br>Click on {{app_url}} to login and change your password<br>',
             ]
         ]);
     }

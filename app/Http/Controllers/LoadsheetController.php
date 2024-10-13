@@ -23,8 +23,8 @@ class LoadsheetController extends Controller
         $deadloads = $flight->cargos->whereNotNull('hold_id');
         $basicWeight = $flight->registration->basic_weight;
         $fuelFigure = $flight->fuelFigure;
-        $cabinZones = $flight->registration->aircraftType->cabinZones;
-
+        $aircraftType = $flight->registration->aircraftType;
+        
         if (!$basicWeight || !$fuelFigure) {
             return redirect()->back()->withErrors('Basic Weight or Fuel Figure not found for this flight.');
         }
@@ -33,10 +33,10 @@ class LoadsheetController extends Controller
         $totalPassengerWeight = $this->calculatePassengerWeight($passengers, $flight);
         $totalDeadloadWeight = $deadloads->sum('weight');
         $totalCrewWeight = $this->calculateCrewWeight($fuelFigure->crew, $flight);
-        $pantryWeight = $this->calculatePantryWeightAndIndex($fuelFigure->pantry, $flight);
+        $pantry = $this->calculatePantryWeightAndIndex($fuelFigure->pantry, $flight);
 
         // Operating weights
-        $dryOperatingWeight = $basicWeight + $totalCrewWeight + $pantryWeight['weight'];
+        $dryOperatingWeight = $basicWeight + $totalCrewWeight + $pantry['weight'];
         $zeroFuelWeightActual = $dryOperatingWeight + $totalPassengerWeight + $totalDeadloadWeight;
 
         $blockFuel = $fuelFigure->block_fuel ?? 0;
@@ -50,7 +50,7 @@ class LoadsheetController extends Controller
         $compartmentLoads = $this->calculateCompartmentLoads($deadloads);
 
         // Calculate passenger index by cabin zone
-        $passengerIndexByZone = $cabinZones->map(function ($zone) use ($passengers, $flight) {
+        $passengerIndexByZone = $aircraftType->cabinZones->map(function ($zone) use ($passengers, $flight) {
             $zonePassengers = $passengers->filter(fn($passenger) => $passenger->zone === $zone->zone_name);
             $totalWeight = $this->calculatePassengerWeight($zonePassengers, $flight);
             $indexPerKg = $zone->index ?? 0;
@@ -58,38 +58,76 @@ class LoadsheetController extends Controller
             return [
                 'zone_name' => $zone->zone_name,
                 'weight' => $totalWeight,
-                'index' => $totalWeight * $indexPerKg
+                'index' => $totalWeight * $indexPerKg,
+                'passenger_count' => $zonePassengers->reject(fn($passenger) => $passenger->type === 'infant')->sum('count'),
             ];
         })->sortBy('zone_name')->values()->toArray();
 
-        // Format passenger distribution and index by zone
+        // Format passenger distribution by type
         $passengerDistribution = $passengers->groupBy('type')->mapWithKeys(function ($paxGroup, $type) {
             return [$type => $paxGroup->sum('count')];
         })->toArray();
 
+        $deadloadDistribution = $deadloads->groupBy('type')->mapWithKeys(function ($cargoGroup, $type) {
+            return [$type => $cargoGroup->sum('weight')];
+        })->toArray();
+
         $formattedPassengerDistribution = [
-            'pax' => [
+            'pax_by_type' => [
                 'male' => $passengerDistribution['male'] ?? 0,
                 'female' => $passengerDistribution['female'] ?? 0,
                 'child' => $passengerDistribution['child'] ?? 0,
                 'infant' => $passengerDistribution['infant'] ?? 0,
             ],
-            'zones' => $passengerIndexByZone
+            'zones_breakdown' => $passengerIndexByZone
         ];
+
+         $formattedDeadloadDistribution = [
+            'deadload_by_type' => [
+                'C' => $deadloadDistribution['cargo'] ?? 0,
+                'M' => $deadloadDistribution['mail'] ?? 0,
+                'B' => $deadloadDistribution['baggage'] ?? 0,
+            ],
+            'hold_breakdown' => $compartmentLoads
+        ];
+    
+        $finalValues = [
+            'total_traffic_load' => $totalPassengerWeight + $totalDeadloadWeight,
+            'dry_operating_weight' => $dryOperatingWeight,
+            'zero_fuel_weight_actual' => $zeroFuelWeightActual,
+            'take_off_fuel' => $blockFuel - $taxiFuel,
+            'take_off_weight_actual' => $takeOffWeightActual,
+            'trip_fuel' => $tripFuel,
+            'landing_weight_actual' => $landingWeightActual,
+            'basicIndex' => round($flight->registration->basic_index, 2),
+            'pantryIndex' => round($pantry['index'], 2),
+            'paxIndex' => array_sum(array_column($formattedPassengerDistribution['zones_breakdown'], 'index')),
+            'cargoIndex' => array_sum(array_column($formattedDeadloadDistribution['hold_breakdown'], 'index')),
+            'toFuelIndex' => round(FuelIndex::getFuelIndex(
+                $fuelFigure->block_fuel - $fuelFigure->taxi_fuel,
+                $aircraftType->id
+            )->index, 2),
+            'ldfuelIndex' => round(FuelIndex::getFuelIndex(
+                $fuelFigure->block_fuel - $fuelFigure->trip_fuel,
+                $aircraftType->id
+            )->index, 2),
+        ];
+        
+        $finalValues['doi'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'], 2); // Add deck and cabin crew index
+        $finalValues['dli'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $finalValues['cargoIndex'], 2); // Add deck and cabin crew index
+        $finalValues['lizfw'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $finalValues['paxIndex'] + $finalValues['cargoIndex'], 2);
+        $finalValues['litow'] = round($finalValues['lizfw'] + $finalValues['toFuelIndex'], 2);
+        $finalValues['lildw'] = round($finalValues['litow'] + $finalValues['ldfuelIndex'], 2);
+        $finalValues['macZFW'] = round((($aircraftType->c_constant * ($finalValues['lizfw'] - $aircraftType->k_constant) / $zeroFuelWeightActual) + ($aircraftType->ref_sta - $aircraftType->lemac)) / ($aircraftType->length_of_mac / 100), 2);
+        $finalValues['macTOW'] = round((($aircraftType->c_constant * ($finalValues['litow'] - $aircraftType->k_constant) / $takeOffWeightActual) + ($aircraftType->ref_sta - $aircraftType->lemac)) / ($aircraftType->length_of_mac / 100), 2);
+
+        $finalValues = array_merge($finalValues, $formattedPassengerDistribution, $formattedDeadloadDistribution, $flight->airline->settings);
 
         // Store loadsheet
         Loadsheet::updateOrCreate(
             ['flight_id' => $flight->id],
             [
-                'total_traffic_load' => $totalPassengerWeight + $totalDeadloadWeight,
-                'dry_operating_weight' => $dryOperatingWeight,
-                'zero_fuel_weight_actual' => $zeroFuelWeightActual,
-                'take_off_fuel' => $blockFuel - $taxiFuel,
-                'take_off_weight_actual' => $takeOffWeightActual,
-                'trip_fuel' => $tripFuel,
-                'landing_weight_actual' => $landingWeightActual,
-                'compartment_loads' => $compartmentLoads,
-                'passenger_distribution' => json_encode($formattedPassengerDistribution),
+                'payload_distribution' => json_encode($finalValues)
             ]
         );
 
@@ -107,29 +145,7 @@ class LoadsheetController extends Controller
         $zfwEnvelope = $envelopes->get('ZFW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
         $towEnvelope = $envelopes->get('TOW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
 
-        $basicIndex = $flight->registration->basic_index;
-        $pantryIndex = $this->calculatePantryWeightAndIndex($flight->fuelFigure->pantry, $flight)['index'];
-        $paxIndex = array_sum(array_column(json_decode($flight->loadsheet->passenger_distribution, true)['zones'], 'index'));
-        $cargoIndex = array_sum(array_column(json_decode($flight->loadsheet->compartment_loads, true), 'index'));
-        $toFuelIndex = FuelIndex::getFuelIndex(
-            $flight->fuelFigure->block_fuel - $flight->fuelFigure->taxi_fuel,
-            $flight->registration->aircraftType->id
-        )->index;
-        $ldfuelIndex = FuelIndex::getFuelIndex(
-            $flight->fuelFigure->block_fuel - $flight->fuelFigure->trip_fuel,
-            $flight->registration->aircraftType->id
-        )->index;
-        $type = $flight->registration->aircraftType;
-        $lizfw = $basicIndex + $pantryIndex + $paxIndex + $cargoIndex;
-        $litow = $lizfw + $toFuelIndex;
-        $lildw = $litow + $ldfuelIndex;
-
-        $macZFW = round((($type->c_constant * ($lizfw - $type->k_constant) / $flight->loadsheet->zero_fuel_weight_actual)
-            + ($type->ref_sta - $type->lemac)) / ($type->length_of_mac / 100), 2);
-        $macTOW = round((($type->c_constant * ($litow - $type->k_constant) / $flight->loadsheet->take_off_weight_actual)
-            + ($type->ref_sta - $type->lemac)) / ($type->length_of_mac / 100), 2);
-
-        return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope', 'lizfw', 'litow', 'lildw', 'macZFW', 'macTOW'));
+        return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope'));
     }
 
     private function calculatePassengerWeight($passengers, $flight)
@@ -182,11 +198,12 @@ class LoadsheetController extends Controller
             $index = $totalWeight * $weightPerKg;
 
             return [
-                'hold_no' => $holdNo,
-                'weight' => $totalWeight,
-                'index' => $index
+                    'hold_no' => $holdNo,
+                    'pieces' => $cargoGroup->sum('pieces'),
+                    'weight' => $totalWeight,
+                    'index' => $index
             ];
-        })->sortBy('hold_no')->values()->toJson();
+        })->sortBy('hold_no')->values()->toArray();
     }
 
     public function finalizeLoadsheet(Flight $flight)
