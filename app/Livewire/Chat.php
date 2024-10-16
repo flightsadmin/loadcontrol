@@ -20,7 +20,6 @@ class Chat extends Component
         $this->loadMessages();
     }
 
-    #[On('refresh')]
     public function loadMessages()
     {
         $this->messages = $this->flight->messages()->latest()->get();
@@ -33,7 +32,6 @@ class Chat extends Component
             'flight_id' => $this->flight->id,
             'content' => $this->message,
         ]);
-        $this->dispatch('refresh');
         $this->dispatch(
             'closeModal',
             icon: 'success',
@@ -48,11 +46,14 @@ class Chat extends Component
         $message = Message::findOrFail($messageId);
         $message->delete();
 
-        $this->dispatch('messageDeleted');
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Message Deleted successfully.',
+        );
         $this->loadMessages();
     }
 
-    #[On('closeModal', 'messageDeleted')]
     public function render()
     {
         return view('livewire.chat');

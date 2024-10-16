@@ -52,7 +52,6 @@ class RegistrationController extends Controller
         return redirect()->route('aircraft_types.show', $registration->aircraft_type_id)->with('success', 'Registration updated successfully.');
     }
 
-    // Delete the specific registration from the database
     public function destroy(Registration $registration)
     {
         $aircraftTypeId = $registration->aircraft_type_id;

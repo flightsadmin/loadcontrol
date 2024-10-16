@@ -46,7 +46,7 @@
             @include('flight.partials.passengers', ['flight' => $flight])
         </div>
         <div class="tab-pane fade {{ $activeTab == 'cargo' ? 'show active' : '' }}" role="tabpanel">
-            @include('flight.partials.planning', ['flight' => $flight])
+            @livewire('loadplan', ['flight' => $flight], key($flight->id))
         </div>
         <div class="tab-pane fade {{ $activeTab == 'fuel' ? 'show active' : '' }}" role="tabpanel">
             @include('flight.partials.fuel', ['flight' => $flight])
@@ -55,7 +55,7 @@
             @include('flight.partials.documents', ['flight' => $flight])
         </div>
         <div class="tab-pane fade {{ $activeTab == 'chat' ? 'show active' : '' }}" role="tabpanel">
-            @livewire('chat', ['flight' => $flight])
+            @livewire('chat', ['flight' => $flight], key($flight->id))
         </div>
     </div>
 </div>

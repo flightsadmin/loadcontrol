@@ -25,16 +25,9 @@
                             <div class="list-group-item">
                                 <strong>Pantry:</strong> {{ $flight->fuelFigure->pantry }}
                             </div>
-                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="list-group-item">
                                 <a href="{{ route('flights.fuel-figures.create', $flight->id) }}"
-                                    class="btn btn-sm btn-primary btn-sm bi-plus-circle-dotted float-end mt-0"> Edit</a>
-                                <form action="{{ route('fuel-figures.destroy', $flight->fuelFigure->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger bi-trash-fill mx-4"
-                                        onclick="return confirm('Are you sure?')"> Delete</button>
-                                </form>
+                                    class="btn btn-sm btn-primary btn-sm bi-pencil-square float-end mt-0"> Edit Fuel Figure</a>
                             </div>
                         </div>
                     @else

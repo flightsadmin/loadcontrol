@@ -44,33 +44,27 @@
                         <div class="col-md-6">
                             <label for="crew" class="form-label">Crew</label>
                             <select id="crew" name="crew" class="form-select @error('crew') is-invalid @enderror">
-                                <option value="" selected disabled>Select Crew</option>
-                                <option value="2/4" {{ old('crew', $fuelFigure->crew ?? '') == '2/4' ? 'selected' : '' }}>2/4</option>
-                                <option value="2/5" {{ old('crew', $fuelFigure->crew ?? '') == '2/5' ? 'selected' : '' }}>2/5</option>
-                                <option value="2/6" {{ old('crew', $fuelFigure->crew ?? '') == '2/6' ? 'selected' : '' }}>2/6</option>
-                                <option value="2/7" {{ old('crew', $fuelFigure->crew ?? '') == '2/7' ? 'selected' : '' }}>2/7</option>
-                                <option value="3/4" {{ old('crew', $fuelFigure->crew ?? '') == '3/4' ? 'selected' : '' }}>3/4</option>
-                                <option value="3/5" {{ old('crew', $fuelFigure->crew ?? '') == '3/5' ? 'selected' : '' }}>3/5</option>
-                                <option value="3/6" {{ old('crew', $fuelFigure->crew ?? '') == '3/6' ? 'selected' : '' }}>3/6</option>
-                                <option value="4/4" {{ old('crew', $fuelFigure->crew ?? '') == '4/4' ? 'selected' : '' }}>4/4</option>
-                                <option value="4/5" {{ old('crew', $fuelFigure->crew ?? '') == '4/5' ? 'selected' : '' }}>4/5</option>
+                                <option value="" disabled>Select Crew</option>
+                                @foreach (['2/4', '2/5', '2/6', '2/7', '3/4', '3/5', '3/6', '4/4', '4/5'] as $option)
+                                    <option value="{{ $option }}" {{ old('crew', $fuelFigure->crew ?? '') == $option ? 'selected' : '' }}>
+                                        {{ $option }}</option>
+                                @endforeach
                             </select>
                             @error('crew')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="pantry" class="form-label">Pantry</label>
                             <select id="pantry" name="pantry" class="form-select @error('pantry') is-invalid @enderror">
-                                <option value="" selected disabled>Select Pantry</option>
+                                <option value="" disabled>Select Pantry</option>
                                 @foreach ($flight->registration->aircraftType->settings['pantries'] ?? [] as $pantry)
-                                    @dump($pantry)
                                     <option value="{{ $pantry['name'] }}"
-                                        {{ $flight->fuelFigure->pantry ?? '' == $pantry['name'] ? 'selected' : '' }}>
-                                        {{ $pantry['name'] }}
-                                    </option>
+                                        {{ old('pantry', $fuelFigure->pantry ?? '') == $pantry['name'] ? 'selected' : '' }}>
+                                        {{ $pantry['name'] }}</option>
                                 @endforeach
                             </select>
                             @error('pantry')
@@ -78,8 +72,10 @@
                             @enderror
                         </div>
                     </div>
+
                     <button type="submit" class="btn btn-sm btn-primary bi-floppy-fill float-end">
-                        {{ isset($fuelFigure) ? 'Update' : 'Save' }}</button>
+                        {{ isset($fuelFigure) ? 'Update Fuel Figure' : 'Save Fuel Figure' }}
+                    </button>
                 </form>
             </div>
         </div>

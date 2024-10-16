@@ -42,8 +42,7 @@ class FuelFigureController extends Controller
             ]
         );
         return redirect()->route('flights.show', [
-            'flight' => $flight->id,
-            'tab' => 'fuel'
+            'flight' => $flight->id
         ])->with('success', 'Fuel updated successfully.');
     }
 
@@ -51,8 +50,7 @@ class FuelFigureController extends Controller
     {
         $fuelFigure->delete();
         return redirect()->route('flights.show', [
-            'flight' => $fuelFigure->flight->id,
-            'tab' => 'fuel'
+            'flight' => $fuelFigure->flight->id
         ])->with('success', 'Fuel updated successfully.');
     }
 }
