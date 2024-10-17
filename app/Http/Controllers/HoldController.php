@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AircraftType;
 use App\Models\Hold;
+use App\Models\AircraftType;
 use Illuminate\Http\Request;
 
 class HoldController extends Controller
