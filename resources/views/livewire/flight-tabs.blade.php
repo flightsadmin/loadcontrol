@@ -52,7 +52,7 @@
             @include('flight.partials.fuel', ['flight' => $flight])
         </div>
         <div class="tab-pane fade {{ $activeTab == 'documents' ? 'show active' : '' }}" role="tabpanel">
-            @include('flight.partials.documents', ['flight' => $flight])
+            @livewire('documents', ['flight' => $flight])
         </div>
         <div class="tab-pane fade {{ $activeTab == 'chat' ? 'show active' : '' }}" role="tabpanel">
             @livewire('chat', ['flight' => $flight])

@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="card">
-        <div class="card-body border">
+        <div class="card-body">
             <div class="mb-1 d-flex justify-content-between align-items-center">
                 <span class="bi-skip-backward-fill h5"> FWD</span>
                 <h4 class="text-center"><strong>Loading Instruction Report</strong></h4>

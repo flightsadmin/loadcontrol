@@ -1,23 +1,15 @@
 @if ($flight->loadsheet)
     <div class="container-fluid">
-        <div class="card my-3">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h4>Load and Trim Sheet</h4>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="generatePDF()">Print Loadsheet</button>
-                    <a href="{{ route('flights.show', ['flight' => $flight->id, 'tab' => 'cargo']) }}"
-                        class="btn btn-secondary btn-sm bi-backspace float-end mt-0"> Back</a>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12" id="printable-content">
-                        @include('loadsheet.loadsheet-data')
-                    </div>
+        <div class="card">
+            <div class="row">
+                <div class="col-md-12" id="printable-content">
+                    @include('loadsheet.loadsheet-data')
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- Script to print documents as pdf --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
