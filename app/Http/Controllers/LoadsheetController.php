@@ -98,6 +98,7 @@ class LoadsheetController extends Controller
             'take_off_fuel' => $blockFuel - $taxiFuel,
             'take_off_weight_actual' => $takeOffWeightActual,
             'trip_fuel' => $tripFuel,
+            'taxi_fuel' => $taxiFuel,
             'landing_weight_actual' => $landingWeightActual,
             'basicIndex' => round($flight->registration->basic_index, 2),
             'pantryIndex' => round($pantry['index'], 2),

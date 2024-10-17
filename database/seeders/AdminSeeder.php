@@ -54,5 +54,10 @@ class AdminSeeder extends Seeder
                 'remember_token' => Str::random(30),
             ])->assignRole($role);
         }
+        
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ])->assignRole('super-admin');
     }
 }
