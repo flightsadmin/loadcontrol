@@ -37,6 +37,13 @@ class EnvelopeManager extends Component
 
     public function removeEnvelope($type, $index)
     {
+        $envelopeData = $this->envelopes[$type][$index];
+        if (isset($envelopeData['id'])) {
+            $en = Envelope::where('aircraft_type_id', $this->aircraftType)
+                ->where('id', $envelopeData['id'])
+                ->where('envelope_type', $envelopeData['envelope_type'])
+                ->delete();
+        }
         unset($this->envelopes[$type][$index]);
         $this->envelopes[$type] = array_values($this->envelopes[$type]);
     }
@@ -65,7 +72,7 @@ class EnvelopeManager extends Component
             }
         }
         $this->loadEnvelopes();
-        $this->isEditable = []; // Reset editable states after save
+        $this->isEditable = [];
     }
 
     public function render()

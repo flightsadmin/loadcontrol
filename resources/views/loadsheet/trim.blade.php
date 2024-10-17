@@ -32,15 +32,15 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const zfwEnvelopeData = @json($chartValues['zfwEnvelope']);
-        const towEnvelopeData = @json($chartValues['towEnvelope']);
+        const chartValues = @json($chartValues);
+
         const ctx = document.getElementById('trimSheetChart').getContext('2d');
         const trimSheetChart = new Chart(ctx, {
             type: 'scatter',
             data: {
                 datasets: [{
                         label: 'ZFW Envelope',
-                        data: zfwEnvelopeData,
+                        data: chartValues.zfwEnvelope || [],
                         borderColor: 'red',
                         showLine: true,
                         pointRadius: 0,
@@ -48,8 +48,16 @@
                     },
                     {
                         label: 'TOW Envelope',
-                        data: towEnvelopeData,
+                        data: chartValues.towEnvelope || [],
                         borderColor: 'blue',
+                        showLine: true,
+                        pointRadius: 0,
+                        fill: false,
+                    },
+                    {
+                        label: 'LDW Envelope',
+                        data: chartValues.ldwEnvelope || [],
+                        borderColor: 'green',
                         showLine: true,
                         pointRadius: 0,
                         fill: false,

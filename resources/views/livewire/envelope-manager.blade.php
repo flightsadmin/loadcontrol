@@ -2,11 +2,14 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <h5 class="fw-bold text-decoration-underline">Envelopes</h5>
+            <div class="d-flex d-flex justify-content-between align-items-center">
+                <input type="text" wire:model.defer="newEnvelopeType" placeholder="New Envelope Type"
+                    class="form-control form-control-sm me-4" />
+                <a href="" wire:click.prevent="createType" class="m-0 h5 bi-database-fill-add text-primary"></a>
+            </div>
             @if ($isEditable)
-                <div class="d-flex d-flex justify-content-between align-items-center">
-                    <input type="text" wire:model.defer="newEnvelopeType" placeholder="New Envelope Type"
-                        class="form-control form-control-sm me-4" />
-                    <a href="" wire:click.prevent="createType" class="m-0 h5 bi-database-fill-add text-success"></a>
+                <div>
+                    <button wire:click.prevent="save" class="btn btn-sm btn-info float-end m-0 bi-floppy-fill"> Save Changes</button>
                 </div>
             @endif
         </div>
@@ -63,18 +66,12 @@
                             </tbody>
                         </table>
                         @if (isset($isEditable[$type]) && $isEditable[$type])
-                            <button wire:click.prevent="addEnvelope('{{ $type }}')" class="btn btn-sm btn-secondary mt-2">+ Add
-                                Envelope</button>
+                            <button wire:click.prevent="addEnvelope('{{ $type }}')" class="btn btn-sm btn-secondary mt-2">
+                                + Add Envelope</button>
                         @endif
                     </div>
                 </div>
             @endforeach
         </div>
-
-        @if ($isEditable)
-            <div class="mt-2">
-                <button wire:click.prevent="save" class="btn btn-sm btn-info float-end">Save Changes</button>
-            </div>
-        @endif
     </div>
 </div>
