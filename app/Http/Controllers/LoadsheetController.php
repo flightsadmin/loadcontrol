@@ -141,11 +141,17 @@ class LoadsheetController extends Controller
     {
         $flight = $flight->load('registration.aircraftType');
         $envelopes = $flight->registration->aircraftType->envelopes->groupBy('envelope_type');
-
-        $zfwEnvelope = $envelopes->get('ZFW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
-        $towEnvelope = $envelopes->get('TOW', collect())->map(fn($env) => $env->only(['x', 'y']))->toArray();
-
-        return view('loadsheet.trim', compact('flight', 'zfwEnvelope', 'towEnvelope'));
+        
+        $chartValues = [];
+        foreach (['ZFW', 'TOW', 'LDW'] as $key => $value) {
+            $chartValues[strtolower($value) . 'Envelope'] = $envelopes->get($value, collect())->map(function($env) {
+                return [
+                    'x' => $env['index'],
+                    'y' => $env['weight'],
+                ];
+            })->toArray();
+        }
+        return view('loadsheet.trim', compact('flight', 'chartValues'));
     }
 
     private function calculatePassengerWeight($passengers, $flight)

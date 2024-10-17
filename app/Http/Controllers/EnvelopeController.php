@@ -23,8 +23,8 @@ class EnvelopeController extends Controller
     {
         $request->validate([
             'envelope_type' => 'required|string|max:255',
-            'x' => 'required|numeric',
-            'y' => 'required|numeric',
+            'index' => 'required|numeric',
+            'weight' => 'required|numeric',
         ]);
 
         $aircraftType->envelopes()->create($request->all());
@@ -42,8 +42,8 @@ class EnvelopeController extends Controller
     {
         $request->validate([
             'envelope_type' => 'required|string|max:255',
-            'x' => 'required|numeric',
-            'y' => 'required|numeric',
+            'index' => 'required|numeric',
+            'weight' => 'required|numeric',
         ]);
 
         $envelope->update($request->all());

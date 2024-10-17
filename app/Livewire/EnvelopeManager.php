@@ -32,7 +32,7 @@ class EnvelopeManager extends Component
 
     public function addEnvelope($type)
     {
-        $this->envelopes[$type][] = ['envelope_type' => $type, 'x' => 0.0, 'y' => 0.0];
+        $this->envelopes[$type][] = ['envelope_type' => $type, 'index' => 0.0, 'weight' => 0];
     }
 
     public function removeEnvelope($type, $index)
@@ -58,8 +58,8 @@ class EnvelopeManager extends Component
                     [
                         'aircraft_type_id' => $this->aircraftType,
                         'envelope_type' => $type,
-                        'x' => $envelope['x'],
-                        'y' => $envelope['y']
+                        'index' => $envelope['index'],
+                        'weight' => $envelope['weight']
                     ]
                 );
             }

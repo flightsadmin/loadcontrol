@@ -25,8 +25,8 @@
                         <table class="table table-sm table-bordered">
                             <thead>
                                 <tr>
-                                    <th>X</th>
-                                    <th>Y</th>
+                                    <th>Index</th>
+                                    <th>Weight</th>
                                     @if (isset($isEditable[$type]) && $isEditable[$type])
                                         <th>Actions</th>
                                     @endif
@@ -38,15 +38,15 @@
                                         @if (isset($isEditable[$type]) && $isEditable[$type])
                                             <td>
                                                 <input type="number" class="form-control form-control-sm"
-                                                    wire:model.defer="envelopes.{{ $type }}.{{ $index }}.x">
-                                                @error("envelopes.{$type}.{$index}.x")
+                                                    wire:model.defer="envelopes.{{ $type }}.{{ $index }}.index">
+                                                @error("envelopes.{$type}.{$index}.index")
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </td>
                                             <td>
                                                 <input type="number" class="form-control form-control-sm"
-                                                    wire:model.defer="envelopes.{{ $type }}.{{ $index }}.y">
-                                                @error("envelopes.{$type}.{$index}.y")
+                                                    wire:model.defer="envelopes.{{ $type }}.{{ $index }}.weight">
+                                                @error("envelopes.{$type}.{$index}.weight")
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </td>
@@ -55,8 +55,8 @@
                                                     wire:click.prevent="removeEnvelope('{{ $type }}', {{ $index }})"></a>
                                             </td>
                                         @else
-                                            <td>{{ $envelope['x'] }}</td>
-                                            <td>{{ $envelope['y'] }}</td>
+                                            <td>{{ $envelope['index'] }}</td>
+                                            <td>{{ $envelope['weight'] }}</td>
                                         @endif
                                     </tr>
                                 @endforeach

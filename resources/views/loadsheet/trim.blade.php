@@ -32,8 +32,8 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const zfwEnvelopeData = @json($zfwEnvelope);
-        const towEnvelopeData = @json($towEnvelope);
+        const zfwEnvelopeData = @json($chartValues['zfwEnvelope']);
+        const towEnvelopeData = @json($chartValues['towEnvelope']);
         const ctx = document.getElementById('trimSheetChart').getContext('2d');
         const trimSheetChart = new Chart(ctx, {
             type: 'scatter',
@@ -58,7 +58,7 @@
                         label: 'ZFW',
                         data: [{
                             x: {{ json_decode($flight->loadsheet->payload_distribution, true)['lizfw'] }},
-                            y: {{ json_decode($flight->loadsheet->payload_distribution, true)['zero_fuel_weight_actual'] / 1000 ?? 0 }}
+                            y: {{ json_decode($flight->loadsheet->payload_distribution, true)['zero_fuel_weight_actual'] ?? 0 }}
                         }],
                         backgroundColor: 'red',
                         pointRadius: 4
@@ -67,7 +67,7 @@
                         label: 'TOW',
                         data: [{
                             x: {{ json_decode($flight->loadsheet->payload_distribution, true)['litow'] }},
-                            y: {{ json_decode($flight->loadsheet->payload_distribution, true)['take_off_weight_actual'] / 1000 ?? 0 }}
+                            y: {{ json_decode($flight->loadsheet->payload_distribution, true)['take_off_weight_actual'] ?? 0 }}
                         }],
                         backgroundColor: 'blue',
                         pointRadius: 4
@@ -81,7 +81,7 @@
                         type: 'linear',
                         title: {
                             display: true,
-                            text: 'Index (% MAC)'
+                            text: 'Index'
                         },
                         min: 25,
                         max: 100
@@ -90,10 +90,10 @@
                         type: 'linear',
                         title: {
                             display: true,
-                            text: 'Aircraft Weight (kg x 1000)'
+                            text: 'Aircraft Weight (kg)'
                         },
-                        min: 40.6,
-                        max: 85
+                        min: 40600,
+                        max: 85000
                     }
                 },
                 plugins: {
@@ -107,8 +107,8 @@
                                 if (label) {
                                     label += ': ';
                                 }
-                                label += '(Index ' + (context.raw.x).toFixed(2) + ', Weight ' + (context.raw.y * 1000)
-                                    .toLocaleString() + ' kg)';
+                                label += '(Index ' + (context.raw.x).toFixed(2) + ', Weight ' + (context.raw.y).toLocaleString() +
+                                    ' kg)';
                                 return label;
                             }
                         }

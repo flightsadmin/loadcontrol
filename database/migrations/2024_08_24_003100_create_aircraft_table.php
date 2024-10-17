@@ -111,8 +111,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('aircraft_type_id')->constrained()->onDelete('cascade');
             $table->string('envelope_type');
-            $table->float('x');
-            $table->float('y');
+            $table->float('index');
+            $table->float('weight');
             $table->timestamps();
         });
 

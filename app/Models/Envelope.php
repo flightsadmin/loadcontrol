@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Envelope extends Model
 {
-    protected $fillable = ['aircraft_type_id', 'envelope_type', 'x', 'y'];
+    protected $fillable = ['aircraft_type_id', 'envelope_type', 'weight', 'index'];
 
     public function aircraftType()
     {
