@@ -1,10 +1,8 @@
 @if ($flight->loadsheet)
     <div class="container-fluid">
-        <div class="card">
-            <div class="row">
-                <div class="col-md-12" id="printable-content">
-                    @include('loadsheet.loadsheet-data')
-                </div>
+        <div class="row">
+            <div class="col-md-12" id="printable-content">
+                @include('loadsheet.loadsheet-data')
             </div>
         </div>
     </div>
