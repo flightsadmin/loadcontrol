@@ -8,8 +8,11 @@ use Livewire\Component;
 class Crew extends Component
 {
     public $deck_crew = [];
+
     public $cabin_crew = [];
+
     public $aircraftTypeId;
+
     public $isEditable = false;
 
     public function mount($aircraftTypeId)
@@ -22,8 +25,9 @@ class Crew extends Component
 
     public function toggleEdit()
     {
-        $this->isEditable = !$this->isEditable;
+        $this->isEditable = ! $this->isEditable;
     }
+
     public function addCrew()
     {
         $this->cabin_crew[] = ['location' => '', 'max_number' => '', 'arm' => '', 'index' => ''];
@@ -51,7 +55,7 @@ class Crew extends Component
         $aircraftType = AircraftType::findOrFail($this->aircraftTypeId);
         $aircraftType->settings = array_merge($aircraftType->settings ?? [], [
             'deck_crew' => $this->deck_crew,
-            'cabin_crew' => $this->cabin_crew
+            'cabin_crew' => $this->cabin_crew,
         ]);
         $aircraftType->save();
         $this->toggleEdit();

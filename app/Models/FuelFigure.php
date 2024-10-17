@@ -10,7 +10,7 @@ class FuelFigure extends Model
     use HasFactory;
 
     protected $fillable = [
-        'flight_id', 'block_fuel', 'taxi_fuel', 'trip_fuel', 'crew', 'pantry'
+        'flight_id', 'block_fuel', 'taxi_fuel', 'trip_fuel', 'crew', 'pantry',
     ];
 
     public function flight()

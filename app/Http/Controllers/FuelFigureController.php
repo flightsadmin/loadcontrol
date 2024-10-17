@@ -11,6 +11,7 @@ class FuelFigureController extends Controller
     public function index(Flight $flight)
     {
         $fuelFigure = $flight->fuelFigure;
+
         return view('fuel_figures.index', compact('fuelFigure', 'flight'));
     }
 
@@ -41,16 +42,18 @@ class FuelFigureController extends Controller
                 'pantry' => $request->pantry,
             ]
         );
+
         return redirect()->route('flights.show', [
-            'flight' => $flight->id
+            'flight' => $flight->id,
         ])->with('success', 'Fuel updated successfully.');
     }
 
     public function destroy(FuelFigure $fuelFigure)
     {
         $fuelFigure->delete();
+
         return redirect()->route('flights.show', [
-            'flight' => $fuelFigure->flight->id
+            'flight' => $fuelFigure->flight->id,
         ])->with('success', 'Fuel updated successfully.');
     }
 }

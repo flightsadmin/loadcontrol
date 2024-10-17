@@ -2,20 +2,20 @@
 
 namespace Database\Seeders;
 
+use App\Models\AircraftType;
+use App\Models\Airline;
+use App\Models\CabinZone;
+use App\Models\Cargo;
+use App\Models\EmailTemplate;
+use App\Models\Flight;
+use App\Models\FuelFigure;
 use App\Models\Hold;
+use App\Models\Message;
+use App\Models\Passenger;
+use App\Models\Registration;
 use App\Models\Route;
 use App\Models\User;
-use App\Models\Cargo;
-use App\Models\Flight;
-use App\Models\Airline;
-use App\Models\Message;
-use App\Models\CabinZone;
-use App\Models\Passenger;
-use App\Models\FuelFigure;
 use Faker\Factory as Faker;
-use App\Models\AircraftType;
-use App\Models\Registration;
-use App\Models\EmailTemplate;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,18 +26,18 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            AdminSeeder::class
+            AdminSeeder::class,
         ]);
 
         Airline::factory(1)->create()->each(function ($airline) {
             AircraftType::factory(1)->create([
-                'airline_id' => $airline->id
+                'airline_id' => $airline->id,
             ])->each(function ($value) {
                 $faker = Faker::create();
                 $previousFwd = 0;
 
                 // Holds
-                foreach ([['number' => 1, 'max' => 3402, 'index' => -0.00642], ['number' => 3, 'max' => 2426, 'index' => +0.00401], ['number' => 4, 'max' => 2110, 'index' => +0.00741], ['number' => 5, 'max' => 1497, 'index' => +0.01048],] as $hold) {
+                foreach ([['number' => 1, 'max' => 3402, 'index' => -0.00642], ['number' => 3, 'max' => 2426, 'index' => +0.00401], ['number' => 4, 'max' => 2110, 'index' => +0.00741], ['number' => 5, 'max' => 1497, 'index' => +0.01048]] as $hold) {
                     $currentAft = $previousFwd + 25;
                     Hold::create([
                         'aircraft_type_id' => $value->id,
@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
                 }
 
                 // Cabin Zones
-                foreach ([['name' => 'A', 'arm' => -6.971, 'index' => -0.00697], ['name' => 'B', 'arm' => +0.281, 'index' => +0.00028], ['name' => 'C', 'arm' => +8.271, 'index' => +0.00827],] as $zone) {
+                foreach ([['name' => 'A', 'arm' => -6.971, 'index' => -0.00697], ['name' => 'B', 'arm' => +0.281, 'index' => +0.00028], ['name' => 'C', 'arm' => +8.271, 'index' => +0.00827]] as $zone) {
                     CabinZone::factory(1)->create([
                         'aircraft_type_id' => $value,
                         'zone_name' => $zone['name'],
@@ -63,11 +63,11 @@ class DatabaseSeeder extends Seeder
 
                 // Registrations
                 Registration::factory(5)->create([
-                    'aircraft_type_id' => $value
+                    'aircraft_type_id' => $value,
                 ]);
             });
             Route::factory(5)->create([
-                'airline_id' => $airline->id
+                'airline_id' => $airline->id,
             ])->each(function ($route) use ($airline) {
                 $route->emails()->updateOrCreate([
                     'email' => strtolower('wab@flightadmin.info'),
@@ -156,7 +156,7 @@ class DatabaseSeeder extends Seeder
             ['weight' => 17500, 'index' => -9.17],
             ['weight' => 18000, 'index' => -9.96],
             ['weight' => 18500, 'index' => -10.83],
-            ['weight' => 18632, 'index' => -11.08]
+            ['weight' => 18632, 'index' => -11.08],
         ];
         foreach ($fuel_data as $fuel) {
             AircraftType::all()->each(function ($aircraft) use ($fuel) {
@@ -166,7 +166,7 @@ class DatabaseSeeder extends Seeder
 
         Flight::factory(50)->create()->each(function ($id_no) {
             FuelFigure::factory(1)->create([
-                'flight_id' => $id_no
+                'flight_id' => $id_no,
             ]);
             Message::factory(2)->create([
                 'user_id' => User::inRandomOrder()->first()->id,
@@ -174,11 +174,11 @@ class DatabaseSeeder extends Seeder
             ]);
             Passenger::factory(1)->create([
                 'flight_id' => $id_no,
-                'zone' => $id_no->registration->aircraftType->cabinZones->random()->zone_name
+                'zone' => $id_no->registration->aircraftType->cabinZones->random()->zone_name,
             ]);
             Cargo::factory(5)->create([
                 'flight_id' => $id_no,
-                'hold_id' => null
+                'hold_id' => null,
             ]);
         });
         EmailTemplate::insertOrIgnore([
@@ -193,7 +193,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'user_confirmation',
                 'subject' => 'Welcome onboard {{app_name}}',
                 'body' => 'Welcome onboard {{app_name}}.<br>Click on {{app_url}} to login and change your password<br>',
-            ]
+            ],
         ]);
     }
 }

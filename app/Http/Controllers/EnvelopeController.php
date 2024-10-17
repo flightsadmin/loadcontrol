@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Envelope;
 use App\Models\AircraftType;
+use App\Models\Envelope;
 use Illuminate\Http\Request;
 
 class EnvelopeController extends Controller
@@ -11,6 +11,7 @@ class EnvelopeController extends Controller
     public function index(AircraftType $aircraftType)
     {
         $envelopes = $aircraftType->envelopes;
+
         return view('envelopes.index', compact('aircraftType', 'envelopes'));
     }
 

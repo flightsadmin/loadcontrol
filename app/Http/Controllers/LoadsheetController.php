@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Flight;
 use App\Models\Address;
-use App\Models\Loadsheet;
-use \App\Models\FuelIndex;
 use App\Models\EmailTemplate;
+use App\Models\Flight;
+use App\Models\FuelIndex;
+use App\Models\Loadsheet;
 use App\Notifications\DynamicNotification;
 
 class LoadsheetController extends Controller
@@ -24,8 +24,8 @@ class LoadsheetController extends Controller
         $basicWeight = $flight->registration->basic_weight;
         $fuelFigure = $flight->fuelFigure;
         $aircraftType = $flight->registration->aircraftType;
-        
-        if (!$basicWeight || !$fuelFigure) {
+
+        if (! $basicWeight || ! $fuelFigure) {
             return redirect()->back()->withErrors('Basic Weight or Fuel Figure not found for this flight.');
         }
 
@@ -51,7 +51,7 @@ class LoadsheetController extends Controller
 
         // Calculate passenger index by cabin zone
         $passengerIndexByZone = $aircraftType->cabinZones->map(function ($zone) use ($passengers, $flight) {
-            $zonePassengers = $passengers->filter(fn($passenger) => $passenger->zone === $zone->zone_name);
+            $zonePassengers = $passengers->filter(fn ($passenger) => $passenger->zone === $zone->zone_name);
             $totalWeight = $this->calculatePassengerWeight($zonePassengers, $flight);
             $indexPerKg = $zone->index ?? 0;
 
@@ -59,7 +59,7 @@ class LoadsheetController extends Controller
                 'zone_name' => $zone->zone_name,
                 'weight' => $totalWeight,
                 'index' => $totalWeight * $indexPerKg,
-                'passenger_count' => $zonePassengers->reject(fn($passenger) => $passenger->type === 'infant')->sum('count'),
+                'passenger_count' => $zonePassengers->reject(fn ($passenger) => $passenger->type === 'infant')->sum('count'),
             ];
         })->sortBy('zone_name')->values()->toArray();
 
@@ -79,18 +79,18 @@ class LoadsheetController extends Controller
                 'child' => $passengerDistribution['child'] ?? 0,
                 'infant' => $passengerDistribution['infant'] ?? 0,
             ],
-            'zones_breakdown' => $passengerIndexByZone
+            'zones_breakdown' => $passengerIndexByZone,
         ];
 
-         $formattedDeadloadDistribution = [
+        $formattedDeadloadDistribution = [
             'deadload_by_type' => [
                 'C' => $deadloadDistribution['cargo'] ?? 0,
                 'M' => $deadloadDistribution['mail'] ?? 0,
                 'B' => $deadloadDistribution['baggage'] ?? 0,
             ],
-            'hold_breakdown' => $compartmentLoads
+            'hold_breakdown' => $compartmentLoads,
         ];
-    
+
         $finalValues = [
             'total_traffic_load' => $totalPassengerWeight + $totalDeadloadWeight,
             'dry_operating_weight' => $dryOperatingWeight,
@@ -113,7 +113,7 @@ class LoadsheetController extends Controller
                 $aircraftType->id
             )->index, 2),
         ];
-        
+
         $finalValues['doi'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'], 2); // Add deck and cabin crew index
         $finalValues['dli'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $finalValues['cargoIndex'], 2); // Add deck and cabin crew index
         $finalValues['lizfw'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $finalValues['paxIndex'] + $finalValues['cargoIndex'], 2);
@@ -128,7 +128,7 @@ class LoadsheetController extends Controller
         Loadsheet::updateOrCreate(
             ['flight_id' => $flight->id],
             [
-                'payload_distribution' => json_encode($finalValues)
+                'payload_distribution' => json_encode($finalValues),
             ]
         );
 
@@ -142,16 +142,17 @@ class LoadsheetController extends Controller
     {
         $flight = $flight->load('registration.aircraftType');
         $envelopes = $flight->registration->aircraftType->envelopes->groupBy('envelope_type');
-        
+
         $chartValues = [];
         foreach (['ZFW', 'TOW', 'LDW'] as $key => $value) {
-            $chartValues[strtolower($value) . 'Envelope'] = $envelopes->get($value, collect())->map(function($env) {
+            $chartValues[strtolower($value).'Envelope'] = $envelopes->get($value, collect())->map(function ($env) {
                 return [
                     'x' => $env['index'],
                     'y' => $env['weight'],
                 ];
             })->toArray();
         }
+
         return view('loadsheet.trim', compact('flight', 'chartValues'));
     }
 
@@ -165,6 +166,7 @@ class LoadsheetController extends Controller
                 'infant' => (int) $flight->airline->settings['passenger_weights']['infant'] ?? 10,
                 default => (int) $flight->airline->settings['passenger_weights']['default'] ?? 84,
             };
+
             return $passenger->count * $weightPerPassenger;
         });
     }
@@ -172,12 +174,12 @@ class LoadsheetController extends Controller
     private function calculateCrewWeight($crewData, $flight)
     {
         $standardCrew = [
-            "deck_crew_weight" => (int) $flight->airline->settings['crew']['deck_crew_weight'] ?? 85,
-            "cabin_crew_weight" => (int) $flight->airline->settings['crew']['cabin_crew_weight'] ?? 75
+            'deck_crew_weight' => (int) $flight->airline->settings['crew']['deck_crew_weight'] ?? 85,
+            'cabin_crew_weight' => (int) $flight->airline->settings['crew']['cabin_crew_weight'] ?? 75,
         ];
-        list($deckCrewCount, $cabinCrewCount) = explode('/', $crewData ?? '0/0');
+        [$deckCrewCount, $cabinCrewCount] = explode('/', $crewData ?? '0/0');
 
-        return ((int) $deckCrewCount * $standardCrew["deck_crew_weight"]) + ((int) $cabinCrewCount * $standardCrew["cabin_crew_weight"]);
+        return ((int) $deckCrewCount * $standardCrew['deck_crew_weight']) + ((int) $cabinCrewCount * $standardCrew['cabin_crew_weight']);
     }
 
     private function calculatePantryWeightAndIndex($pantrySetting, $flight)
@@ -190,7 +192,7 @@ class LoadsheetController extends Controller
 
         return [
             'weight' => $weight,
-            'index' => $index
+            'index' => $index,
         ];
     }
 
@@ -205,10 +207,10 @@ class LoadsheetController extends Controller
             $index = $totalWeight * $weightPerKg;
 
             return [
-                    'hold_no' => $holdNo,
-                    'pieces' => $cargoGroup->sum('pieces'),
-                    'weight' => $totalWeight,
-                    'index' => $index
+                'hold_no' => $holdNo,
+                'pieces' => $cargoGroup->sum('pieces'),
+                'weight' => $totalWeight,
+                'index' => $index,
             ];
         })->sortBy('hold_no')->values()->toArray();
     }

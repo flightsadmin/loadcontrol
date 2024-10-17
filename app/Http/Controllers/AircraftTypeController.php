@@ -11,12 +11,14 @@ class AircraftTypeController extends Controller
     public function index()
     {
         $aircraftTypes = AircraftType::with('airline')->get();
+
         return view('aircraft_types.index', compact('aircraftTypes'));
     }
 
     public function create()
     {
         $airlines = Airline::all();
+
         return view('aircraft_types.create', compact('airlines'));
     }
 
@@ -47,20 +49,22 @@ class AircraftTypeController extends Controller
     public function show(AircraftType $aircraftType)
     {
         $aircraftType->load('registrations', 'cabinZones', 'fuelIndexes', 'holds');
+
         return view('aircraft_types.show', [
             'aircraftType' => $aircraftType,
             'registrations' => $aircraftType->registrations,
             'cabinZones' => $aircraftType->cabinZones,
-            'fuelIndexes' => $aircraftType->fuelIndexes
+            'fuelIndexes' => $aircraftType->fuelIndexes,
         ]);
     }
 
     public function edit(AircraftType $aircraftType)
     {
         $airlines = Airline::all();
+
         return view('aircraft_types.edit', [
             'aircraftType' => $aircraftType,
-            'airlines' => $airlines
+            'airlines' => $airlines,
         ]);
     }
 

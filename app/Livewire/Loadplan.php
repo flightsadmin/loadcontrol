@@ -2,13 +2,14 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use App\Models\Flight;
 use App\Models\Cargo;
+use App\Models\Flight;
+use Livewire\Component;
 
 class Loadplan extends Component
 {
     public Flight $flight;
+
     public $selectedHold = null;
 
     protected $listeners = ['updateCargoHold'];

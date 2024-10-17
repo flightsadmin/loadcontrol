@@ -1,23 +1,24 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
-use App\Http\Controllers\HoldController;
-use App\Http\Controllers\CargoController;
-use App\Http\Controllers\FlightController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\EnvelopeController;
+use App\Http\Controllers\AircraftTypeController;
 use App\Http\Controllers\CabinZoneController;
+use App\Http\Controllers\CargoController;
+use App\Http\Controllers\EmailTemplateController;
+use App\Http\Controllers\EnvelopeController;
+use App\Http\Controllers\FlightController;
+use App\Http\Controllers\FuelFigureController;
+use App\Http\Controllers\HoldController;
 use App\Http\Controllers\LoadsheetController;
 use App\Http\Controllers\PassengerController;
-use App\Http\Controllers\FuelFigureController;
-use App\Http\Controllers\AircraftTypeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\EmailTemplateController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/database', function () {
     Artisan::call('migrate:fresh');
     Artisan::call('db:seed');
+
     return redirect()->back()->with('success', 'Database migrated and seeded successfully!');
 })->name('migrate');
 

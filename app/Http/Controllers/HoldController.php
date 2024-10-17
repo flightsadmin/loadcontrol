@@ -11,6 +11,7 @@ class HoldController extends Controller
     public function index(AircraftType $aircraftType)
     {
         $holds = $aircraftType->holds;
+
         return view('holds.index', compact('aircraftType', 'holds'));
     }
 
@@ -38,12 +39,14 @@ class HoldController extends Controller
     public function show(Hold $hold)
     {
         $aircraftType = $hold->load('aircraftType');
+
         return view('holds.show', compact('hold', 'aircraftType'));
     }
 
     public function edit(Hold $hold)
     {
         $aircraftType = $hold->aircraftType;
+
         return view('holds.edit', compact('hold', 'aircraftType'));
     }
 
@@ -67,6 +70,7 @@ class HoldController extends Controller
     {
         $aircraftType = $hold->aircraftType;
         $hold->delete();
+
         return redirect()->route('aircraft_types.holds.index', $aircraftType)->with('success', 'Hold deleted successfully.');
     }
 }

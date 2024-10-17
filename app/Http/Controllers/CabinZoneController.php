@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CabinZone;
 use App\Models\AircraftType;
+use App\Models\CabinZone;
 use Illuminate\Http\Request;
 
 class CabinZoneController extends Controller
@@ -11,6 +11,7 @@ class CabinZoneController extends Controller
     public function index(AircraftType $aircraftType)
     {
         $cabinZones = $aircraftType->cabinZones;
+
         return view('cabin_zones.index', compact('cabinZones', 'aircraftType'));
     }
 

@@ -8,7 +8,9 @@ use Livewire\Component;
 class Pantry extends Component
 {
     public $pantries = [];
+
     public $aircraftTypeId;
+
     public $isEditable = false;
 
     public function mount($aircraftTypeId)
@@ -20,7 +22,7 @@ class Pantry extends Component
 
     public function toggleEdit()
     {
-        $this->isEditable = !$this->isEditable;
+        $this->isEditable = ! $this->isEditable;
     }
 
     public function addPantry()
@@ -44,7 +46,7 @@ class Pantry extends Component
 
         $aircraftType = AircraftType::findOrFail($this->aircraftTypeId);
         $aircraftType->settings = array_merge($aircraftType->settings ?? [], [
-            'pantries' => $this->pantries
+            'pantries' => $this->pantries,
         ]);
         $aircraftType->save();
         $this->toggleEdit();

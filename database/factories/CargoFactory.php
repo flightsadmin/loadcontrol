@@ -17,6 +17,7 @@ class CargoFactory extends Factory
     public function definition(): array
     {
         $flight = \App\Models\Flight::inRandomOrder()->first();
+
         return [
             'flight_id' => $flight->id,
             'hold_id' => null,

@@ -7,6 +7,7 @@ use Livewire\Component;
 class Documents extends Component
 {
     public $selectedDocument = '';
+
     public $flight;
 
     public function mount($flight)

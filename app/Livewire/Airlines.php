@@ -2,19 +2,43 @@
 
 namespace App\Livewire;
 
-use App\Models\Route;
 use App\Models\Address;
 use App\Models\Airline;
+use App\Models\Route;
 use Livewire\Component;
-use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class Airlines extends Component
 {
-    use WithPagination, WithFileUploads;
+    use WithFileUploads, WithPagination;
+
     protected $paginationTheme = 'bootstrap';
-    public $name, $iata_code, $base, $base_iata_code, $airline_id, $keyWord, $file;
-    public $origin, $destination, $flight_time, $emails = [], $email;
+
+    public $name;
+
+    public $iata_code;
+
+    public $base;
+
+    public $base_iata_code;
+
+    public $airline_id;
+
+    public $keyWord;
+
+    public $file;
+
+    public $origin;
+
+    public $destination;
+
+    public $flight_time;
+
+    public $emails = [];
+
+    public $email;
+
     public $settings = [
         'crew' => [
             'deck_crew_weight' => 85,
@@ -31,13 +55,14 @@ class Airlines extends Component
 
     public function render()
     {
-        $keyWord = '%' . $this->keyWord . '%';
+        $keyWord = '%'.$this->keyWord.'%';
         $airlines = Airline::latest()
             ->orWhere('name', 'LIKE', $keyWord)
             ->orWhere('iata_code', 'LIKE', $keyWord)
             ->paginate();
+
         return view('livewire.airlines.view', [
-            'airlines' => $airlines
+            'airlines' => $airlines,
         ])->extends('layouts.app');
     }
 
@@ -45,7 +70,7 @@ class Airlines extends Component
     {
         $validatedData = $this->validate([
             'name' => 'required',
-            'iata_code' => 'required|max:2|unique:airlines,id,' . $this->airline_id,
+            'iata_code' => 'required|max:2|unique:airlines,id,'.$this->airline_id,
             'base' => 'required',
             'base_iata_code' => 'required',
             'settings.*' => 'array|required',
@@ -105,7 +130,7 @@ class Airlines extends Component
             'destination' => 'required|string|min:3|max:20',
         ]);
         $route = Route::updateOrCreate($validatedData);
-        $route->flight_time = date("H:i", strtotime(str_pad(trim($this->flight_time), 4, '0', STR_PAD_LEFT)));
+        $route->flight_time = date('H:i', strtotime(str_pad(trim($this->flight_time), 4, '0', STR_PAD_LEFT)));
         $route->save();
 
         $defaultAddress = ['admin@flightadmin.info'];

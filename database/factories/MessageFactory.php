@@ -19,7 +19,7 @@ class MessageFactory extends Factory
         return [
             'user_id' => \App\Models\User::inRandomOrder()->first()->id,
             'flight_id' => \App\Models\User::inRandomOrder()->first()->id,
-            'content' => $this->faker->realText(100, 2)
+            'content' => $this->faker->realText(100, 2),
         ];
     }
 }

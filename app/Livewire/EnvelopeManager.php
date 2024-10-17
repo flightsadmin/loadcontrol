@@ -1,14 +1,18 @@
 <?php
+
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\Envelope;
+use Livewire\Component;
 
 class EnvelopeManager extends Component
 {
     public $envelopes = [];
+
     public $isEditable = [];
+
     public $aircraftType;
+
     public $newEnvelopeType;
 
     public function mount($aircraftType)
@@ -27,7 +31,7 @@ class EnvelopeManager extends Component
 
     public function toggleEdit($type)
     {
-        $this->isEditable[$type] = !($this->isEditable[$type] ?? false);
+        $this->isEditable[$type] = ! ($this->isEditable[$type] ?? false);
     }
 
     public function addEnvelope($type)
@@ -50,7 +54,7 @@ class EnvelopeManager extends Component
 
     public function createType()
     {
-        if (!empty($this->newEnvelopeType) && !array_key_exists($this->newEnvelopeType, $this->envelopes)) {
+        if (! empty($this->newEnvelopeType) && ! array_key_exists($this->newEnvelopeType, $this->envelopes)) {
             $this->envelopes[$this->newEnvelopeType] = [];
             $this->newEnvelopeType = '';
         }
@@ -66,7 +70,7 @@ class EnvelopeManager extends Component
                         'aircraft_type_id' => $this->aircraftType,
                         'envelope_type' => $type,
                         'index' => $envelope['index'],
-                        'weight' => $envelope['weight']
+                        'weight' => $envelope['weight'],
                     ]
                 );
             }

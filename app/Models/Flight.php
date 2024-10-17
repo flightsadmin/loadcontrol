@@ -10,6 +10,7 @@ class Flight extends Model
     use HasFactory;
 
     protected $fillable = ['registration_id', 'flight_number', 'airline_id', 'route_id', 'departure', 'arrival'];
+
     protected function casts(): array
     {
         return [

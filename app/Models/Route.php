@@ -13,7 +13,7 @@ class Route extends Model
         'origin',
         'destination',
         'flight_time',
-        'airline_id'
+        'airline_id',
     ];
 
     public function airline()

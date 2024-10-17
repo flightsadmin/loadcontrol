@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class ProfileController extends Controller
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
         $validatedData = $request->only(['name', 'email']);
-        
+
         if ($request->filled('password')) {
             $validatedData['password'] = Hash::make($request->input('password'));
         }
@@ -30,6 +31,6 @@ class ProfileController extends Controller
         $user->update($validatedData);
 
         return redirect()->route('users.index')
-                         ->with('success', 'Profile updated successfully.');
+            ->with('success', 'Profile updated successfully.');
     }
 }

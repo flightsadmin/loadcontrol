@@ -2,12 +2,13 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\Flight;
+use Livewire\Component;
 
 class FlightTabs extends Component
 {
     public $flight;
+
     public $activeTab;
 
     protected $listeners = ['setActiveTab'];

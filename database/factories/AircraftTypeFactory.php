@@ -34,33 +34,33 @@ class AircraftTypeFactory extends Factory
             'settings' => [
                 'pantries' => [
                     [
-                        "name" => "A",
-                        "index" => "1.59",
-                        "weight" => "497"
+                        'name' => 'A',
+                        'index' => '1.59',
+                        'weight' => '497',
                     ],
                     [
-                        "name" => "E",
-                        "index" => "0.18",
-                        "weight" => "45"
-                    ]
+                        'name' => 'E',
+                        'index' => '0.18',
+                        'weight' => '45',
+                    ],
                 ],
                 'deck_crew' => [
                     [
-                        "location" => "Cockpit",
-                        "max_number" => 4,
-                        "arm" => -13.410,
-                        "index" => -0.01341,
+                        'location' => 'Cockpit',
+                        'max_number' => 4,
+                        'arm' => -13.410,
+                        'index' => -0.01341,
                     ],
                 ],
                 'cabin_crew' => [
                     [
-                        "location" => "Forward",
-                        "max_number" => 2,
-                        "arm" => -11.520,
-                        "index" => -0.01152,
+                        'location' => 'Forward',
+                        'max_number' => 2,
+                        'arm' => -11.520,
+                        'index' => -0.01152,
                     ],
                 ],
-            ]
+            ],
         ];
     }
 }

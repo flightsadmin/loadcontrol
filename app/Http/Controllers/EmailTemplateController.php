@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\EmailTemplate;
@@ -9,6 +10,7 @@ class EmailTemplateController extends Controller
     public function index()
     {
         $templates = EmailTemplate::all();
+
         return view('email_templates.index', compact('templates'));
     }
 
@@ -59,6 +61,7 @@ class EmailTemplateController extends Controller
     public function destroy(EmailTemplate $emailTemplate)
     {
         $emailTemplate->delete();
+
         return redirect()->route('email_templates.index')->with('success', 'Email template deleted successfully.');
     }
 }

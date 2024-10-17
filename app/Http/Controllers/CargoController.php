@@ -1,7 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Hold;
 use App\Models\Cargo;
 use App\Models\Flight;
 use Illuminate\Http\Request;
@@ -11,6 +11,7 @@ class CargoController extends Controller
     public function index(Flight $flight)
     {
         $cargos = $flight->cargos->all();
+
         return view('cargo.index', compact('flight', 'cargos'));
     }
 
@@ -25,7 +26,7 @@ class CargoController extends Controller
             'hold_id' => 'nullable|exists:holds,id',
             'type' => 'required|string',
             'pieces' => 'required|numeric|min:0',
-            'weight' => 'required|numeric|min:0'
+            'weight' => 'required|numeric|min:0',
         ]);
         $validated['flight_id'] = $flight_id;
 
@@ -33,7 +34,7 @@ class CargoController extends Controller
 
         return redirect()->route('flights.show', [
             'flight' => $flight_id,
-            'tab' => 'cargo'
+            'tab' => 'cargo',
         ])->with('success', 'Cargo updated successfully.');
     }
 
@@ -41,6 +42,7 @@ class CargoController extends Controller
     {
         $flight = $cargo->flight;
         $holds = $flight->registration->aircraftType->holds;
+
         return view('cargo.edit', compact('cargo', 'flight', 'holds'));
     }
 
@@ -51,13 +53,14 @@ class CargoController extends Controller
             'hold_id' => 'nullable|exists:holds,id',
             'type' => 'required|string',
             'pieces' => 'required|numeric|min:0',
-            'weight' => 'required|numeric|min:0'
+            'weight' => 'required|numeric|min:0',
         ]);
 
         $cargo->update($request->all());
+
         return redirect()->route('flights.show', [
             'flight' => $cargo->flight_id,
-            'tab' => 'cargo'
+            'tab' => 'cargo',
         ])->with('success', 'Cargo updated successfully.');
     }
 
@@ -72,9 +75,10 @@ class CargoController extends Controller
     public function destroy(Cargo $cargo)
     {
         $cargo->delete();
+
         return redirect()->route('flights.show', [
             'flight' => $cargo->flight_id,
-            'tab' => 'cargo'
+            'tab' => 'cargo',
         ])->with('success', 'Cargo Deleted successfully.');
     }
 }

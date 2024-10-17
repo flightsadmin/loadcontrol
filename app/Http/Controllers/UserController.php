@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
 use App\Notifications\DynamicNotification;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -21,12 +21,14 @@ class UserController extends Controller
     public function index()
     {
         $users = User::get();
+
         return view('role-permission.user.index', ['users' => $users]);
     }
 
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
+
         return view('role-permission.user.create', ['roles' => $roles]);
     }
 
@@ -36,7 +38,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|max:20',
-            'roles' => 'required'
+            'roles' => 'required',
         ]);
 
         $user = User::create([
@@ -65,10 +67,11 @@ class UserController extends Controller
     {
         $roles = Role::pluck('name', 'name')->all();
         $userRoles = $user->roles->pluck('name', 'name')->all();
+
         return view('role-permission.user.edit', [
             'user' => $user,
             'roles' => $roles,
-            'userRoles' => $userRoles
+            'userRoles' => $userRoles,
         ]);
     }
 
@@ -77,7 +80,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'nullable|string|min:8|max:20',
-            'roles' => 'required'
+            'roles' => 'required',
         ]);
 
         $data = [
@@ -85,7 +88,7 @@ class UserController extends Controller
             'email' => $request->email,
         ];
 
-        if (!empty($request->password)) {
+        if (! empty($request->password)) {
             $data += [
                 'password' => Hash::make($request->password),
             ];

@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -39,10 +38,11 @@ class DynamicNotification extends Notification
         $body = $this->template->body;
 
         foreach ($this->data as $key => $value) {
-            $subject = str_replace('{{' . $key . '}}', $value, $subject);
-            $body = str_replace('{{' . $key . '}}', $value, $body);
+            $subject = str_replace('{{'.$key.'}}', $value, $subject);
+            $body = str_replace('{{'.$key.'}}', $value, $body);
         }
-        return (new MailMessage())
+
+        return (new MailMessage)
             ->subject($subject)
             ->view('emails.dynamic', ['body' => $body, 'notifiable' => $notifiable]);
     }

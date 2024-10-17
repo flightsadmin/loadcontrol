@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +17,7 @@ class FlightFactory extends Factory
     public function definition(): array
     {
         $airports = ['DXB', 'DOH', 'KWI', 'SLL', 'MCT', 'NBO'];
+
         return [
             'flight_number' => $this->faker->unique()->bothify('QR###'),
             'departure' => $this->faker->dateTimeBetween('-2 day', '+1 month'),

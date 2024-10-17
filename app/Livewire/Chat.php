@@ -4,14 +4,15 @@ namespace App\Livewire;
 
 use App\Models\Flight;
 use App\Models\Message;
-use Livewire\Attributes\On;
-use Livewire\Component;
 use Illuminate\Support\Collection;
+use Livewire\Component;
 
 class Chat extends Component
 {
     public Flight $flight;
+
     public string $message = '';
+
     public Collection $messages;
 
     public function mount(Flight $flight)

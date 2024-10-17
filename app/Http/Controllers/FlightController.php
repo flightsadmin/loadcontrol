@@ -28,6 +28,7 @@ class FlightController extends Controller
         $registrations = Registration::all();
         $airlines = Airline::all();
         $routes = Route::all();
+
         return view('flight.create', compact('registrations', 'airlines', 'routes'));
     }
 
@@ -54,6 +55,7 @@ class FlightController extends Controller
             session(['activeTab' => $request->input('tab')]);
         }
         $activeTab = session('activeTab', 'flight');
+
         return view('flight.index', compact('flight', 'activeTab'));
     }
 
@@ -62,6 +64,7 @@ class FlightController extends Controller
         $registrations = Registration::all();
         $airlines = Airline::all();
         $routes = Route::all();
+
         return view('flight.edit', compact('flight', 'registrations', 'airlines', 'routes'));
     }
 
@@ -92,6 +95,7 @@ class FlightController extends Controller
     public function destroy(Flight $flight)
     {
         $flight->delete();
+
         return redirect()->route('flights.index')->with('success', 'Flight deleted successfully!');
     }
 }
