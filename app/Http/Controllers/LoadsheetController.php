@@ -263,8 +263,9 @@ class LoadsheetController extends Controller
             $email->notify((new DynamicNotification($data, $template, $filePath)));
         }
 
-        return response()->streamDownload(function () use ($pdfData) {
-            echo $pdfData;
-        }, 'loadsheet.pdf', $headers);
+        return redirect()->route('flights.loadsheets.show', [
+            'flight' => $flight->id,
+            'loadsheet' => $flight->loadsheet->id,
+        ])->with('success', 'Loadsheet Generated successfully.');
     }
 }
