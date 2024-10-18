@@ -22,7 +22,7 @@ class CargoFactory extends Factory
             'flight_id' => $flight->id,
             'hold_id' => null,
             'type' => $this->faker->randomElement(['baggage', 'cargo', 'mail']),
-            'pieces' => $this->faker->numberBetween(100, 500),
+            'pieces' => $this->faker->numberBetween(100, 250),
             'weight' => $this->faker->numberBetween(1000, 2500),
         ];
     }

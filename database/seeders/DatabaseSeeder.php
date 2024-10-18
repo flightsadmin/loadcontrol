@@ -52,10 +52,11 @@ class DatabaseSeeder extends Seeder
                 }
 
                 // Cabin Zones
-                foreach ([['name' => 'A', 'arm' => -6.971, 'index' => -0.00697], ['name' => 'B', 'arm' => +0.281, 'index' => +0.00028], ['name' => 'C', 'arm' => +8.271, 'index' => +0.00827]] as $zone) {
+                foreach ([['name' => 'A', 'arm' => -6.971, 'index' => -0.00697, 'capacity' => 54], ['name' => 'B', 'arm' => +0.281, 'index' => +0.00028, 'capacity' => 60], ['name' => 'C', 'arm' => +8.271, 'index' => +0.00827, 'capacity' => 66]] as $zone) {
                     CabinZone::factory(1)->create([
                         'aircraft_type_id' => $value,
                         'zone_name' => $zone['name'],
+                        'max_capacity' => $zone['capacity'],
                         'arm' => $zone['arm'],
                         'index' => $zone['index'],
                     ]);
