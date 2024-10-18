@@ -186,9 +186,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'loadsheet_released',
                 'subject' => 'Loadsheet for {{flight_no}} Released',
-                'body' => 'Loadsheet for {{flight_no}} Released by {{user_name}}.
-                            Same is attached for your reference<br>
-                            Incase of any clarification please contact Admin <br>',
+                'body' => 'Loadsheet for {{flight_no}} Released by {{user_name}}.<br>Same is attached for your reference<br>',
             ],
             [
                 'name' => 'user_confirmation',
