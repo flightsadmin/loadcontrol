@@ -13,10 +13,11 @@ class DynamicNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(public $data, public $template)
+    public function __construct(public $data, public $template, public $filePath = null)
     {
         $this->data = $data;
         $this->template = $template;
+        $this->filePath = $filePath;
     }
 
     /**
@@ -42,9 +43,14 @@ class DynamicNotification extends Notification
             $body = str_replace('{{'.$key.'}}', $value, $body);
         }
 
-        return (new MailMessage)
+        $mail = (new MailMessage)
             ->subject($subject)
             ->view('emails.dynamic', ['body' => $body, 'notifiable' => $notifiable]);
+        if ($this->filePath) {
+            $mail->attach($this->filePath);
+        }
+
+        return $mail;
     }
 
     /**

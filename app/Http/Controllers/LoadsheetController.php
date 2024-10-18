@@ -8,6 +8,8 @@ use App\Models\Flight;
 use App\Models\FuelIndex;
 use App\Models\Loadsheet;
 use App\Notifications\DynamicNotification;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class LoadsheetController extends Controller
 {
@@ -233,13 +235,36 @@ class LoadsheetController extends Controller
         $recipients = Address::where('route_id', $flight->route->id)
             ->where('airline_id', $flight->airline_id)->get();
 
-        foreach ($recipients as $email) {
-            $email->notify((new DynamicNotification($data, $template)));
+        $options = new Options;
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $options->set('enable_html5_parser', true);
+        $pdf = new Dompdf($options);
+
+        $pdf->loadHtml(view('flight.partials.loadsheet', compact('flight'))->render());
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+        $pdfData = $pdf->output();
+
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="loadsheet.pdf"',
+        ];
+
+        $filePath = storage_path('app/loadsheets/loadsheets_'.$flight->id.'.pdf');
+
+        if (! file_exists(dirname($filePath))) {
+            mkdir(dirname($filePath), 0755, true);
         }
 
-        return redirect()->route('flights.loadsheets.show', [
-            'flight' => $flight->id,
-            'loadsheet' => $flight->loadsheet->id,
-        ])->with('success', 'Loadsheet Generated successfully.');
+        file_put_contents($filePath, $pdfData);
+
+        foreach ($recipients as $email) {
+            $email->notify((new DynamicNotification($data, $template, $filePath)));
+        }
+
+        return response()->streamDownload(function () use ($pdfData) {
+            echo $pdfData;
+        }, 'loadsheet.pdf', $headers);
     }
 }
