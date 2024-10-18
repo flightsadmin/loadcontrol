@@ -5,7 +5,6 @@ on:
         - main
 jobs:
   web-deploy:
-    name: 🎉 Deploy
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -23,13 +22,13 @@ jobs:
         extensions: json, dom, curl, libxml, mbstring
         coverage: none
 
-    - name: Install Pint
+    - name: 🖇️ Install Pint
       run: composer global require laravel/pint
 
     - name: Run Pint
       run: pint
 
-    - name: Commit linted files
+    - name: 🗃️ Commit linted files
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "Initial Commits"
