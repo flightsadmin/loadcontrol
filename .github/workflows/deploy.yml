@@ -22,7 +22,7 @@ jobs:
         extensions: json, dom, curl, libxml, mbstring
         coverage: none
 
-    - name: 🖇️ Install Pint
+    - name: 🪜 Install Pint
       run: composer global require laravel/pint
 
     - name: Run Pint
