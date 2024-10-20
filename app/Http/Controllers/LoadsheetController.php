@@ -246,12 +246,7 @@ class LoadsheetController extends Controller
         $pdf->render();
         $pdfData = $pdf->output();
 
-        $headers = [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="loadsheet.pdf"',
-        ];
-
-        $filePath = storage_path('app/loadsheets/loadsheets_'.$flight->id.'.pdf');
+        $filePath = storage_path('app/loadsheets/loadsheets edition '.$flight->loadsheet->edition.'.pdf');
 
         if (! file_exists(dirname($filePath))) {
             mkdir(dirname($filePath), 0755, true);
