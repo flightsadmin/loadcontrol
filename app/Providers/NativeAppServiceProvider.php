@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
-use Native\Laravel\Contracts\ProvidesPhpIni;
-use Native\Laravel\Facades\Window;
 use Native\Laravel\Menu\Menu;
+use Illuminate\Support\Facades\DB;
+use Native\Laravel\Facades\Window;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Artisan;
+use Native\Laravel\Contracts\ProvidesPhpIni;
 
 class NativeAppServiceProvider implements ProvidesPhpIni
 {
@@ -14,6 +17,12 @@ class NativeAppServiceProvider implements ProvidesPhpIni
      */
     public function boot(): void
     {
+        // Check if the migrations table exists and if users table is empty
+        if ($this->shouldSeedDatabase()) {
+            $this->runMigrations();
+            $this->runDatabaseSeeding();
+        }
+
         Menu::new()
             ->fileMenu()
             ->windowMenu()
@@ -45,5 +54,33 @@ class NativeAppServiceProvider implements ProvidesPhpIni
     {
         return [
         ];
+    }
+
+    /**
+     * Determine if the database needs to be seeded.
+     */
+    protected function shouldSeedDatabase(): bool
+    {
+        // Check if the users table exists and is empty
+        return Schema::hasTable('users') && DB::table('users')->count() === 0;
+    }
+
+    /**
+     * Run the database migrations if needed.
+     */
+    protected function runMigrations(): void
+    {
+        // Check if migrations have been run, if not, run them
+        if (Artisan::call('migrate:status') !== 0) {
+            Artisan::call('migrate', ['--force' => true]);
+        }
+    }
+
+    /**
+     * Run the database seeder.
+     */
+    protected function runDatabaseSeeding(): void
+    {
+        Artisan::call('db:seed', ['--force' => true]);
     }
 }
