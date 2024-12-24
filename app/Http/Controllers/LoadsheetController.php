@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use Dompdf\Dompdf;
-use Dompdf\Options;
-use App\Models\Flight;
 use App\Models\Address;
+use App\Models\EmailTemplate;
+use App\Models\Flight;
 use App\Models\FuelIndex;
 use App\Models\Loadsheet;
-use App\Models\EmailTemplate;
 use App\Notifications\DynamicNotification;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Exception;
 
 class LoadsheetController extends Controller
 {
@@ -195,6 +195,7 @@ class LoadsheetController extends Controller
         $cabinLocations = array_filter($cabinLocations, function ($location) {
             return $location['max_number'] > 0;
         });
+
         return $cabinLocations;
     }
 

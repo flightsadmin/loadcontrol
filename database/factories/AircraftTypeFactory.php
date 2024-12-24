@@ -45,47 +45,47 @@ class AircraftTypeFactory extends Factory
                     ],
                 ],
                 'crew_data' => [
-                    "deck_crew" => [
+                    'deck_crew' => [
                         [
                             'location' => 'Cockpit',
                             'max_number' => 4,
                             'arm' => -13.410,
-                            "index_per_kg" => -0.01355
-                        ]
+                            'index_per_kg' => -0.01355,
+                        ],
                     ],
-                    "cabin_crew" => [
+                    'cabin_crew' => [
                         [
-                            "location" => "FWD of FWD door",
+                            'location' => 'FWD of FWD door',
                             'max_number' => 2,
                             'arm' => -11.520,
-                            "index_per_kg" => -0.01152
+                            'index_per_kg' => -0.01152,
                         ],
                         [
-                            "location" => "FWD of aft door RH",
+                            'location' => 'FWD of aft door RH',
                             'max_number' => 1,
                             'arm' => +12.991,
-                            "index_per_kg" => -0.01299
+                            'index_per_kg' => -0.01299,
                         ],
                         [
-                            "location" => "FWD of aft door LH",
+                            'location' => 'FWD of aft door LH',
                             'max_number' => 1,
                             'arm' => +12.991,
-                            "index_per_kg" => 0.01299
+                            'index_per_kg' => 0.01299,
                         ],
                         [
-                            "location" => "AFT of aft door",
+                            'location' => 'AFT of aft door',
                             'max_number' => 1,
                             'arm' => +13.665,
-                            "index_per_kg" => 0.01366
-                        ]
+                            'index_per_kg' => 0.01366,
+                        ],
                     ],
-                    "crew_distribution" => [
+                    'crew_distribution' => [
                         1 => [1, 0, 0, 0],
                         2 => [1, 1, 0, 0],
                         3 => [2, 1, 0, 0],
                         4 => [2, 1, 1, 0],
-                        5 => [2, 1, 1, 1]
-                    ]
+                        5 => [2, 1, 1, 1],
+                    ],
                 ],
             ],
         ];
