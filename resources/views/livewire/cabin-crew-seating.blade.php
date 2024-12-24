@@ -1,10 +1,8 @@
-<div>
-    <div class="mb-4 d-flex justify-content-between align-items-center">
+<div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center">
         <h5 class="fw-bold text-decoration-underline">Cabin Crew Seating Table</h5>
-        <button class="btn btn-sm {{ $isEditable ? 'btn-warning' : 'btn-primary' }}"
-            wire:click="toggleEdit">
-            {{ $isEditable ? 'View' : 'Edit' }}
-        </button>
+        <a href="#" class="mb-0 h5 {{ $isEditable ? 'bi-eye text-warning' : 'bi-pencil-square text-primary' }}"
+            wire:click.prevent="toggleEdit"></a>
     </div>
 
     <div class="table-responsive">
