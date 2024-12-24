@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
-use App\Models\EmailTemplate;
-use App\Models\Flight;
-use App\Models\FuelIndex;
-use App\Models\Loadsheet;
-use App\Notifications\DynamicNotification;
+use Exception;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Models\Flight;
+use App\Models\Address;
+use App\Models\FuelIndex;
+use App\Models\Loadsheet;
+use App\Models\EmailTemplate;
+use App\Notifications\DynamicNotification;
 
 class LoadsheetController extends Controller
 {
@@ -34,7 +35,8 @@ class LoadsheetController extends Controller
         // Calculate weights
         $totalPassengerWeight = $this->calculatePassengerWeight($passengers, $flight);
         $totalDeadloadWeight = $deadloads->sum('weight');
-        $totalCrewWeight = $this->calculateCrewWeight($fuelFigure->crew, $flight);
+        $totalCrewWeight = $this->calculateCrewWeightAndIndex($fuelFigure->crew, $flight)['total_crew_weight'];
+        $totalCrewIndex = $this->calculateCrewWeightAndIndex($fuelFigure->crew, $flight)['total_crew_index'];
         $pantry = $this->calculatePantryWeightAndIndex($fuelFigure->pantry, $flight);
 
         // Operating weights
@@ -116,8 +118,8 @@ class LoadsheetController extends Controller
             )->index, 2),
         ];
 
-        $finalValues['doi'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'], 2); // Add deck and cabin crew index
-        $finalValues['dli'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $finalValues['cargoIndex'], 2); // Add deck and cabin crew index
+        $finalValues['doi'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $totalCrewIndex, 2);
+        $finalValues['dli'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $finalValues['cargoIndex'] + $totalCrewIndex, 2);
         $finalValues['lizfw'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $finalValues['paxIndex'] + $finalValues['cargoIndex'], 2);
         $finalValues['litow'] = round($finalValues['lizfw'] + $finalValues['toFuelIndex'], 2);
         $finalValues['lildw'] = round($finalValues['litow'] + $finalValues['ldfuelIndex'], 2);
@@ -173,15 +175,56 @@ class LoadsheetController extends Controller
         });
     }
 
-    private function calculateCrewWeight($crewData, $flight)
+    private function distributeCabinCrew($crewCount, $crewDistributionData)
+    {
+        // Match the distribution based on the number of cabin crew
+        $distribution = match ($crewCount) {
+            1 => $crewDistributionData['crew_distribution']['1'],
+            2 => $crewDistributionData['crew_distribution']['2'],
+            3 => $crewDistributionData['crew_distribution']['3'],
+            4 => $crewDistributionData['crew_distribution']['4'],
+            5 => $crewDistributionData['crew_distribution']['5'],
+            default => throw new Exception('Invalid cabin crew count')
+        };
+
+        // Assign distribution to cabin locations
+        $cabinLocations = $crewDistributionData['cabin_crew'];
+        foreach ($distribution as $index => $crewNumber) {
+            $cabinLocations[$index]['max_number'] = $crewNumber;
+        }
+        $cabinLocations = array_filter($cabinLocations, function ($location) {
+            return $location['max_number'] > 0;
+        });
+        return $cabinLocations;
+    }
+
+    private function calculateCrewWeightAndIndex($crewData, $flight)
     {
         $standardCrew = [
             'deck_crew_weight' => (int) $flight->airline->settings['crew']['deck_crew_weight'] ?? 85,
             'cabin_crew_weight' => (int) $flight->airline->settings['crew']['cabin_crew_weight'] ?? 75,
         ];
-        [$deckCrewCount, $cabinCrewCount] = explode('/', $crewData ?? '0/0');
 
-        return ((int) $deckCrewCount * $standardCrew['deck_crew_weight']) + ((int) $cabinCrewCount * $standardCrew['cabin_crew_weight']);
+        [$deckCrewCount, $cabinCrewCount] = explode('/', $crewData ?? '0/0');
+        $totalCrewWeight = ((int) $deckCrewCount * $standardCrew['deck_crew_weight']) + ((int) $cabinCrewCount * $standardCrew['cabin_crew_weight']);
+
+        $cockpit = $flight->registration->aircraftType->settings['crew_data']['deck_crew'][0]; // Returns first set of deck crew TODO
+
+        $deckCrewIndex = (int) $deckCrewCount * $standardCrew['deck_crew_weight'] * $cockpit['index_per_kg'];
+
+        $cabinLocations = $this->distributeCabinCrew((int) $cabinCrewCount, $flight->registration->aircraftType->settings['crew_data']);
+
+        $cabinCrewIndex = 0.0;
+        foreach ($cabinLocations as $location) {
+            $cabinCrewIndex += ($location['number_of_crew'] ?? 0) * $standardCrew['cabin_crew_weight'] * $location['index_per_kg'];
+        }
+
+        $totalCrewIndex = round($deckCrewIndex + $cabinCrewIndex, 4);
+
+        return [
+            'total_crew_weight' => $totalCrewWeight,
+            'total_crew_index' => $totalCrewIndex,
+        ];
     }
 
     private function calculatePantryWeightAndIndex($pantrySetting, $flight)

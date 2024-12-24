@@ -44,39 +44,48 @@ class AircraftTypeFactory extends Factory
                         'weight' => '45',
                     ],
                 ],
-                'deck_crew' => [
-                    [
-                        'location' => 'Cockpit',
-                        'max_number' => 4,
-                        'arm' => -13.410,
-                        'index' => -0.01341,
+                'crew_data' => [
+                    "deck_crew" => [
+                        [
+                            'location' => 'Cockpit',
+                            'max_number' => 4,
+                            'arm' => -13.410,
+                            "index_per_kg" => -0.01355
+                        ]
                     ],
-                ],
-                'cabin_crew' => [
-                    [
-                        'location' => 'FWD of FWD door',
-                        'max_number' => 2,
-                        'arm' => -11.520,
-                        'index' => -0.01152,
+                    "cabin_crew" => [
+                        [
+                            "location" => "FWD of FWD door",
+                            'max_number' => 2,
+                            'arm' => -11.520,
+                            "index_per_kg" => -0.01152
+                        ],
+                        [
+                            "location" => "FWD of aft door RH",
+                            'max_number' => 1,
+                            'arm' => +12.991,
+                            "index_per_kg" => -0.01299
+                        ],
+                        [
+                            "location" => "FWD of aft door LH",
+                            'max_number' => 1,
+                            'arm' => +12.991,
+                            "index_per_kg" => 0.01299
+                        ],
+                        [
+                            "location" => "AFT of aft door",
+                            'max_number' => 1,
+                            'arm' => +13.665,
+                            "index_per_kg" => 0.01366
+                        ]
                     ],
-                    [
-                        'location' => 'FWD of aft door RH',
-                        'max_number' => 1,
-                        'arm' => +12.991,
-                        'index' => +0.01299,
-                    ],
-                    [
-                        'location' => 'FWD of aft door LH',
-                        'max_number' => 1,
-                        'arm' => +12.991,
-                        'index' => +0.01299,
-                    ],
-                    [
-                        'location' => 'Aft of aft door',
-                        'max_number' => 1,
-                        'arm' => +13.665,
-                        'index' => +0.01366,
-                    ],
+                    "crew_distribution" => [
+                        1 => [1, 0, 0, 0],
+                        2 => [1, 1, 0, 0],
+                        3 => [2, 1, 0, 0],
+                        4 => [2, 1, 1, 0],
+                        5 => [2, 1, 1, 1]
+                    ]
                 ],
             ],
         ];
