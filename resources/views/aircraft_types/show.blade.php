@@ -67,6 +67,7 @@
                                 @endif
                                 <div>
                                     <livewire:crew :aircraftTypeId="$aircraftType->id" />
+                                    <livewire:cabin-crew-seating :aircraftTypeId="$aircraftType->id" />
                                 </div>
                             </div>
                         </div>
