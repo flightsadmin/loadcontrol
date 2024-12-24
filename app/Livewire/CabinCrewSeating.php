@@ -2,14 +2,17 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\AircraftType;
+use Livewire\Component;
 
 class CabinCrewSeating extends Component
 {
     public $crewSeats = [];
+
     public $aircraftTypeId;
+
     public $formattedSeats = [];
+
     public $isEditable = false;
 
     public function mount($aircraftTypeId)
@@ -26,7 +29,7 @@ class CabinCrewSeating extends Component
 
     public function toggleEdit()
     {
-        $this->isEditable = !$this->isEditable;
+        $this->isEditable = ! $this->isEditable;
     }
 
     public function save()
@@ -73,7 +76,7 @@ class CabinCrewSeating extends Component
                     (int) $seat['fwd_of_aft_door_rh'],
                     (int) $seat['fwd_of_aft_door_lh'],
                     (int) $seat['aft_of_aft_door'],
-                ]
+                ],
             ];
         })->toArray();
     }
