@@ -29,7 +29,7 @@ class CabinCrewSeating extends Component
 
     public function toggleEdit()
     {
-        $this->isEditable = !$this->isEditable;
+        $this->isEditable = ! $this->isEditable;
     }
 
     public function save()
@@ -51,7 +51,6 @@ class CabinCrewSeating extends Component
         session()->flash('success', 'Cabin Crew Seating data saved successfully!');
         $this->toggleEdit();
     }
-
 
     public function addSeat()
     {
@@ -79,7 +78,6 @@ class CabinCrewSeating extends Component
             return [$seatNumber => $formatted];
         })->toArray();
     }
-
 
     public function render()
     {
