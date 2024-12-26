@@ -4,16 +4,14 @@
         <a href="#" class="mb-0 h5 {{ $isEditable ? 'bi-eye text-warning' : 'bi-pencil-square text-primary' }}"
             wire:click.prevent="toggleEdit"></a>
     </div>
-
     <div class="table-responsive">
         <table class="table table-bordered table-sm">
             <thead>
                 <tr>
                     <th>Number of Cabin Crew</th>
-                    <th>FWD of FWD Door</th>
-                    <th>FWD of Aft Door RH</th>
-                    <th>FWD of Aft Door LH</th>
-                    <th>Aft of Aft Door</th>
+                    @foreach ($crewLocations as $key => $value)
+                        <th> {{ $value['location'] }} </th>
+                    @endforeach
                     @if ($isEditable)
                         <th>Actions</th>
                     @endif
@@ -27,28 +25,18 @@
                                 <input type="number" class="form-control form-control-sm"
                                     wire:model="crewSeats.{{ $index }}.number">
                             </td>
-                            <td>
-                                <input type="number" class="form-control form-control-sm"
-                                    wire:model="crewSeats.{{ $index }}.fwd_of_fwd_door">
-                            </td>
-                            <td>
-                                <input type="number" class="form-control form-control-sm"
-                                    wire:model="crewSeats.{{ $index }}.fwd_of_aft_door_rh">
-                            </td>
-                            <td>
-                                <input type="number" class="form-control form-control-sm"
-                                    wire:model="crewSeats.{{ $index }}.fwd_of_aft_door_lh">
-                            </td>
-                            <td>
-                                <input type="number" class="form-control form-control-sm"
-                                    wire:model="crewSeats.{{ $index }}.aft_of_aft_door">
-                            </td>
+
+                            @foreach ($crewLocations as $key => $value)
+                                <td>
+                                    <input type="number" class="form-control form-control-sm"
+                                        wire:model="crewSeats.{{ $index }}.{{ Str::snake(strtolower($value['location'])) }}">
+                                </td>
+                            @endforeach
                         @else
                             <td>{{ $row['number'] }}</td>
-                            <td>{{ $row['fwd_of_fwd_door'] }}</td>
-                            <td>{{ $row['fwd_of_aft_door_rh'] }}</td>
-                            <td>{{ $row['fwd_of_aft_door_lh'] }}</td>
-                            <td>{{ $row['aft_of_aft_door'] }}</td>
+                            @foreach ($crewLocations as $key => $value)
+                                <td>{{ $row[Str::snake(strtolower($value['location']))] ?? '' }}</td>
+                            @endforeach
                         @endif
                         @if ($isEditable)
                             <td>

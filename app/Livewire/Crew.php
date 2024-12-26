@@ -30,7 +30,7 @@ class Crew extends Component
 
     public function toggleEdit()
     {
-        $this->isEditable = ! $this->isEditable;
+        $this->isEditable = !$this->isEditable;
     }
 
     public function addCrew()
@@ -75,6 +75,10 @@ class Crew extends Component
         $aircraftType->save();
 
         $this->toggleEdit();
+        $this->dispatch(
+            'refreshAvailable',
+            $this->aircraftTypeId
+        );
         $this->dispatch(
             'closeModal',
             icon: 'success',
