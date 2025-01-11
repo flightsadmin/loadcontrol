@@ -1,5 +1,5 @@
 @section('title', __('Airlines'))
-<div class="row justify-content-center">
+<div class="my-4 row justify-content-center">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
