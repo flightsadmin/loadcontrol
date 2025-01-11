@@ -78,7 +78,7 @@ class AircraftTypeFactory extends Factory
                             'arm' => +13.665,
                             'index_per_kg' => 0.01366,
                         ],
-                    ]
+                    ],
                 ],
             ],
         ];

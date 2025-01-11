@@ -30,7 +30,7 @@ class CabinCrewSeating extends Component
 
     public function toggleEdit()
     {
-        $this->isEditable = !$this->isEditable;
+        $this->isEditable = ! $this->isEditable;
     }
 
     public function save()
@@ -70,7 +70,7 @@ class CabinCrewSeating extends Component
     {
         $this->formattedSeats = collect($this->crewSeats)->mapWithKeys(function ($seat) {
             $seatNumber = $seat['number'];
-            $formatted = collect($seat)->except('number')->values()->map(fn($value) => (int) ($value ?? 0))->all();
+            $formatted = collect($seat)->except('number')->values()->map(fn ($value) => (int) ($value ?? 0))->all();
 
             return [$seatNumber => $formatted];
         })->toArray();
