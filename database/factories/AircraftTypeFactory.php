@@ -79,6 +79,13 @@ class AircraftTypeFactory extends Factory
                             'index_per_kg' => 0.01366,
                         ],
                     ],
+                    'crew_distribution' => [
+                        1 => [1, 0, 0, 0],
+                        2 => [1, 1, 0, 0],
+                        3 => [2, 1, 0, 0],
+                        4 => [2, 1, 1, 0],
+                        5 => [2, 1, 1, 1],
+                    ],
                 ],
             ],
         ];
