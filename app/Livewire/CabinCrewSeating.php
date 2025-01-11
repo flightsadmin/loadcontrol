@@ -23,13 +23,14 @@ class CabinCrewSeating extends Component
     {
         $this->aircraftTypeId = $aircraftTypeId;
         $aircraftType = AircraftType::findOrFail($this->aircraftTypeId);
-        $this->crewLocations = $aircraftType->settings['crew_data']['cabin_crew'];
-        $this->crewSeats = $aircraftType->settings['crew_data']['crewSeats'] ?? [['number' => 1]];
+
+        $this->crewLocations = $aircraftType->settings['crew_data']['cabin_crew'] ?? [];
+        $this->crewSeats = $aircraftType->settings['crew_data']['crew_seats'] ?? [];
     }
 
     public function toggleEdit()
     {
-        $this->isEditable = ! $this->isEditable;
+        $this->isEditable = !$this->isEditable;
     }
 
     public function save()
@@ -41,39 +42,35 @@ class CabinCrewSeating extends Component
         $aircraftType = AircraftType::findOrFail($this->aircraftTypeId);
 
         $settings = $aircraftType->settings ?? [];
-        $settings['crew_data']['crewSeats'] = $this->crewSeats;
 
         $this->formatSeats();
-        $settings['crew_data']['formattedSeats'] = $this->formattedSeats;
+        $settings['crew_data'] = array_merge($settings['crew_data'] ?? [], [
+            'crew_seats' => $this->crewSeats,
+            'crew_distribution' => $this->formattedSeats,
+        ]);
 
-        $aircraftType->settings = $settings;
-        $aircraftType->save();
+        $aircraftType->update(['settings' => $settings]);
         session()->flash('success', 'Cabin Crew Seating data saved successfully!');
         $this->toggleEdit();
     }
 
     public function addSeat()
     {
-        $this->crewSeats[] = ['number' => 1];
+        $this->crewSeats[] = ['number' => count($this->crewSeats) + 1];
     }
 
     public function removeSeat($index)
     {
         unset($this->crewSeats[$index]);
         $this->crewSeats = array_values($this->crewSeats);
+        $this->formatSeats();
     }
 
     public function formatSeats()
     {
         $this->formattedSeats = collect($this->crewSeats)->mapWithKeys(function ($seat) {
             $seatNumber = $seat['number'];
-            $formatted = [];
-
-            foreach ($seat as $key => $value) {
-                if ($key !== 'number') {
-                    $formatted[$key] = (int) ($value ?? 0);
-                }
-            }
+            $formatted = collect($seat)->except('number')->values()->map(fn($value) => (int) ($value ?? 0))->all();
 
             return [$seatNumber => $formatted];
         })->toArray();

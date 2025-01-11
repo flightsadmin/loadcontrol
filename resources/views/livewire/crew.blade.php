@@ -31,7 +31,7 @@
                                     wire:model="deck_crew.{{ $index }}.location">
                             </td>
                             <td>
-                                <input type="text" class="form-control form-control-sm"
+                                <input type="number" class="form-control form-control-sm"
                                     wire:model="deck_crew.{{ $index }}.max_number">
                             </td>
                             <td>

@@ -20,17 +20,13 @@ class Crew extends Component
         $this->aircraftTypeId = $aircraftTypeId;
         $aircraftType = AircraftType::findOrFail($this->aircraftTypeId);
 
-        $this->deck_crew = $aircraftType->settings['crew_data']['deck_crew'] ?? [
-            ['location' => '', 'max_number' => '', 'arm' => '', 'index_per_kg' => ''],
-        ];
-        $this->cabin_crew = $aircraftType->settings['crew_data']['cabin_crew'] ?? [
-            ['location' => '', 'max_number' => '', 'arm' => '', 'index_per_kg' => ''],
-        ];
+        $this->deck_crew = $aircraftType->settings['crew_data']['deck_crew'] ?? [['location' => '', 'max_number' => '', 'arm' => '', 'index_per_kg' => '']];
+        $this->cabin_crew = $aircraftType->settings['crew_data']['cabin_crew'] ?? [['location' => '', 'max_number' => '', 'arm' => '', 'index_per_kg' => '']];
     }
 
     public function toggleEdit()
     {
-        $this->isEditable = ! $this->isEditable;
+        $this->isEditable = !$this->isEditable;
     }
 
     public function addCrew()
@@ -65,20 +61,15 @@ class Crew extends Component
         ]);
 
         $aircraftType = AircraftType::findOrFail($this->aircraftTypeId);
-
         $settings = $aircraftType->settings;
         $settings['crew_data'] = array_merge($settings['crew_data'] ?? [], [
             'deck_crew' => $this->deck_crew,
             'cabin_crew' => $this->cabin_crew,
         ]);
-        $aircraftType->settings = $settings;
-        $aircraftType->save();
+        $aircraftType->update(['settings' => $settings]);
 
         $this->toggleEdit();
-        $this->dispatch(
-            'refreshAvailable',
-            $this->aircraftTypeId
-        );
+        $this->dispatch('refreshAvailable', $this->aircraftTypeId);
         $this->dispatch(
             'closeModal',
             icon: 'success',

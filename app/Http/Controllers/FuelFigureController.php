@@ -11,7 +11,6 @@ class FuelFigureController extends Controller
     public function index(Flight $flight)
     {
         $fuelFigure = $flight->fuelFigure;
-
         return view('fuel_figures.index', compact('fuelFigure', 'flight'));
     }
 
@@ -19,7 +18,17 @@ class FuelFigureController extends Controller
     {
         $fuelFigure = $flight->fuelFigure;
 
-        return view('fuel_figures.edit', compact('fuelFigure', 'flight'));
+        $maxDeckCrew = $flight->registration->aircraftType->deck_crew;
+        $maxCabinCrew = $flight->registration->aircraftType->cabin_crew;
+
+        $crewOptions = [];
+        for ($deck = 2; $deck <= $maxDeckCrew; $deck++) {
+            for ($cabin = 1; $cabin <= $maxCabinCrew; $cabin++) {
+                $crewOptions[] = $deck . '/' . $cabin;
+            }
+        }
+        ;
+        return view('fuel_figures.edit', compact('fuelFigure', 'flight', 'crewOptions'));
     }
 
     public function store(Request $request, Flight $flight)

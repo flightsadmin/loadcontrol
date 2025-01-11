@@ -28,7 +28,7 @@ class LoadsheetController extends Controller
         $fuelFigure = $flight->fuelFigure;
         $aircraftType = $flight->registration->aircraftType;
 
-        if (! $basicWeight || ! $fuelFigure) {
+        if (!$basicWeight || !$fuelFigure) {
             return redirect()->back()->withErrors('Basic Weight or Fuel Figure not found for this flight.');
         }
 
@@ -55,7 +55,7 @@ class LoadsheetController extends Controller
 
         // Calculate passenger index by cabin zone
         $passengerIndexByZone = $aircraftType->cabinZones->map(function ($zone) use ($passengers, $flight) {
-            $zonePassengers = $passengers->filter(fn ($passenger) => $passenger->zone === $zone->zone_name);
+            $zonePassengers = $passengers->filter(fn($passenger) => $passenger->zone === $zone->zone_name);
             $totalWeight = $this->calculatePassengerWeight($zonePassengers, $flight);
             $indexPerKg = $zone->index ?? 0;
 
@@ -63,7 +63,7 @@ class LoadsheetController extends Controller
                 'zone_name' => $zone->zone_name,
                 'weight' => $totalWeight,
                 'index' => $totalWeight * $indexPerKg,
-                'passenger_count' => $zonePassengers->reject(fn ($passenger) => $passenger->type === 'infant')->sum('count'),
+                'passenger_count' => $zonePassengers->reject(fn($passenger) => $passenger->type === 'infant')->sum('count'),
             ];
         })->sortBy('zone_name')->values()->toArray();
 
@@ -149,7 +149,7 @@ class LoadsheetController extends Controller
 
         $chartValues = [];
         foreach (['ZFW', 'TOW', 'LDW'] as $key => $value) {
-            $chartValues[strtolower($value).'Envelope'] = $envelopes->get($value, collect())->map(function ($env) {
+            $chartValues[strtolower($value) . 'Envelope'] = $envelopes->get($value, collect())->map(function ($env) {
                 return [
                     'x' => $env['index'],
                     'y' => $env['weight'],
@@ -162,14 +162,14 @@ class LoadsheetController extends Controller
 
     private function calculatePassengerWeight($passengers, $flight)
     {
-        return $passengers->sum(function ($passenger) use ($flight) {
-            $weightPerPassenger = match ($passenger->type) {
-                'male' => (int) $flight->airline->settings['passenger_weights']['male'] ?? 88,
-                'female' => (int) $flight->airline->settings['passenger_weights']['female'] ?? 70,
-                'child' => (int) $flight->airline->settings['passenger_weights']['child'] ?? 35,
-                'infant' => (int) $flight->airline->settings['passenger_weights']['infant'] ?? 10,
-                default => (int) $flight->airline->settings['passenger_weights']['default'] ?? 84,
-            };
+        $weights = $flight->airline->settings['passenger_weights'] ?? [];
+
+        if ($flight->airline && isset($flight->airline->settings['passenger_weights'])) {
+            $weights = array_merge($weights, $flight->airline->settings['passenger_weights']);
+        }
+
+        return $passengers->sum(function ($passenger) use ($weights) {
+            $weightPerPassenger = $weights[$passenger->type] ?? $weights['default'];
 
             return $passenger->count * $weightPerPassenger;
         });
@@ -177,20 +177,19 @@ class LoadsheetController extends Controller
 
     private function distributeCabinCrew($crewCount, $crewDistributionData)
     {
-        // Match the distribution based on the number of cabin crew
-        $distribution = match ($crewCount) {
-            1 => $crewDistributionData['crew_distribution']['1'],
-            2 => $crewDistributionData['crew_distribution']['2'],
-            3 => $crewDistributionData['crew_distribution']['3'],
-            4 => $crewDistributionData['crew_distribution']['4'],
-            5 => $crewDistributionData['crew_distribution']['5'],
-            default => throw new Exception('Invalid cabin crew count')
+        $crewDistribution = $crewDistributionData['crew_distribution'];
+
+        $distribution = match (true) {
+            array_key_exists($crewCount, $crewDistribution) => $crewDistribution[$crewCount],
+            default => ['error' => 'No valid crew distribution for the given crew count']
         };
 
-        // Assign distribution to cabin locations
         $cabinLocations = $crewDistributionData['cabin_crew'];
+
         foreach ($distribution as $index => $crewNumber) {
-            $cabinLocations[$index]['max_number'] = $crewNumber;
+            if (isset($cabinLocations[$index])) {
+                $cabinLocations[$index]['max_number'] = $crewNumber;
+            }
         }
         $cabinLocations = array_filter($cabinLocations, function ($location) {
             return $location['max_number'] > 0;
@@ -217,9 +216,8 @@ class LoadsheetController extends Controller
 
         $cabinCrewIndex = 0.0;
         foreach ($cabinLocations as $location) {
-            $cabinCrewIndex += ($location['number_of_crew'] ?? 0) * $standardCrew['cabin_crew_weight'] * $location['index_per_kg'];
+            $cabinCrewIndex += (int) $location['max_number'] * $standardCrew['cabin_crew_weight'] * $location['index_per_kg'];
         }
-
         $totalCrewIndex = round($deckCrewIndex + $cabinCrewIndex, 4);
 
         return [
@@ -233,7 +231,7 @@ class LoadsheetController extends Controller
         $pantries = $flight->registration->aircraftType->settings['pantries'] ?? [];
         $actualPantry = collect($pantries)->firstWhere('name', $pantrySetting);
 
-        $weight = (int) ($actualPantry['weight'] ?? 0);
+        $weight = (int) $actualPantry['weight'] ?? 0;
         $index = round($actualPantry['index'], 4) ?? 0.00;
 
         return [
@@ -290,9 +288,9 @@ class LoadsheetController extends Controller
         $pdf->render();
         $pdfData = $pdf->output();
 
-        $filePath = storage_path('app/loadsheets/loadsheet edition '.$flight->loadsheet->edition.'.pdf');
+        $filePath = storage_path('app/loadsheets/loadsheet edition ' . $flight->loadsheet->edition . '.pdf');
 
-        if (! file_exists(dirname($filePath))) {
+        if (!file_exists(dirname($filePath))) {
             mkdir(dirname($filePath), 0755, true);
         }
 

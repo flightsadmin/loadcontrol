@@ -45,7 +45,7 @@
                             <label for="crew" class="form-label">Crew</label>
                             <select id="crew" name="crew" class="form-select @error('crew') is-invalid @enderror">
                                 <option value="" disabled>Select Crew</option>
-                                @foreach (['2/4', '2/5', '2/6', '2/7', '3/4', '3/5', '3/6', '4/4', '4/5'] as $option)
+                                @foreach ($crewOptions as $option)
                                     <option value="{{ $option }}" {{ old('crew', $fuelFigure->crew ?? '') == $option ? 'selected' : '' }}>
                                         {{ $option }}</option>
                                 @endforeach

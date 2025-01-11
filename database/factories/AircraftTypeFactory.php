@@ -24,7 +24,7 @@ class AircraftTypeFactory extends Factory
             'max_takeoff_weight' => 79000,
             'max_landing_weight' => 67400,
             'deck_crew' => $this->faker->numberBetween(2, 4),
-            'cabin_crew' => $this->faker->numberBetween(4, 8),
+            'cabin_crew' => $this->faker->numberBetween(2, 6),
             'config' => $this->faker->randomElement(['J04Y174', 'J04Y180', 'Y180']),
             'ref_sta' => 18.850,
             'k_constant' => 50,
@@ -78,14 +78,7 @@ class AircraftTypeFactory extends Factory
                             'arm' => +13.665,
                             'index_per_kg' => 0.01366,
                         ],
-                    ],
-                    'crew_distribution' => [
-                        1 => [1, 0, 0, 0],
-                        2 => [1, 1, 0, 0],
-                        3 => [2, 1, 0, 0],
-                        4 => [2, 1, 1, 0],
-                        5 => [2, 1, 1, 1],
-                    ],
+                    ]
                 ],
             ],
         ];
