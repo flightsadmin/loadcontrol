@@ -49,12 +49,12 @@
                 </tbody>
             </table>
         </div>
-
-        @if ($isEditable)
-            <div class="mt-2">
-                <button wire:click.prevent="addSeat" class="btn btn-sm btn-secondary">+ Add Row</button>
-                <button wire:click.prevent="save" class="btn btn-sm btn-info float-end">Save Changes</button>
-            </div>
-        @endif
     @endempty
+
+    @if ($isEditable)
+        <div class="mt-2">
+            <button wire:click.prevent="addSeat" class="btn btn-sm btn-secondary">+ Add Row</button>
+            <button wire:click.prevent="save" class="btn btn-sm btn-info float-end">Save Changes</button>
+        </div>
+    @endif
 </div>
