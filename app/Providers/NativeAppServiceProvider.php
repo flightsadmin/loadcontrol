@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Artisan;
+use Native\Laravel\Facades\Menu;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Native\Laravel\Contracts\ProvidesPhpIni;
 use Native\Laravel\Facades\Window;
-use Native\Laravel\Menu\Menu;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Artisan;
+use Native\Laravel\Contracts\ProvidesPhpIni;
 
 class NativeAppServiceProvider implements ProvidesPhpIni
 {
@@ -23,20 +23,17 @@ class NativeAppServiceProvider implements ProvidesPhpIni
             $this->runDatabaseSeeding();
         }
 
-        Menu::new()
-            ->fileMenu()
-            ->windowMenu()
-            ->viewMenu()
-            ->editMenu()
-            ->submenu(
-                'Help',
-                Menu::new()
-                    ->link('https://docs.flightadmin.info', 'Documentation')
-                    ->separator()
-                    ->label('Sign Out')
-            )
-            ->appMenu()
-            ->register();
+        Menu::create(
+            Menu::app(),
+            Menu::edit(),
+            Menu::view(),
+            Menu::make(
+                Menu::link('https://docs.flightadmin.info', 'Documentation'),
+                Menu::separator(),
+                Menu::link('https://docs.flightadmin.info', 'Sign Out'),
+            )->label('Help'),
+            Menu::window(),
+        );
 
         Window::open()
             ->width(1500)
@@ -56,29 +53,18 @@ class NativeAppServiceProvider implements ProvidesPhpIni
         ];
     }
 
-    /**
-     * Determine if the database needs to be seeded.
-     */
     protected function shouldSeedDatabase(): bool
     {
-        // Check if the users table exists and is empty
         return Schema::hasTable('users') && DB::table('users')->count() === 0;
     }
 
-    /**
-     * Run the database migrations if needed.
-     */
     protected function runMigrations(): void
     {
-        // Check if migrations have been run, if not, run them
         if (Artisan::call('migrate:status') !== 0) {
             Artisan::call('migrate', ['--force' => true]);
         }
     }
 
-    /**
-     * Run the database seeder.
-     */
     protected function runDatabaseSeeding(): void
     {
         Artisan::call('db:seed', ['--force' => true]);
