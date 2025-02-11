@@ -27,7 +27,7 @@ class LoadsheetController extends Controller
         $fuelFigure = $flight->fuelFigure;
         $aircraftType = $flight->registration->aircraftType;
 
-        if (! $basicWeight || ! $fuelFigure) {
+        if (!$basicWeight || !$fuelFigure) {
             return redirect()->back()->withErrors('Basic Weight or Fuel Figure not found for this flight.');
         }
 
@@ -54,7 +54,7 @@ class LoadsheetController extends Controller
 
         // Calculate passenger index by cabin zone
         $passengerIndexByZone = $aircraftType->cabinZones->map(function ($zone) use ($passengers, $flight) {
-            $zonePassengers = $passengers->filter(fn ($passenger) => $passenger->zone === $zone->zone_name);
+            $zonePassengers = $passengers->filter(fn($passenger) => $passenger->zone === $zone->zone_name);
             $totalWeight = $this->calculatePassengerWeight($zonePassengers, $flight);
             $indexPerKg = $zone->index ?? 0;
 
@@ -62,7 +62,7 @@ class LoadsheetController extends Controller
                 'zone_name' => $zone->zone_name,
                 'weight' => $totalWeight,
                 'index' => $totalWeight * $indexPerKg,
-                'passenger_count' => $zonePassengers->reject(fn ($passenger) => $passenger->type === 'infant')->sum('count'),
+                'passenger_count' => $zonePassengers->reject(fn($passenger) => $passenger->type === 'infant')->sum('count'),
             ];
         })->sortBy('zone_name')->values()->toArray();
 
@@ -118,8 +118,8 @@ class LoadsheetController extends Controller
         ];
 
         $finalValues['doi'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $totalCrewIndex, 2);
-        $finalValues['dli'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $finalValues['cargoIndex'] + $totalCrewIndex, 2);
-        $finalValues['lizfw'] = round($finalValues['basicIndex'] + $finalValues['pantryIndex'] + $finalValues['paxIndex'] + $finalValues['cargoIndex'], 2);
+        $finalValues['dli'] = round($finalValues['doi'] + $finalValues['cargoIndex'], 2);
+        $finalValues['lizfw'] = round($finalValues['dli'] + $finalValues['paxIndex'], 2);
         $finalValues['litow'] = round($finalValues['lizfw'] + $finalValues['toFuelIndex'], 2);
         $finalValues['lildw'] = round($finalValues['litow'] + $finalValues['ldfuelIndex'], 2);
         $finalValues['macZFW'] = round((($aircraftType->c_constant * ($finalValues['lizfw'] - $aircraftType->k_constant) / $zeroFuelWeightActual) + ($aircraftType->ref_sta - $aircraftType->lemac)) / ($aircraftType->length_of_mac / 100), 2);
@@ -148,7 +148,7 @@ class LoadsheetController extends Controller
 
         $chartValues = [];
         foreach (['ZFW', 'TOW', 'LDW'] as $key => $value) {
-            $chartValues[strtolower($value).'Envelope'] = $envelopes->get($value, collect())->map(function ($env) {
+            $chartValues[strtolower($value) . 'Envelope'] = $envelopes->get($value, collect())->map(function ($env) {
                 return [
                     'x' => $env['index'],
                     'y' => $env['weight'],
@@ -287,9 +287,9 @@ class LoadsheetController extends Controller
         $pdf->render();
         $pdfData = $pdf->output();
 
-        $filePath = storage_path('app/loadsheets/loadsheet edition '.$flight->loadsheet->edition.'.pdf');
+        $filePath = storage_path('app/loadsheets/loadsheet edition ' . $flight->loadsheet->edition . '.pdf');
 
-        if (! file_exists(dirname($filePath))) {
+        if (!file_exists(dirname($filePath))) {
             mkdir(dirname($filePath), 0755, true);
         }
 
