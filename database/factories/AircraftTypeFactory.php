@@ -50,7 +50,7 @@ class AircraftTypeFactory extends Factory
                             'location' => 'Cockpit',
                             'max_number' => 4,
                             'arm' => -13.410,
-                            'index_per_kg' => -0.01355,
+                            'index_per_kg' => -0.01341,
                         ],
                     ],
                     'cabin_crew' => [
