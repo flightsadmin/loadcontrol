@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
@@ -15,7 +15,7 @@ class Sale extends Model
         'paid_amount',
         'change_amount',
         'payment_method',
-        'user_id'
+        'user_id',
     ];
 
     public function items()

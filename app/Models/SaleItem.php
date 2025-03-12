@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class SaleItem extends Model
 {
@@ -14,7 +14,7 @@ class SaleItem extends Model
         'product_id',
         'quantity',
         'price',
-        'subtotal'
+        'subtotal',
     ];
 
     public function sale()

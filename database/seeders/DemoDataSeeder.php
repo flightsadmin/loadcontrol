@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\Seeder;
 
 class DemoDataSeeder extends Seeder
 {
@@ -38,7 +38,7 @@ class DemoDataSeeder extends Seeder
             foreach ($products as $productName => $details) {
                 Product::create([
                     'name' => $productName,
-                    'sku' => strtoupper(substr($productName, 0, 3)) . rand(1000, 9999),
+                    'sku' => strtoupper(substr($productName, 0, 3)).rand(1000, 9999),
                     'description' => fake()->sentence(),
                     'price' => $details['price'],
                     'stock' => $details['stock'],

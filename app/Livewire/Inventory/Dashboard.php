@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Inventory;
 
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Sale;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\DB;
 
 class Dashboard extends Component
 {

@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Product;
 
-use Livewire\Component;
 use App\Models\Product;
+use Livewire\Component;
 
 class BarcodeGenerator extends Component
 {
@@ -32,7 +32,7 @@ class BarcodeGenerator extends Component
     public function render()
     {
         return view('livewire.product.barcode-generator', [
-            'products' => Product::with('barcodes')->get()
+            'products' => Product::with('barcodes')->get(),
         ]);
     }
 }

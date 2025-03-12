@@ -2,22 +2,29 @@
 
 namespace App\Livewire\Pos;
 
-use App\Models\Sale;
-use App\Models\Product;
-use Livewire\Component;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\Sale;
 use App\Models\SaleItem;
 use Illuminate\Support\Str;
+use Livewire\Component;
 
 class Terminal extends Component
 {
     public $cart = [];
+
     public $payment_method = 'cash';
+
     public $paid_amount = 0;
+
     public $search = '';
+
     public $categoryFilter = null;
+
     public $quantities = [];
+
     public $holds = [];
+
     public $currentHoldId = null;
 
     protected $listeners = ['productSelected'];
@@ -45,12 +52,12 @@ class Terminal extends Component
     {
         $product = Product::find($productId);
 
-        if (!isset($this->cart[$productId])) {
+        if (! isset($this->cart[$productId])) {
             $this->cart[$productId] = [
                 'name' => $product->name,
                 'price' => $product->price,
                 'quantity' => 1,
-                'subtotal' => $product->price
+                'subtotal' => $product->price,
             ];
         } else {
             if ($this->cart[$productId]['quantity'] < $product->stock) {
@@ -79,7 +86,7 @@ class Terminal extends Component
 
     public function canCheckout()
     {
-        return !empty($this->cart) &&
+        return ! empty($this->cart) &&
             floatval($this->paid_amount) >= $this->getTotalWithTax();
     }
 
@@ -92,12 +99,12 @@ class Terminal extends Component
 
     public function holdSale()
     {
-        if (!empty($this->cart)) {
+        if (! empty($this->cart)) {
             $holdId = uniqid();
             $this->holds[$holdId] = [
                 'cart' => $this->cart,
                 'total' => $this->getTotal(),
-                'time' => now()->format('H:i')
+                'time' => now()->format('H:i'),
             ];
             $this->reset('cart', 'paid_amount');
             $this->dispatch('sale-held');
@@ -114,18 +121,19 @@ class Terminal extends Component
 
     public function checkout()
     {
-        if (!$this->canCheckout()) {
+        if (! $this->canCheckout()) {
             $this->dispatch('error', ['message' => 'Please enter valid payment amount']);
+
             return;
         }
 
         $sale = Sale::create([
-            'invoice_number' => 'INV-' . strtoupper(Str::random(8)),
+            'invoice_number' => 'INV-'.strtoupper(Str::random(8)),
             'total_amount' => $this->getTotal(),
             'paid_amount' => $this->paid_amount,
             'change_amount' => $this->paid_amount - $this->getTotal(),
             'payment_method' => $this->payment_method,
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
         ]);
 
         foreach ($this->cart as $productId => $item) {
@@ -134,7 +142,7 @@ class Terminal extends Component
                 'product_id' => $productId,
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
-                'subtotal' => $item['subtotal']
+                'subtotal' => $item['subtotal'],
             ]);
 
             // Update stock
@@ -159,7 +167,7 @@ class Terminal extends Component
 
         return view('livewire.pos.terminal', [
             'products' => $query->get(),
-            'categories' => Category::all()
+            'categories' => Category::all(),
         ]);
     }
 }

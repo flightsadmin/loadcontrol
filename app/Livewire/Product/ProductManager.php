@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Product;
 
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,14 +12,23 @@ class ProductManager extends Component
     use WithPagination;
 
     public $product_id;
+
     public $name;
+
     public $sku;
+
     public $description;
+
     public $price;
+
     public $stock;
+
     public $alert_stock;
+
     public $category_id;
+
     public $isEditing = false;
+
     public $search = '';
 
     protected $rules = [
@@ -56,12 +65,12 @@ class ProductManager extends Component
     public function save()
     {
         if ($this->isEditing) {
-            $this->rules['sku'] = 'required|unique:products,sku,' . $this->product_id;
+            $this->rules['sku'] = 'required|unique:products,sku,'.$this->product_id;
         }
 
         $this->validate();
 
-        $product = $this->isEditing ? Product::find($this->product_id) : new Product();
+        $product = $this->isEditing ? Product::find($this->product_id) : new Product;
         $product->fill([
             'name' => $this->name,
             'sku' => $this->sku,
@@ -91,7 +100,7 @@ class ProductManager extends Component
             'products' => Product::where('name', 'like', "%{$this->search}%")
                 ->orWhere('sku', 'like', "%{$this->search}%")
                 ->paginate(10),
-            'categories' => Category::all()
+            'categories' => Category::all(),
         ]);
     }
 }

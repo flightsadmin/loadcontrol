@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
@@ -17,7 +17,7 @@ class Product extends Model
         'price',
         'stock',
         'alert_stock',
-        'category_id'
+        'category_id',
     ];
 
     public function category()
@@ -38,7 +38,7 @@ class Product extends Model
     public function generateBarcode()
     {
         return $this->barcodes()->create([
-            'number' => 'P' . str_pad($this->id, 7, '0', STR_PAD_LEFT)
+            'number' => 'P'.str_pad($this->id, 7, '0', STR_PAD_LEFT),
         ]);
     }
 }
