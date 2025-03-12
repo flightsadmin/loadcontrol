@@ -4,6 +4,13 @@ use App\Livewire\Inventory\Dashboard;
 use App\Livewire\Pos\Terminal;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/database', function () {
+    Artisan::call('migrate:fresh');
+    Artisan::call('db:seed');
+
+    return redirect()->back()->with('success', 'Database migrated and seeded successfully!');
+})->name('migrate');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/pos', Terminal::class)->name('pos.terminal');
