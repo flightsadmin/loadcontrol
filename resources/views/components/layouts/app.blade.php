@@ -14,8 +14,8 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="{{ route('dashboard') }}">
-                <i class="bi bi-shop-window"></i> Shop POS
+            <a class="navbar-brand" href="{{ route('dashboard') }}">
+                <i class="bi bi-shop-window"></i> {{ config('app.name', 'Laravel') }}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -24,20 +24,20 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-                            href="{{ route('dashboard') }}">
+                            href="{{ route('dashboard') }}" wire:navigate>
                             <i class="bi bi-graph-up-arrow"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('pos.terminal') ? 'active' : '' }}"
-                            href="{{ route('pos.terminal') }}">
+                            href="{{ route('terminal') }}" wire:navigate>
                             <i class="bi bi-cash-coin"></i> Terminal
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('products.manage') ? 'active' : '' }}"
-                            href="{{ route('products.manage') }}">
-                            <i class="bi bi-collection"></i> Products
+                            href="{{ route('products.manage') }}" wire:navigate>
+                            <i class="bi bi-list"></i> Products
                         </a>
                     </li>
                 </ul>

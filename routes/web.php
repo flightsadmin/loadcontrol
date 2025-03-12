@@ -13,7 +13,7 @@ Route::get('/database', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
-    Route::get('/pos', Terminal::class)->name('pos.terminal');
+    Route::get('/terminal', Terminal::class)->name('terminal');
     Route::get('/products', \App\Livewire\Product\ProductManager::class)->name('products.manage');
     Route::get('/products/barcodes', \App\Livewire\Product\BarcodeGenerator::class)->name('products.barcodes');
 });

@@ -1,6 +1,6 @@
 <div>
     <div class="pos-container">
-        <div class="row g-0 h-100">
+        <div class="row g-2 h-100">
             <div class="col-md-8">
                 <div class="card shadow-none h-100">
                     <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
@@ -36,8 +36,8 @@
                                                     {{ $product->stock }}
                                                 </span>
                                             </p>
-                                            <button class="btn btn-sm btn-primary w-100" wire:click="addToCart({{ $product->id }})"
-                                                @if ($product->stock <= 0) disabled @endif>
+                                            <button class="btn btn-sm btn-primary w-100" 
+                                                wire:click="addToCart({{ $product->id }})" @disabled($product->stock <= 0)>
                                                 <i class="bi bi-cart-plus"></i> Add to Cart
                                             </button>
                                         </div>
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span class="text-muted">Tax (10%):</span>
-                                    <span>${{ number_format($this->getTotal() * 0.07, 2) }}</span>
+                                    <span>${{ number_format($this->getTotal() * 0.1, 2) }}</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="h5 mb-0">Total:</span>
@@ -163,7 +163,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
                                         <input type="number" wire:model.live="paid_amount" step="0.01"
-                                            min="{{ $this->getTotalWithTax() }}" class="form-control form-control-lg"
+                                            min="{{ $this->getTotalWithTax() }}" class="form-control form-control-sm"
                                             placeholder="Enter amount">
                                     </div>
                                 </div>
@@ -176,7 +176,7 @@
                                         <span class="input-group-text">$</span>
                                         <input type="text" readonly
                                             value="{{ number_format($paid_amount - $this->getTotalWithTax(), 2) }}"
-                                            class="form-control form-control-lg bg-light">
+                                            class="form-control form-control-sm bg-light">
                                     </div>
                                 </div>
                             @endif

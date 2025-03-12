@@ -10,7 +10,6 @@ class DemoDataSeeder extends Seeder
 {
     public function run()
     {
-        // Create common product categories
         $categories = [
             'Electronics' => [
                 'Smartphone' => ['price' => 499.99, 'stock' => 50],
