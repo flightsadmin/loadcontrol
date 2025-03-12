@@ -29,7 +29,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('pos.terminal') ? 'active' : '' }}"
+                        <a class="nav-link {{ request()->routeIs('terminal') ? 'active' : '' }}"
                             href="{{ route('terminal') }}" wire:navigate>
                             <i class="bi bi-cash-coin"></i> Terminal
                         </a>

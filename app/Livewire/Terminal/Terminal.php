@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pos;
+namespace App\Livewire\Terminal;
 
 use App\Models\Category;
 use App\Models\Product;
@@ -52,7 +52,7 @@ class Terminal extends Component
     {
         $product = Product::find($productId);
 
-        if (! isset($this->cart[$productId])) {
+        if (!isset($this->cart[$productId])) {
             $this->cart[$productId] = [
                 'name' => $product->name,
                 'price' => $product->price,
@@ -86,7 +86,7 @@ class Terminal extends Component
 
     public function canCheckout()
     {
-        return ! empty($this->cart) &&
+        return !empty($this->cart) &&
             floatval($this->paid_amount) >= $this->getTotalWithTax();
     }
 
@@ -99,7 +99,7 @@ class Terminal extends Component
 
     public function holdSale()
     {
-        if (! empty($this->cart)) {
+        if (!empty($this->cart)) {
             $holdId = uniqid();
             $this->holds[$holdId] = [
                 'cart' => $this->cart,
@@ -121,14 +121,14 @@ class Terminal extends Component
 
     public function checkout()
     {
-        if (! $this->canCheckout()) {
+        if (!$this->canCheckout()) {
             $this->dispatch('error', ['message' => 'Please enter valid payment amount']);
 
             return;
         }
 
         $sale = Sale::create([
-            'invoice_number' => 'INV-'.strtoupper(Str::random(8)),
+            'invoice_number' => 'INV-' . strtoupper(Str::random(8)),
             'total_amount' => $this->getTotal(),
             'paid_amount' => $this->paid_amount,
             'change_amount' => $this->paid_amount - $this->getTotal(),
@@ -165,7 +165,7 @@ class Terminal extends Component
                 $q->where('category_id', $this->categoryFilter);
             });
 
-        return view('livewire.pos.terminal', [
+        return view('livewire.terminal.terminal', [
             'products' => $query->get(),
             'categories' => Category::all(),
         ]);

@@ -1,6 +1,6 @@
 <div>
     <div class="pos-container">
-        <div class="row g-2 h-100">
+        <div class="row g-3 h-100">
             <div class="col-md-8">
                 <div class="card shadow-none h-100">
                     <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
@@ -36,7 +36,7 @@
                                                     {{ $product->stock }}
                                                 </span>
                                             </p>
-                                            <button class="btn btn-sm btn-primary w-100" 
+                                            <button class="btn btn-sm btn-primary w-100"
                                                 wire:click="addToCart({{ $product->id }})" @disabled($product->stock <= 0)>
                                                 <i class="bi bi-cart-plus"></i> Add to Cart
                                             </button>
