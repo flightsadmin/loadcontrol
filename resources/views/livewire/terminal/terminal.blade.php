@@ -5,7 +5,7 @@
                 <div class="card shadow-none h-100">
                     <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
                         <div class="input-group w-50">
-                            <span class="input-group-text bg-primary border-0 text-white">
+                            <span class="input-group-text border-0">
                                 <i class="bi bi-search"></i>
                             </span>
                             <input type="text" wire:model.live="search" class="form-control form-control-sm border-2"
